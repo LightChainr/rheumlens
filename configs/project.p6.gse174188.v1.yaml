@@ -1,0 +1,71 @@
+project: RheumLens_P6_GSE174188_v1
+version: 4.0
+seed: 20260619
+paths:
+  root: /autodl-fs/data/rheumlens
+  results: /autodl-fs/data/rheumlens/results/P6_GSE174188_v1
+query_bank: /autodl-fs/data/rheumlens/configs/query_bank.locked.yaml
+method_defaults:
+  estimator_C: 1.0
+  n_hvg: 2000
+  donor_pca_dim: 25
+  cell_pca_dim: 32
+  cell_pca_max_fit_cells: 22000
+  kme_rff_dim: 256
+  kme_scales:
+  - 0.5
+  - 1.0
+  - 2.0
+  kme_max_bandwidth_points: 4000
+  kme_max_diagnostic_points: 512
+  matched_cells_per_donor: 500
+  cckme_subsamples: 20
+  uder_subsamples: 20
+  focus_topk_fraction: 0.05
+  focus_positive_quantile: 0.95
+  bag_epochs: 100
+evaluation:
+  bootstrap_reps: 10000
+  permutation_reps: 1000
+  estimator_C: 1.0
+analysis:
+  reference_method: scgpt_mean
+stages:
+  reproduce:
+  - donor_mean_hvg
+  - donor_expression_pca
+  - raw_pseudobulk
+  - isg_scalar
+  - isg_vector
+  - scgpt_mean
+  benchmark_fixed:
+  - moments_mean_var@scgpt
+  - quantiles@scgpt
+  - tail_fractions@scgpt
+  - kme_multiscale@scgpt
+  - prototype_histogram@scgpt
+  originals:
+  - cckme_u@scgpt
+  - uder_meanvar@scgpt
+  - uder_kme@scgpt
+  - focus_lite@scgpt
+  - red@scgpt
+  benchmark_learned:
+  - topk_mil
+  - set_transformer
+  - mixmil
+datasets:
+  GSE174188_CD4:
+    estimand: matched_500_cells_per_donor
+    require_authoritative_folds: true
+    folds: /autodl-fs/data/rheumlens/splits/authoritative_primary/GSE174188_CD4.csv
+    data:
+      raw_counts: /autodl-fs/data/rheumlens/data/processed/GSE174188_CD4/raw_counts.npz
+      lognorm: /autodl-fs/data/rheumlens/data/processed/GSE174188_CD4/lognorm.npz
+      scgpt: /autodl-fs/data/rheumlens/embeddings/scgpt/GSE174188_CD4_v1/GSE174188_CD4_scgpt.npz
+permutation:
+  n_reps: 1000
+  methods:
+  - scgpt_mean
+  - donor_expression_pca
+  - kme_multiscale@scgpt

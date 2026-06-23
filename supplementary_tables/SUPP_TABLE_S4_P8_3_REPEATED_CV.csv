@@ -1,0 +1,4 @@
+method,mean_auc,std_auc,n_repeats,p8_2_ref
+scgpt_mean,0.977348,0.00348,30,0.97836388
+donor_expression_pca,0.985773,0.003231,30,0.98565906
+kme_multiscale@scgpt,0.974698,0.00432,30,0.97786507

@@ -1,0 +1,59 @@
+# Numeric audit v0.6
+
+Total checked claims: 41
+PASS: 38
+CHECK: 3
+
+## Items requiring manuscript edit or source note
+
+| section                 | claim                            |   manuscript_value | source_value                                | source               | status   | delta   |
+|:------------------------|:---------------------------------|-------------------:|:--------------------------------------------|:---------------------|:---------|:--------|
+| P8.4 text single values | scgpt_mean_text_single           |              0.966 | single-repeat smoke values; not repeat mean | P8_4 V5 smoke/report | CHECK    |         |
+| P8.4 text single values | donor_expression_pca_text_single |              0.978 | single-repeat smoke values; not repeat mean | P8_4 V5 smoke/report | CHECK    |         |
+| P8.4 text single values | kme_text_single                  |              0.964 | single-repeat smoke values; not repeat mean | P8_4 V5 smoke/report | CHECK    |         |
+
+## Full audit table
+
+| section                 | claim                                           |   manuscript_value | source_value                                | source                                | status   |        delta |
+|:------------------------|:------------------------------------------------|-------------------:|:--------------------------------------------|:--------------------------------------|:---------|-------------:|
+| Abstract/P5             | raw_pseudobulk                                  |           0.972    | 0.972                                       | P5 method_summary                     | PASS     |  0           |
+| Abstract/P5             | focus_lite@scgpt                                |           0.967    | 0.967                                       | P5 method_summary                     | PASS     |  0           |
+| Abstract/P5             | geneformer_mean                                 |           0.926    | 0.926                                       | P5 method_summary                     | PASS     |  0           |
+| Abstract/P6             | raw_pseudobulk                                  |           0.988    | 0.988                                       | P6 GSE174188 method_summary           | PASS     |  0           |
+| Abstract/P6             | donor_expression_pca                            |           0.986    | 0.986                                       | P6 GSE174188 method_summary           | PASS     |  0           |
+| Abstract/P6             | donor_mean_hvg                                  |           0.984    | 0.984                                       | P6 GSE174188 method_summary           | PASS     |  0           |
+| Abstract/P6             | scgpt_mean                                      |           0.978    | 0.978                                       | P6 GSE174188 method_summary           | PASS     |  0           |
+| Abstract/P6             | kme_multiscale@scgpt                            |           0.978    | 0.978                                       | P6 GSE174188 method_summary           | PASS     |  0           |
+| P9                      | GSE285773_to_GSE174188_CD4/scgpt_mean           |           0.73     | 0.73                                        | P9 method_summary                     | PASS     |  0           |
+| P9                      | GSE285773_to_GSE174188_CD4/donor_expression_pca |           0.79     | 0.79                                        | P9 method_summary                     | PASS     |  0           |
+| P9                      | GSE285773_to_GSE174188_CD4/donor_mean_hvg       |           0.806    | 0.806                                       | P9 method_summary                     | PASS     |  0           |
+| P9                      | GSE174188_CD4_to_GSE285773/scgpt_mean           |           0.881    | 0.881                                       | P9 method_summary                     | PASS     |  0           |
+| P9                      | GSE174188_CD4_to_GSE285773/donor_expression_pca |           0.931    | 0.931                                       | P9 method_summary                     | PASS     |  0           |
+| P9                      | GSE174188_CD4_to_GSE285773/donor_mean_hvg       |           0.9      | 0.9                                         | P9 method_summary                     | PASS     |  0           |
+| P8.3                    | scgpt_mean                                      |           0.977    | 0.977                                       | P8_3_REPEATED_CV_SUMMARY              | PASS     |  0           |
+| P8.3                    | donor_expression_pca                            |           0.986    | 0.986                                       | P8_3_REPEATED_CV_SUMMARY              | PASS     |  0           |
+| P8.3                    | kme_multiscale@scgpt                            |           0.975    | 0.975                                       | P8_3_REPEATED_CV_SUMMARY              | PASS     |  0           |
+| P8.4 level50 mean       | scgpt_mean                                      |           0.953    | 0.953                                       | P8_4 repeat_statistics_common_support | PASS     |  0           |
+| P8.4 level50 mean       | donor_expression_pca                            |           0.97     | 0.97                                        | P8_4 repeat_statistics_common_support | PASS     |  0           |
+| P8.4 level50 mean       | kme_multiscale@scgpt                            |           0.948    | 0.948                                       | P8_4 repeat_statistics_common_support | PASS     |  0           |
+| P8.4 text single values | scgpt_mean_text_single                          |           0.966    | single-repeat smoke values; not repeat mean | P8_4 V5 smoke/report                  | CHECK    |              |
+| P8.4 text single values | donor_expression_pca_text_single                |           0.978    | single-repeat smoke values; not repeat mean | P8_4 V5 smoke/report                  | CHECK    |              |
+| P8.4 text single values | kme_text_single                                 |           0.964    | single-repeat smoke values; not repeat mean | P8_4 V5 smoke/report                  | CHECK    |              |
+| P8.6                    | covariates_only                                 |           0.846    | 0.846                                       | P8_6 covariate_method_summary         | PASS     |  0           |
+| P8.6                    | scgpt_mean_covres                               |           0.868    | 0.868                                       | P8_6 covariate_method_summary         | PASS     |  0           |
+| P8.6                    | donor_expression_pca_covres                     |           0.853    | 0.853                                       | P8_6 covariate_method_summary         | PASS     |  0           |
+| P8.6                    | donor_mean_hvg_covres                           |           0.87     | 0.87                                        | P8_6 covariate_method_summary         | PASS     |  0           |
+| P8.6 delta              | scgpt_mean_covres                               |           0.022    | 0.022                                       | P8_6 score_adjustment_delta           | PASS     |  0           |
+| P8.6 delta              | donor_expression_pca_covres                     |           0.007    | 0.007                                       | P8_6 score_adjustment_delta           | PASS     |  0           |
+| P8.6 delta              | donor_mean_hvg_covres                           |           0.023    | 0.023                                       | P8_6 score_adjustment_delta           | PASS     |  0           |
+| P8.7                    | n_exact_equal all levels                        |           0        | 0                                           | P8_7 prediction_identity_audit        | PASS     |  0           |
+| P8.7                    | bandwidth lower text                            |           7.55     | 7.55                                        | P8_7 report textual range             | PASS     |  0           |
+| P8.7                    | bandwidth upper text                            |           7.65     | 7.65                                        | P8_7 report textual range             | PASS     |  0           |
+| P8.2                    | pca perm p                                      |           0.000999 | 0.000999000999000999                        | P8_2 pca summary                      | PASS     | -9.99001e-10 |
+| P8.2                    | kme perm p                                      |           0.000999 | 0.000999000999000999                        | P8_2 kme summary                      | PASS     | -9.99001e-10 |
+| Counts                  | GSE135779 donors                                |          44        | 44                                          | local NPZ/feature repair audit        | PASS     |  0           |
+| Counts                  | GSE174188 donors                                |         261        | 261                                         | local NPZ/feature repair audit        | PASS     |  0           |
+| Counts                  | GSE285773 donors                                |          26        | 26                                          | local NPZ/feature repair audit        | PASS     |  0           |
+| Counts                  | GSE174188 cells                                 |      380275        | 380275                                      | local NPZ/feature repair audit        | PASS     |  0           |
+| Counts                  | GSE285773 cells                                 |      262908        | 262908                                      | local NPZ/feature repair audit        | PASS     |  0           |
+| Counts                  | shared expression features                      |       18916        | 18916                                       | local NPZ/feature repair audit        | PASS     |  0           |

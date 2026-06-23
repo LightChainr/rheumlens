@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rheumlens"
+version = "0.1.0"
+description = "Leakage-resistant donor-level single-cell benchmarking and original aggregation models"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10,<3.13"
+authors = [{name = "LightChainr", email = ""}]
+keywords = [
+  "single-cell RNA-seq",
+  "foundation model",
+  "scGPT",
+  "Geneformer",
+  "systemic lupus erythematosus",
+  "donor-level classification",
+  "benchmark",
+  "covariate sensitivity",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Topic :: Scientific/Engineering :: Medical Science Apps",
+]
+dependencies = [
+  "numpy>=1.26,<3",
+  "pandas>=2.0",
+  "scipy>=1.10",
+  "scikit-learn>=1.4",
+  "PyYAML>=6",
+  "joblib>=1.3",
+  "tqdm>=4.66",
+]
+
+[project.urls]
+Homepage = "https://github.com/LightChainr/rheumlens"
+Repository = "https://github.com/LightChainr/rheumlens"
+Issues = "https://github.com/LightChainr/rheumlens/issues"
+
+[project.optional-dependencies]
+io = ["anndata>=0.10", "pyarrow>=14"]
+gpu = ["torch>=2.1"]
+full = ["anndata>=0.10", "pyarrow>=14", "torch>=2.1", "matplotlib>=3.8", "psutil>=5.9"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
+
+[project.scripts]
+rheumlens = "rheumlens.run:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
