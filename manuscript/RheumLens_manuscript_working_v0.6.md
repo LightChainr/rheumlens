@@ -298,7 +298,7 @@ Source datasets are publicly available from GEO or associated repositories. Proc
 - Supplementary Table S12: GSE174188 CD4 donor-level gene discrimination table.
 - Supplementary Table S13: top SLE-high and control-high donor-level genes.
 - Supplementary Table S14: donor-level ISG scores and ISG summary.
-- Supplementary Methods: Geneformer provenance repair, KME V5 runner audit, FOCUS trigger audit, and skipped-analysis registry.
+- Supplementary Methods: computational environments, data provenance, donor-disjoint folds, Geneformer provenance repair, method registry, P8 audit gates, superseded analyses, KME V5 runner audit, FOCUS trigger audit, source-only transfer, and claim boundary.
 
 ## 8. References to add before submission
 
