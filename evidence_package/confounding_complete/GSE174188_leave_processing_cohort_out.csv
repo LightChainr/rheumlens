@@ -1,0 +1,11 @@
+processing_cohort,method,n_test,n_sle,n_hc,auc,status
+1.0,all,32,0,32,,one_class_in_train_or_test
+2.0,scgpt,115,97,18,0.9049255441008018,estimated
+2.0,expression_pca,115,97,18,0.8785796105383735,estimated
+2.0,donor_mean_hvg,115,97,18,0.9490263459335625,estimated
+3.0,scgpt,25,19,6,0.8771929824561404,estimated
+3.0,expression_pca,25,19,6,0.9473684210526316,estimated
+3.0,donor_mean_hvg,25,19,6,0.8947368421052632,estimated
+4.0,scgpt,89,46,43,0.7947421638018201,estimated
+4.0,expression_pca,89,46,43,0.8063700707785642,estimated
+4.0,donor_mean_hvg,89,46,43,0.8270980788675429,estimated

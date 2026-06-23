@@ -1,0 +1,53 @@
+job_id: "P8.2__GSE174188_CD4__METHOD__v1"
+stage: "P8.2"
+cohort: "GSE174188_CD4"
+method_id: "REPLACE_ME"
+analysis_version: "v1"
+status: "DRAFT"
+
+code:
+  revision: "REPLACE_ME"
+  entrypoint: "REPLACE_ME"
+  sha256: "REPLACE_ME"
+
+inputs:
+  - path: "REPLACE_ME"
+    sha256: "REPLACE_ME"
+folds:
+  path: "REPLACE_ME"
+  sha256: "REPLACE_ME"
+config:
+  path: "REPLACE_ME"
+  sha256: "REPLACE_ME"
+
+statistics:
+  unit: "donor"
+  n_reps: 1000
+  base_seed: 20260619
+  seed_algorithm: "numpy.default_rng(base_seed).integers"
+  full_fold_contained_refit: true
+
+resources:
+  workers: 16
+  threads_per_worker: 1
+  ram_limit_gb: 256
+  input_loading: "parent_fork_or_local_memmap"
+  shared_parallel_reads: false
+
+paths:
+  local_work: "REPLACE_ME"
+  durable_checkpoint: "REPLACE_ME"
+  final_output: "REPLACE_ME"
+
+checkpoint:
+  local_every_reps: 5
+  durable_every_reps: 25
+  atomic: true
+  resume_requires_hash_match: true
+
+acceptance:
+  serial_parallel_match: true
+  recovery_test: true
+  require_all_finite: true
+  require_unique_rep_ids: true
+  require_manifest: true

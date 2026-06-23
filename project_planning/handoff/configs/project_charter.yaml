@@ -1,0 +1,108 @@
+project:
+  name: RheumLens
+  version: '2026-06-20'
+  title: 'Unified donor-level single-cell benchmark and original aggregation model development for SLE'
+  primary_unit: donor
+  principle: 'Results may be positive, neutral, or negative; completeness, fairness, auditability, and reproducibility are primary.'
+
+mission:
+  - 'Reproduce and revise the authoritative SLE scRNA-seq manuscript analyses.'
+  - 'Build a unified benchmark separating cell representation, donor aggregation, and donor estimator.'
+  - 'Compare classical expression, foundation models, distribution methods, patient-level set models, and original methods.'
+  - 'Develop calibrated, interpretable, model-agnostic donor representations.'
+  - 'Derive general rules about when mean, distribution, rare-state, and learned aggregation methods work.'
+
+core_questions:
+  - 'Do scGPT or Geneformer add donor-level information beyond PCA, HVG, ISG, composition, and pseudobulk?'
+  - 'Is donor aggregation a larger bottleneck than cell encoding?'
+  - 'Does SLE contain stable distributional or rare-state information beyond mean IFN shifts?'
+  - 'Which methods retain performance across cohorts, ages, cell compartments, and technical structures?'
+  - 'Can donor predictions be decomposed into interpretable immune phenotypes?'
+
+method_families:
+  classical:
+    - ISG-only
+    - composition-only
+    - donor-mean-HVG
+    - donor-expression-PCA
+    - raw-count-pseudobulk
+    - cell-type-pseudobulk
+    - scFeatures-style-multiview
+    - scGPT-mean
+    - Geneformer-mean
+  distribution:
+    - mean-variance
+    - robust-moments
+    - quantile-tail
+    - KME-RFF
+    - multiscale-KME
+    - robust-KME
+    - sliced-Wasserstein
+    - Bures-Gaussian
+    - prototype-distribution
+  patient_models:
+    - Deep-Sets
+    - Set-Transformer
+    - attention-MIL
+    - MixMIL
+    - ProtoCell4P
+    - hierarchical-MIL
+  original:
+    - FOCUS-Lite
+    - ccKME-U
+    - RED
+    - GDS
+    - U-DER
+    - IDE
+    - DonorCLR
+    - Language-compiled-FOCUS
+
+confirmatory_principles:
+  - donor_level_splitting
+  - fold_contained_preprocessing
+  - identical_estimands_for_pairwise_comparison
+  - paired_stratified_donor_bootstrap
+  - full_pipeline_label_permutation
+  - cell_count_matched_sensitivity
+  - source_only_cross_cohort_fitting
+  - retain_negative_and_failed_results
+
+phases:
+  - id: P0
+    name: environment_and_asset_freeze
+  - id: P1
+    name: authoritative_reproduction_and_geneformer_matched_benchmark
+  - id: P2
+    name: unified_existing_method_benchmark
+  - id: P3
+    name: original_method_development_and_null_audit
+  - id: P4
+    name: cross_cohort_and_clinical_phenotyping
+  - id: P5
+    name: manuscript_software_and_public_release
+
+success:
+  engineering:
+    - reproducible_inputs_and_hashes
+    - unified_method_registry
+    - complete_oof_predictions
+    - resumable_runs
+    - validated_result_schema
+  statistical:
+    - no_donor_leakage
+    - fair_hyperparameter_budget
+    - uncertainty_and_null_calibration
+    - cross_cohort_source_only_testing
+  scientific:
+    - derive_general_methodological_rules
+    - distinguish_encoding_from_aggregation
+    - identify_or_refute_distributional_increment
+    - provide_interpretable_patient_level_phenotypes
+
+non_goals:
+  - immediate_clinical_diagnosis_claim
+  - causal_mechanism_claim_without_perturbation
+  - full_LLM_training
+  - treating_cells_as_independent_supervised_samples
+  - selecting_models_by_single_best_AUC
+  - requiring_original_methods_to_win

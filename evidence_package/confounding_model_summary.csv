@@ -1,0 +1,7 @@
+cohort,model,auc
+GSE285773,technical_covariates_only,0.7812499999999999
+GSE285773,scgpt_unadjusted_frozen,0.9500000000000001
+GSE285773,scgpt_residualized_for_available_covariates,0.81875
+GSE174188,technical_covariates_only,0.9256141663549071
+GSE174188,scgpt_unadjusted_frozen,0.9783638857712931
+GSE174188,scgpt_residualized_for_available_covariates,0.6656066841252026

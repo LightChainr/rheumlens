@@ -1,0 +1,1 @@
+job_id,stage,cohort,method_id,analysis_version,status,writer,code_sha256,config_sha256,input_manifest_sha256,folds_sha256,n_requested,n_complete,checkpoint_path,result_path,started_utc,updated_utc,exit_code,decision,notes

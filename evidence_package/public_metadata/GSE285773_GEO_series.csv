@@ -1,0 +1,65 @@
+field,value
+Series_title,Single cell RNA profiling of blood CD4+ T cells identifies distinct helper and dysfunctional regulatory clusters in children with SLE [CD4+ T cells]
+Series_geo_accession,GSE285773
+Series_status,Public on Sep 05 2025
+Series_submission_date,Jan 03 2025
+Series_last_update_date,Sep 06 2025
+Series_summary,"Expansion of different CD4+ CXCR5+ and CXCR5- memory T helper cells has been reported in human systemic lupus erythematosus (SLE) blood. To understand their complexity, we profiled blood CD4+ T cells from heathy donors (HD) and pediatric SLE patients at the single cell level and identified naïve, memory, regulatory (Treg) and proliferative clusters, as well as a cluster defined by high expression of interferon-stimulated genes (ISGs). Within the memory compartment, we mapped follicular (Tfh) and peripheral (Tph and Th10) helper cells and confirmed their expansion in patients with lupus nephritis (LN) and/or high disease activity. Cytotoxic programs mapped  to effector memory T cells re-expressing CD45RA (TEMRA), as well as to two memory subclusters, one of which overlapped with Th10 cells. Importantly, we identified an expansion of dysfunctional Tregs in patients with LN, and an upregulation of TLR5 and FCRL3 in naïve SLE Tregs, potentially linking their dysfunction with mucosal microbial dysbiosis. Our studies shed light into CD4+ T cell subsets that may contribute to dysfunctional B cell help and T cell suppression in SLE."
+Series_overall_design,10X scRNA-Seq of sorted CD4+ T cells from SLE children and matched healthy donors.
+Series_type,Expression profiling by high throughput sequencing
+Series_contributor,"Preetha,,Balasubramanian"
+Series_contributor,"Uthra,,Balaji"
+Series_contributor,"Jeanine,,Baisch"
+Series_contributor,"Cynthia,,Smitherman"
+Series_contributor,"Lynnette,,Walters"
+Series_contributor,"Paola,,Sparagana"
+Series_contributor,"Lorien,,Nassi"
+Series_contributor,"Katie,,Stewart"
+Series_contributor,"Julie,,Fuller"
+Series_contributor,"Terry,,Means"
+Series_contributor,"Virginia,,Savova"
+Series_contributor,"Jacques,,Banchereau"
+Series_contributor,"Tracey,,Wright"
+Series_contributor,"Virginia,,Pascual"
+Series_contributor,"Jinghua,,Gu"
+Series_contributor,"Simone,,Caielli"
+Series_sample_id,GSM8708826
+Series_sample_id,GSM8708827
+Series_sample_id,GSM8708828
+Series_sample_id,GSM8708829
+Series_sample_id,GSM8708830
+Series_sample_id,GSM8708831
+Series_sample_id,GSM8708832
+Series_sample_id,GSM8708833
+Series_sample_id,GSM8708834
+Series_sample_id,GSM8708835
+Series_sample_id,GSM8708836
+Series_sample_id,GSM8708837
+Series_sample_id,GSM8708838
+Series_sample_id,GSM8708839
+Series_sample_id,GSM8708840
+Series_sample_id,GSM8708841
+Series_sample_id,GSM8708842
+Series_sample_id,GSM8708843
+Series_sample_id,GSM8708844
+Series_sample_id,GSM8708845
+Series_sample_id,GSM8708846
+Series_sample_id,GSM8708847
+Series_sample_id,GSM8708848
+Series_sample_id,GSM8708849
+Series_sample_id,GSM8708850
+Series_sample_id,GSM8708851
+Series_contact_name,"Simone,,Caielli"
+Series_contact_email,sic2011@med.cornell.edu
+Series_contact_department,Department of Pediatrics
+Series_contact_institute,Weill Cornell Medicine
+Series_contact_address,413 E 69th Street
+Series_contact_city,New York
+Series_contact_state,NY
+Series_contact_zip/postal_code,10065
+Series_contact_country,USA
+Series_supplementary_file,ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE285nnn/GSE285773/suppl/GSE285773_RAW.tar
+Series_platform_id,GPL24676
+Series_platform_taxid,9606
+Series_sample_taxid,9606
+Series_relation,BioProject: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1205970

@@ -1,0 +1,167 @@
+{
+  "0": {
+    "train_donors": [
+      "HD1",
+      "HD2",
+      "HD4",
+      "HD5",
+      "HD6",
+      "HD7",
+      "HD8",
+      "HD9",
+      "SLE10",
+      "SLE11",
+      "SLE13",
+      "SLE14",
+      "SLE15",
+      "SLE16",
+      "SLE2",
+      "SLE4",
+      "SLE5",
+      "SLE6",
+      "SLE7",
+      "SLE8"
+    ],
+    "test_donors": [
+      "HD10",
+      "HD3",
+      "SLE1",
+      "SLE12",
+      "SLE3",
+      "SLE9"
+    ],
+    "source": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)"
+  },
+  "1": {
+    "train_donors": [
+      "HD1",
+      "HD10",
+      "HD2",
+      "HD3",
+      "HD4",
+      "HD6",
+      "HD7",
+      "HD9",
+      "SLE1",
+      "SLE10",
+      "SLE11",
+      "SLE12",
+      "SLE13",
+      "SLE15",
+      "SLE16",
+      "SLE2",
+      "SLE3",
+      "SLE5",
+      "SLE6",
+      "SLE7",
+      "SLE9"
+    ],
+    "test_donors": [
+      "HD5",
+      "HD8",
+      "SLE14",
+      "SLE4",
+      "SLE8"
+    ],
+    "source": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)"
+  },
+  "2": {
+    "train_donors": [
+      "HD1",
+      "HD10",
+      "HD3",
+      "HD4",
+      "HD5",
+      "HD6",
+      "HD8",
+      "HD9",
+      "SLE1",
+      "SLE10",
+      "SLE12",
+      "SLE13",
+      "SLE14",
+      "SLE15",
+      "SLE2",
+      "SLE3",
+      "SLE4",
+      "SLE6",
+      "SLE7",
+      "SLE8",
+      "SLE9"
+    ],
+    "test_donors": [
+      "HD2",
+      "HD7",
+      "SLE11",
+      "SLE16",
+      "SLE5"
+    ],
+    "source": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)"
+  },
+  "3": {
+    "train_donors": [
+      "HD1",
+      "HD10",
+      "HD2",
+      "HD3",
+      "HD5",
+      "HD6",
+      "HD7",
+      "HD8",
+      "SLE1",
+      "SLE10",
+      "SLE11",
+      "SLE12",
+      "SLE14",
+      "SLE15",
+      "SLE16",
+      "SLE3",
+      "SLE4",
+      "SLE5",
+      "SLE6",
+      "SLE8",
+      "SLE9"
+    ],
+    "test_donors": [
+      "HD4",
+      "HD9",
+      "SLE13",
+      "SLE2",
+      "SLE7"
+    ],
+    "source": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)"
+  },
+  "4": {
+    "train_donors": [
+      "HD10",
+      "HD2",
+      "HD3",
+      "HD4",
+      "HD5",
+      "HD7",
+      "HD8",
+      "HD9",
+      "SLE1",
+      "SLE11",
+      "SLE12",
+      "SLE13",
+      "SLE14",
+      "SLE16",
+      "SLE2",
+      "SLE3",
+      "SLE4",
+      "SLE5",
+      "SLE7",
+      "SLE8",
+      "SLE9"
+    ],
+    "test_donors": [
+      "HD1",
+      "HD6",
+      "SLE10",
+      "SLE15",
+      "SLE6"
+    ],
+    "source": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)"
+  }
+}

@@ -1,0 +1,4 @@
+cohort,method,observed_auc,n_perm,exceedances,empirical_p,null_mean,null_sd,permutation_scheme
+GSE174188,scgpt,0.9783638857712931,1000,0,0.000999000999000999,0.4967025190173338,0.04934047152595356,global donor-label permutation; fixed archived folds; all fold transforms refit-equivalent because label-independent
+GSE174188,expression_pca,0.9813567776530738,1000,0,0.000999000999000999,0.49620719541089914,0.05007029343450673,global donor-label permutation; fixed archived folds; all fold transforms refit-equivalent because label-independent
+GSE174188,donor_mean_hvg,0.9839132061354283,1000,0,0.000999000999000999,0.4988152512782142,0.049900545813895913,global donor-label permutation; fixed archived folds; all fold transforms refit-equivalent because label-independent

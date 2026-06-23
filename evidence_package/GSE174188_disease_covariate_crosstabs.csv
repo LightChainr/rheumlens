@@ -1,0 +1,70 @@
+cohort,covariate,level,HC,SLE
+GSE174188,sex,female,97,147
+GSE174188,sex,male,2,15
+GSE174188,ethnicity,African American,0,3
+GSE174188,ethnicity,Asian,24,83
+GSE174188,ethnicity,European American,74,75
+GSE174188,ethnicity,Hispanic or Latin,1,1
+GSE174188,processing_cohort,1.0,32,0
+GSE174188,processing_cohort,2.0,18,97
+GSE174188,processing_cohort,3.0,6,19
+GSE174188,processing_cohort,4.0,43,46
+GSE174188,development_stage,20-year-old stage,0,2
+GSE174188,development_stage,21-year-old stage,1,2
+GSE174188,development_stage,22-year-old stage,1,1
+GSE174188,development_stage,23-year-old stage,4,3
+GSE174188,development_stage,24-year-old stage,5,2
+GSE174188,development_stage,25-year-old stage,5,1
+GSE174188,development_stage,26-year-old stage,6,2
+GSE174188,development_stage,27-year-old stage,9,7
+GSE174188,development_stage,28-year-old stage,5,3
+GSE174188,development_stage,29-year-old stage,2,7
+GSE174188,development_stage,30-year-old stage,4,3
+GSE174188,development_stage,31-year-old stage,4,6
+GSE174188,development_stage,32-year-old stage,4,4
+GSE174188,development_stage,33-year-old stage,8,4
+GSE174188,development_stage,34-year-old stage,8,3
+GSE174188,development_stage,35-year-old stage,4,5
+GSE174188,development_stage,36-year-old stage,0,4
+GSE174188,development_stage,37-year-old stage,2,6
+GSE174188,development_stage,38-year-old stage,0,4
+GSE174188,development_stage,39-year-old stage,0,6
+GSE174188,development_stage,40-year-old stage,0,3
+GSE174188,development_stage,41-year-old stage,1,4
+GSE174188,development_stage,42-year-old stage,0,3
+GSE174188,development_stage,43-year-old stage,0,3
+GSE174188,development_stage,44-year-old stage,1,0
+GSE174188,development_stage,45-year-old stage,0,8
+GSE174188,development_stage,46-year-old stage,0,3
+GSE174188,development_stage,47-year-old stage,0,2
+GSE174188,development_stage,48-year-old stage,3,2
+GSE174188,development_stage,49-year-old stage,2,3
+GSE174188,development_stage,50-year-old stage,0,1
+GSE174188,development_stage,51-year-old stage,1,5
+GSE174188,development_stage,52-year-old stage,1,1
+GSE174188,development_stage,53-year-old stage,2,2
+GSE174188,development_stage,54-year-old stage,1,3
+GSE174188,development_stage,55-year-old stage,0,5
+GSE174188,development_stage,56-year-old stage,0,4
+GSE174188,development_stage,57-year-old stage,0,3
+GSE174188,development_stage,58-year-old stage,1,5
+GSE174188,development_stage,59-year-old stage,1,3
+GSE174188,development_stage,60-year-old stage,1,3
+GSE174188,development_stage,61-year-old stage,2,1
+GSE174188,development_stage,62-year-old stage,0,2
+GSE174188,development_stage,63-year-old stage,0,2
+GSE174188,development_stage,64-year-old stage,3,3
+GSE174188,development_stage,65-year-old stage,1,1
+GSE174188,development_stage,66-year-old stage,0,3
+GSE174188,development_stage,68-year-old stage,1,2
+GSE174188,development_stage,69-year-old stage,0,2
+GSE174188,development_stage,70-year-old stage,0,1
+GSE174188,development_stage,71-year-old stage,1,2
+GSE174188,development_stage,73-year-old stage,1,0
+GSE174188,development_stage,74-year-old stage,2,1
+GSE174188,development_stage,75-year-old stage,1,0
+GSE174188,development_stage,83-year-old stage,0,1
+GSE174188,disease_state,flare,0,11
+GSE174188,disease_state,managed,0,146
+GSE174188,disease_state,na,99,0
+GSE174188,disease_state,treated,0,5

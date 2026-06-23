@@ -1,0 +1,88 @@
+field,value
+Series_title,A single cell approach to map cellular subsets involved in Systemic Lupus Erythematosus (SLE) heterogeneity
+Series_geo_accession,GSE135779
+Series_status,Public on Sep 02 2020
+Series_submission_date,Aug 13 2019
+Series_last_update_date,Dec 02 2020
+Series_pubmed_id,32747814
+Series_summary,"In this study, we analyzed the transcriptomes of ~276k single PBMCs from 33 childhood SLE (cSLE) and 11 healthy matched donors (cHD). Our findings were validated in an independent cohort including 8 adult SLE (aSLE) patients and 6 matched controls (aHD; ~132k PBMCs)."
+Series_overall_design,cSLE dataset included 33 cSLE (cSLE1 to cSLE33). 11 cHD controles (cHD1 to cHD11) aSLE dataset included 8 aSLE (aSLE1 to aSLE8) and 6 aHD controles (aHD1 to aHD6). Clinical information to be found in supplementary table 1.
+Series_overall_design,
+Series_overall_design,**The raw data have been deposited in dbGaP (Study accession: phs002048.v1.p1) due to patient privacy concerns.**
+Series_type,Expression profiling by high throughput sequencing
+Series_contributor,"Djamel,,Nehar-Belaid"
+Series_contributor,"William,F,Flynn"
+Series_contributor,"Jacques,,Banchereau"
+Series_contributor,"Virginia,,Pascual"
+Series_contributor,"Paul,,Robson"
+Series_sample_id,GSM4029896
+Series_sample_id,GSM4029897
+Series_sample_id,GSM4029898
+Series_sample_id,GSM4029899
+Series_sample_id,GSM4029900
+Series_sample_id,GSM4029901
+Series_sample_id,GSM4029902
+Series_sample_id,GSM4029903
+Series_sample_id,GSM4029904
+Series_sample_id,GSM4029905
+Series_sample_id,GSM4029906
+Series_sample_id,GSM4029907
+Series_sample_id,GSM4029908
+Series_sample_id,GSM4029909
+Series_sample_id,GSM4029910
+Series_sample_id,GSM4029911
+Series_sample_id,GSM4029912
+Series_sample_id,GSM4029913
+Series_sample_id,GSM4029914
+Series_sample_id,GSM4029915
+Series_sample_id,GSM4029916
+Series_sample_id,GSM4029917
+Series_sample_id,GSM4029918
+Series_sample_id,GSM4029919
+Series_sample_id,GSM4029920
+Series_sample_id,GSM4029921
+Series_sample_id,GSM4029922
+Series_sample_id,GSM4029923
+Series_sample_id,GSM4029924
+Series_sample_id,GSM4029925
+Series_sample_id,GSM4029926
+Series_sample_id,GSM4029927
+Series_sample_id,GSM4029928
+Series_sample_id,GSM4029929
+Series_sample_id,GSM4029930
+Series_sample_id,GSM4029931
+Series_sample_id,GSM4029932
+Series_sample_id,GSM4029933
+Series_sample_id,GSM4029934
+Series_sample_id,GSM4029935
+Series_sample_id,GSM4029936
+Series_sample_id,GSM4029937
+Series_sample_id,GSM4029938
+Series_sample_id,GSM4029939
+Series_sample_id,GSM4029940
+Series_sample_id,GSM4029942
+Series_sample_id,GSM4029943
+Series_sample_id,GSM4029944
+Series_sample_id,GSM4029945
+Series_sample_id,GSM4029946
+Series_sample_id,GSM4029947
+Series_sample_id,GSM4029948
+Series_sample_id,GSM4029949
+Series_sample_id,GSM4029950
+Series_sample_id,GSM4029951
+Series_sample_id,GSM4029952
+Series_contact_name,"William,F,Flynn"
+Series_contact_institute,The Jackson Laboratory
+Series_contact_address,10 Discovery Drive
+Series_contact_city,Farmington
+Series_contact_state,CT
+Series_contact_zip/postal_code,06032
+Series_contact_country,USA
+Series_supplementary_file,ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE135nnn/GSE135779/suppl/GSE135779_RAW.tar
+Series_supplementary_file,ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE135nnn/GSE135779/suppl/GSE135779_genes.tsv.gz
+Series_platform_id,GPL20301
+Series_platform_taxid,9606
+Series_sample_taxid,9606
+Series_relation,BioProject: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA560047
+Series_relation,SRA: https://www.ncbi.nlm.nih.gov/sra?term=SRP218234
+Series_relation,SRA: https://www.ncbi.nlm.nih.gov/sra?term=SRP279678

@@ -1,0 +1,10 @@
+{
+  "source": "/Volumes/Mac Data/Research/\u8bba\u6587\u8d44\u6599\u5e93/04_\u6765\u81eaDownloads_2026-06-17/P3_GPU\u670d\u52a1\u5668\u4e0eMD/rheumlens_gpu_pull_20260617/gse135779_child_embeddings.h5ad",
+  "source_n_cells": 281402,
+  "selected_n_cells": 22000,
+  "n_per_donor": 500,
+  "n_donors": 44,
+  "seed": 20260619,
+  "matrix": "raw integer counts from layers['counts']",
+  "marker_labels": "project fixed-marker score; not author annotations"
+}

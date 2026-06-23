@@ -1,0 +1,16 @@
+asset_id	category	cohort_or_model	required	status	path_or_source	sha256	notes
+authoritative_donors	immutable	all	yes	missing			
+authoritative_folds	immutable	all	yes	missing			
+repeated_cv_splits	immutable	all	yes	missing			
+raw_counts_GSE135779	data	GSE135779	yes	missing			
+raw_counts_GSE285773	data	GSE285773	yes	missing			
+project_h5ad_GSE174188	data	GSE174188	yes	missing			
+scgpt_checkpoint	model	scGPT	yes	missing			
+scgpt_vocab	model	scGPT	yes	missing			
+geneformer_v2_104m	model	Geneformer	yes	missing			
+geneformer_token_dictionary	model	Geneformer	yes	missing			
+geneformer_gene_median	model	Geneformer	yes	missing			
+gene_mapping	annotation	GRCh38	yes	missing			
+fixed_15_gene_isg	query_bank	SLE	yes	ready	configs/query_bank.yaml		
+GSE137029_metadata	metadata	GSE137029	yes	missing			donor overlap audit only
+GSE250024_metadata	metadata	GSE250024	no	missing			longitudinal auxiliary only

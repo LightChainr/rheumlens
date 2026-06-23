@@ -1,0 +1,55 @@
+scope_version: '2026-06-20'
+anchor:
+  name: SLECA
+  type: preprint
+  date: '2026-02-12'
+  doi: '10.64898/2026.02.11.705246'
+  claim: 'At its data freeze, SLECA integrated all publicly available SLE scRNA-seq datasets: 366 samples, >4 million cells, eight studies.'
+project_conclusion: >-
+  Under the SLECA 2026 data freeze and the RheumLens PBMC donor-level case-control
+  inclusion criteria, the public SLE single-cell landscape is effectively saturated.
+  No additional large, public, independent, comparable PBMC case-control cohort is
+  currently expected. New releases after the SLECA freeze require a dated amendment.
+
+primary_benchmark:
+  - accession: GSE135779
+    role: pediatric_PBMC_primary
+    status: include
+    notes: '33 SLE / 11 HC; raw counts, clinical metadata, donor cluster counts available.'
+  - accession: GSE285773
+    role: pediatric_sorted_CD4_replication
+    status: include
+    notes: '16 SLE / 10 HC; public clinical covariates limited.'
+  - accession: GSE174188
+    role: adult_CD4_replication
+    status: include
+    notes: '162 SLE / 99 HC in source study; project uses archived donor/CD4 inclusion set.'
+
+secondary_or_overlap_audit:
+  - accession: GSE137029
+    status: overlap_sensitive
+    action: 'Download metadata first; do not call independent until donor-level deduplication against GSE174188 is complete.'
+    notes: 'UCSF/Ye mux-seq predecessor; 134 SLE + 58 HC + flare samples.'
+  - accession: GSE250024
+    status: auxiliary_longitudinal_only
+    action: 'Not a primary case-control cohort. Optional vaccine-response/longitudinal method stress test.'
+    notes: '3 SLE donors, 3 time points each, 9 scRNA-seq samples; no HC scRNA-seq arm in this subseries.'
+
+excluded_from_primary:
+  - accession: GSE142016
+    reason: 'Only 3 scRNA-seq samples.'
+  - accession: GSE162577
+    reason: '2 SLE + 1 HC.'
+  - accession: GSE179633
+    reason: 'Skin biopsy; not comparable PBMC.'
+  - accession: GSE186476
+    reason: 'Cutaneous lupus/spatial tissue; not comparable PBMC.'
+  - accession: GSE158055
+    reason: 'COVID-19/healthy reference source, not an SLE disease cohort.'
+
+policy:
+  use_existing_project_objects_first: true
+  avoid_fastq_downloads: true
+  processed_counts_preferred: true
+  every_download_requires_sha256: true
+  every_dataset_requires_donor_deduplication: true

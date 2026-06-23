@@ -1,0 +1,9 @@
+{
+  "algorithm": "Recovered verbatim from accepted scgpt_mean formal permutation output",
+  "base_seed": 20260619,
+  "n_reps": 1000,
+  "schema_version": 1,
+  "seed_table_sha256": "b89fda36826ffc45252007ef8f831b3fcb6c1bf5fb9cb8e1cca2a7c967848b01",
+  "source_relative_path": "results/P6_GSE174188_v1/permutation/GSE174188_CD4/scgpt_mean/permutation_auc.csv",
+  "source_sha256": "44c6261b5d8fce2873519042b9d701d2d9e39b6829af64ffdb27c273a1f5c1c4"
+}

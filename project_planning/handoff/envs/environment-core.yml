@@ -1,0 +1,38 @@
+name: rheumlens-core
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.11
+  - pip
+  - numpy=1.26.4
+  - pandas=2.2.3
+  - scipy=1.13.1
+  - scikit-learn=1.5.2
+  - anndata=0.10.9
+  - scanpy=1.11.5
+  - h5py
+  - zarr
+  - pyarrow
+  - joblib
+  - pyyaml
+  - tqdm
+  - matplotlib
+  - seaborn
+  - statsmodels
+  - numba
+  - pynndescent
+  - umap-learn
+  - pot
+  - typer
+  - rich
+  - psutil
+  - pip:
+      - torch==2.5.1
+      - torchvision==0.20.1
+      - geomloss
+      - pydantic>=2.8
+      - pytest>=8
+      - ruff>=0.6
+      - mypy>=1.10

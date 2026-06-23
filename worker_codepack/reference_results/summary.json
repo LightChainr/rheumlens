@@ -1,0 +1,11 @@
+{
+  "cohort": "GSE174188_CD4",
+  "empirical_p": 0.000999000999000999,
+  "method_id": "scgpt_mean",
+  "n_finite": 1000,
+  "n_requested": 1000,
+  "null_mean": 0.4954340940266866,
+  "null_q025": 0.3943493577752837,
+  "null_q975": 0.5932379349046015,
+  "observed_auc": 0.9783638857712931
+}

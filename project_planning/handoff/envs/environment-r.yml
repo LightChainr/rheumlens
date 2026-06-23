@@ -1,0 +1,14 @@
+name: rheumlens-r
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - r-base=4.3
+  - r-data.table
+  - r-arrow
+  - r-jsonlite
+  - r-optparse
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-limma
