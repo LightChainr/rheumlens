@@ -1,0 +1,21 @@
+Bootstrap: docker
+From: python:3.11-slim
+
+%files
+    . /opt/rheumlens
+
+%post
+    apt-get update
+    apt-get install -y --no-install-recommends build-essential git
+    rm -rf /var/lib/apt/lists/*
+    python -m pip install --upgrade pip
+    cd /opt/rheumlens
+    python -m pip install -e ".[dev,io]"
+
+%environment
+    export PYTHONUNBUFFERED=1
+    export PYTHONDONTWRITEBYTECODE=1
+
+%runscript
+    cd /opt/rheumlens
+    bash scripts/reproduce_minimal.sh

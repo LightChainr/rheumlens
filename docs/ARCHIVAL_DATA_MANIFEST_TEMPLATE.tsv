@@ -1,0 +1,13 @@
+asset_id	category	cohort	path_in_archive	expected_sha256	size_bytes	required_for_public_reproduction	notes
+folds_gse135779	folds	GSE135779	folds/gse135779_child_donor_folds.json	TBD	TBD	yes	Donor-disjoint folds.
+folds_gse174188	folds	GSE174188	folds/gse174188_cd4_donor_folds.json	TBD	TBD	yes	Donor-disjoint adult CD4 folds.
+folds_gse285773	folds	GSE285773	folds/gse285773_donor_folds.json	TBD	TBD	yes	Amendment folds; hypothesis-generating cohort.
+oof_primary	predictions	all	processed/oof_predictions/	TBD	TBD	yes	OOF donor-level predictions for accepted analyses.
+bootstrap	statistics	all	processed/bootstrap_distributions/	TBD	TBD	yes	Bootstrap distributions and summary tables.
+permutation	statistics	GSE174188	processed/permutation_distributions/	TBD	TBD	yes	Formal P8.2 permutation distributions.
+repeated_cv	statistics	GSE174188	processed/repeated_cv/	TBD	TBD	yes	P8.3 repeated-CV outputs.
+covariates	metadata	GSE174188	metadata/GSE174188_donor_covariates.csv	TBD	TBD	yes	Authoritative covariates used for P8.6.
+feature_names	metadata	GSE174188	metadata/GSE174188_feature_names_from_h5ad.tsv	TBD	TBD	yes	Derived from source h5ad var.feature_name.
+scgpt_embeddings	embeddings	all	embeddings/scgpt/	TBD	TBD	conditional	Large archival object or regeneration recipe.
+geneformer_embeddings	embeddings	GSE135779	embeddings/geneformer/	TBD	TBD	conditional	Large archival object or regeneration recipe.
+cell_matrices	matrices	all	data/processed/	TBD	TBD	conditional	Large archival object subject to source-data terms.

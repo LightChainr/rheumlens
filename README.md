@@ -25,6 +25,18 @@ RheumLens is a donor-level benchmark and audit workflow for evaluating single-ce
 
 ## Installation
 
+Recommended reproducible setup:
+
+```bash
+conda env create -f environment.yml
+conda activate rheumlens
+pip install -e ".[dev,io]"
+```
+
+Container recipes are provided as `Dockerfile` and `Singularity.def` for CPU-side manuscript verification and table/figure audits. GPU-specific embedding extraction may require a CUDA/PyTorch image matched to the local driver.
+
+Minimal editable install:
+
 ```bash
 pip install -e .
 ```
@@ -51,6 +63,9 @@ pytest -q
 # Run a minimal reproduction check
 bash scripts/reproduce_minimal.sh
 
+# Verify checked-in SHA256 manifests
+bash scripts/verify_manifests.sh
+
 # Run P9/P10 integration (requires processed data)
 python scripts/mac_p9_p10.py --help
 ```
@@ -73,7 +88,7 @@ rheumlens/
 ├── configs/                 # Project configuration YAML
 ├── manuscript/              # Working manuscript (v0.6)
 ├── figures/                 # Plot-ready manuscript figures (PNG+PDF)
-├── supplementary_tables/    # Supplementary CSV tables (S1–S14)
+├── supplementary_tables/    # Supplementary CSV tables (S1–S18)
 ├── docs/                    # Audit documents and assembly status
 ├── results_manifest/        # Data asset manifests with SHA256
 ├── pyproject.toml           # Package metadata and dependencies
@@ -94,6 +109,15 @@ The formal manuscript claims are supported by:
 
 Large processed matrices and cell-level embeddings are **not** included in this repository. They are tracked by SHA256 in `results_manifest/RHEUMLENS_KEY_ASSETS.csv` and should be distributed through an archival data release.
 
+## Data and code availability
+
+- Code repository: <https://github.com/LightChainr/rheumlens>
+- Archived code DOI: pending Zenodo release.
+- Processed-data DOI: pending Zenodo/figshare release.
+- Raw source datasets: GEO GSE135779, GSE174188 and GSE285773.
+
+The archival data release should include donor-level fold files, out-of-fold predictions, repeated-CV summaries, bootstrap and permutation distributions, covariate sensitivity outputs, source-only transfer predictions, plot-ready tables and SHA256 manifests. Large cell-level matrices and foundation-model embeddings are distributed as separate archival objects or regenerated from documented recipes, subject to source-data redistribution terms. The GSE174188 feature-name repair table is derived from the source h5ad `var.feature_name` field and is included as a documented metadata asset when available.
+
 ## Claim boundary
 
 See [CLAIM_BOUNDARY.md](CLAIM_BOUNDARY.md) for the full list of allowed and disallowed interpretation claims. In brief:
@@ -106,7 +130,7 @@ See [CLAIM_BOUNDARY.md](CLAIM_BOUNDARY.md) for the full list of allowed and disa
 If you use RheumLens in your research, please cite:
 
 ```
-[Citation to be added after manuscript submission]
+RheumLens: a donor-level audit benchmark for single-cell foundation-model disease representations in systemic lupus erythematosus. Code DOI and manuscript citation pending.
 ```
 
 ## License

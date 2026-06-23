@@ -1,0 +1,4 @@
+method,AUC,n_donors
+LogReg,0.89,44
+MLP_2layer,0.606,44
+ExprPCA,0.945,44

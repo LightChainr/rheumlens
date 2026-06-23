@@ -22,13 +22,17 @@ Single-cell foundation models convert transcriptomes into compact representation
 
 Systemic lupus erythematosus provides a demanding test case. SLE has a strong, reproducible interferon-associated transcriptional program and multiple public single-cell cohorts with case-control donors. These properties make it possible to test whether frozen embeddings recover disease signal, whether that signal transfers across studies, and whether more complex donor-level methods add information beyond straightforward expression summaries.
 
+The study is positioned against two related lines of work. First, scGPT and Geneformer introduced reusable transcriptomic representations that can be extracted from frozen cell-level models. Second, recent single-cell foundation-model evaluations and broader perturbation-model benchmarks have emphasized that strong linear, PCA, pseudobulk, and other simple baselines often remain competitive. RheumLens therefore treats foundation embeddings as auditable representations rather than assumed improvements over expression summaries.
+
 RheumLens was developed as a donor-level benchmark and audit framework for this setting. The project evaluates scGPT, Geneformer, expression pseudobulk, donor expression PCA, HVG baselines, KME-style distribution embeddings, FOCUS-style methods, attention/MIL-style models, and covariate-adjusted sensitivity analyses. The final analysis emphasizes out-of-fold donor predictions, fixed folds, source-only transfer, provenance checks, and explicit claim boundaries.
+
+The main contributions are: (i) a donor-disjoint SLE benchmark spanning matched pediatric data, adult CD4 data and pediatric CD4 transfer; (ii) a model-comparison audit that includes strong expression baselines, provenance repair, paired resampling, permutation tests and KME implementation diagnostics; (iii) covariate sensitivity analyses that expose the extent to which measured donor/sample variables can explain high disease AUC; and (iv) a reproducibility package with code, figures, supplementary tables, manifests and a public data-release plan.
 
 ## 2. Results
 
 ### 2.1 RheumLens assembled a donor-level benchmark spanning matched cells, large adult CD4 data, and pediatric CD4 transfer
 
-The final local analysis package contains the core processed data, embeddings, fold files, out-of-fold predictions, bootstrap summaries, and audit reports needed for manuscript assembly. GSE135779 matched-500 provides a balanced, controlled setting with 44 donors and 500 cells per donor. GSE174188 CD4 provides the largest adult CD4 case-control analysis with 261 donors. GSE285773 provides an independent pediatric CD4 cohort with 26 donors. All formal analyses use donor-level labels and donor-disjoint evaluation.
+The final analysis package contains the core processed data, embeddings, fold files, out-of-fold predictions, bootstrap summaries, and audit reports needed for manuscript assembly. GSE135779 matched-500 provides a balanced, controlled setting with 44 donors and 500 cells per donor. GSE174188 CD4 provides the largest adult CD4 case-control analysis with 261 donors. GSE285773 provides an independent pediatric CD4 cohort with 26 donors. All formal analyses use donor-level labels and donor-disjoint evaluation.
 
 Figure 1 summarizes the leading benchmark results. The matched-500 and GSE174188 CD4 analyses both show high donor-level disease discrimination across multiple method families.
 
@@ -67,6 +71,8 @@ Figure 1 summarizes the leading benchmark results. The matched-500 and GSE174188
 
 In GSE135779 matched-500, raw pseudobulk achieved AUC 0.972. scGPT-derived methods were also strong: focus_lite@scGPT reached 0.967 and scGPT mean reached 0.846. After Geneformer provenance repair, Geneformer mean reached AUC 0.926 and focus_lite@geneformer reached 0.961. This corrected the earlier failure mode caused by an unknown-provenance Geneformer NPZ and incompatible extraction environment.
 
+The lower scGPT mean AUC in GSE135779 matched-500 was examined as a method-resolution finding rather than treated as a nuisance. Paired donor bootstrap showed that raw pseudobulk exceeded scGPT mean by ΔAUC 0.127 (95% CI 0.039 to 0.234; Holm-adjusted P=0.032), and focus_lite@scGPT exceeded scGPT mean by ΔAUC 0.121 (95% CI 0.036 to 0.226; Holm-adjusted P=0.032). RED@scGPT showed a similar numerical advantage that did not survive Holm correction. This pattern suggests that simple mean pooling can underuse donor-distribution structure in GSE135779, while the larger GSE174188 CD4 analysis is closer to an AUC ceiling where paired differences are small.
+
 In GSE174188 CD4, raw pseudobulk achieved AUC 0.988, donor expression PCA 0.986, donor mean HVG 0.984, scGPT mean 0.978, and kme_multiscale@scGPT 0.978. These results show robust disease signal in frozen embeddings and direct expression summaries. Expression baselines were among the strongest methods in the final analysis.
 
 **Table 2. Primary method anchors.**
@@ -95,7 +101,11 @@ We repaired the local GSE174188 CD4 expression matrix metadata by recovering tru
 
 In source-only P9 transfer, training on GSE285773 and testing on GSE174188 CD4 produced AUC 0.730 for scGPT mean, 0.790 for donor expression PCA, and 0.806 for donor mean HVG. The reverse direction, training on GSE174188 CD4 and testing on GSE285773, produced AUC 0.881 for scGPT mean, 0.931 for donor expression PCA, and 0.900 for donor mean HVG. The reverse target has only 26 donors, so intervals are wide, but the signal is clear.
 
+We then extended P9 to non-neural structured transfer methods. In GSE285773→GSE174188 CD4 transfer, expression baselines remained strongest: donor mean HVG reached AUC 0.806 and donor expression PCA 0.790, while the best structured scGPT method was focus_lite@scGPT at AUC 0.754. In the reverse GSE174188 CD4→GSE285773 transfer, moments_mean_var@scGPT reached AUC 0.963, focus_lite@scGPT reached AUC 0.931, and donor expression PCA also reached AUC 0.931. KME did not improve transfer in either direction. The 26-donor pediatric target makes this extension hypothesis-generating, but it addresses the method-coverage gap in the original P9 table.
+
 ![Figure 2. P9 source-only CD4 transfer.](/Users/lc/Documents/RheumLens/manuscript/figures_v0.6/FIGURE_2_P9_TRANSFER_AUC.png)
+
+![Figure 16. P9 structured source-only transfer extension.](/Users/lc/Documents/RheumLens/manuscript/figures_v0.6/FIGURE_16_P9_STRUCTURED_TRANSFER.png)
 
 **Table 3. Source-only transfer results.**
 
@@ -155,9 +165,19 @@ The covariate audit is central to the final manuscript. In GSE174188 CD4, measur
 
 ![Figure 3. Covariate sensitivity.](/Users/lc/Documents/RheumLens/manuscript/figures_v0.6/FIGURE_3_COVARIATE_SENSITIVITY.png)
 
+We decomposed the covariates-only signal to make the result interpretable. Under the formal-compatible P8.6 encoding, the full covariate model reproduced the accepted result closely (AUC 0.848 versus accepted AUC 0.846). Technical depth/QC covariates alone reached AUC 0.776, processing covariates AUC 0.685, and demographic covariates AUC 0.653. The strongest single covariates were cells per donor (AUC 0.689), age from development stage (AUC 0.639), and mitochondrial percentage (AUC 0.614). A sensitivity encoding that one-hot encoded processing cohort increased covariates-only AUC to 0.930, showing that categorical handling of processing structure materially changes the audit. We therefore keep the accepted P8.6 encoding for formal claims and report one-hot processing as a sensitivity warning.
+
+![Figure 13. Covariate decomposition.](/Users/lc/Documents/RheumLens/manuscript/figures_v0.6/FIGURE_13_COVARIATE_DECOMPOSITION.png)
+
 Residualized method scores were only modestly above the covariates-only baseline. The AUC increment was +0.022 for scGPT mean, +0.007 for donor expression PCA, and +0.023 for donor mean HVG; the corresponding bootstrap intervals included zero. This result motivates presenting covariate sensitivity as a primary audit endpoint rather than a supplementary afterthought.
 
 ![Figure 7. Residualized methods versus covariates-only.](/Users/lc/Documents/RheumLens/manuscript/figures_v0.6/FIGURE_7_COVARIATE_DELTA.png)
+
+The paired method-comparison audit further supports conservative wording near the AUC ceiling. In GSE174188 CD4, raw pseudobulk, donor expression PCA, donor mean HVG, and KME were numerically close to scGPT mean, but none of their ΔAUC intervals excluded zero after Holm correction. focus_lite@scGPT was significantly lower than scGPT mean in GSE174188 CD4. In GSE285773, no comparison against scGPT mean survived correction, consistent with the small 26-donor target. These results justify describing expression baselines as numerically strongest or comparable, rather than claiming broad statistical superiority across all cohorts.
+
+![Figure 14. Paired AUC differences versus scGPT mean.](/Users/lc/Documents/RheumLens/manuscript/figures_v0.6/FIGURE_14_PAIRED_AUC_DELTA.png)
+
+![Figure 15. GSE135779 matched-500 scGPT mean context.](/Users/lc/Documents/RheumLens/manuscript/figures_v0.6/FIGURE_15_MATCHED500_SCGPT_CONTEXT.png)
 
 **Table 5. Covariate sensitivity.**
 
@@ -250,11 +270,11 @@ For GSE174188 CD4, log-normalized cell-level expression was aggregated to donor-
 
 ### 4.7 Reproducibility
 
-The local final run directory is `/Volumes/Mac Data/Research/RheumLens_20260622/mac_final_results/run_20260623T045526Z`. The manuscript asset directory contains all plot-ready tables, figures, and SHA256 manifests. Server-derived GSE174188 feature-name repair is documented in `metadata/GSE174188_feature_names_from_h5ad.tsv`.
+All formal outputs are tracked by SHA256 manifests in the open repository and the accompanying archival data package. The manuscript asset directory contains plot-ready tables, vector/raster figures, and audit reports. GSE174188 feature-name repair is documented as a derived metadata asset generated from the source h5ad `var.feature_name` field.
 
 ## 5. Data and code availability
 
-Source datasets are publicly available from GEO or associated repositories. Processed embeddings, fold files, out-of-fold predictions, bootstrap summaries, audit reports, and plot-ready tables will be deposited in the project repository or archival storage before submission. Large cell-level embeddings should be distributed according to source-data terms and repository size limits.
+Source datasets are publicly available through GEO accessions GSE135779, GSE174188 and GSE285773 or their associated source repositories. The RheumLens code, manuscript assets, audit scripts, fold definitions, plot-ready tables and SHA256 manifests are maintained at `https://github.com/LightChainr/rheumlens`; a DOI-tagged archival snapshot will be minted before submission. Processed donor-level outputs, out-of-fold predictions, bootstrap and permutation distributions, repeated-CV summaries, covariate sensitivity outputs, source-only transfer predictions and figure-ready tables will be deposited in an archival data release with the same SHA256 manifest. Large cell-level matrices and foundation-model embeddings will be distributed as separate archival objects or regeneration recipes, depending on repository size constraints and source-data redistribution terms.
 
 ## 6. Current manuscript figure legends
 
@@ -282,6 +302,14 @@ Source datasets are publicly available from GEO or associated repositories. Proc
 
 **Figure 12. Top single-gene donor discriminators.** Bars show single-gene donor-level discriminative AUC for the top genes in GSE174188 CD4.
 
+**Figure 13. Covariate decomposition.** Bars show GSE174188 CD4 covariates-only AUC under the formal-compatible encoding, grouped covariate models, and the one-hot processing-cohort sensitivity encoding.
+
+**Figure 14. Paired AUC differences versus scGPT mean.** Bars show donor-bootstrap ΔAUC for selected methods compared with scGPT mean within each cohort. Red bars indicate Holm-adjusted P<0.05.
+
+**Figure 15. GSE135779 matched-500 scGPT mean context.** Bars show the top GSE135779 matched-500 method AUCs, highlighting that several structured or distributional summaries exceeded scGPT mean in this cohort.
+
+**Figure 16. P9 structured source-only transfer extension.** Bars show source-only transfer AUC for non-neural structured methods in both CD4 transfer directions. Neural MIL transfer was not included in this extension because it requires a separate pre-registered source-target training protocol.
+
 ## 7. Supplementary material plan
 
 - Supplementary Table S1: full method summary for P5 matched-500.
@@ -298,17 +326,34 @@ Source datasets are publicly available from GEO or associated repositories. Proc
 - Supplementary Table S12: GSE174188 CD4 donor-level gene discrimination table.
 - Supplementary Table S13: top SLE-high and control-high donor-level genes.
 - Supplementary Table S14: donor-level ISG scores and ISG summary.
+- Supplementary Table S15: GSE174188 covariate decomposition and encoding sensitivity.
+- Supplementary Table S16: paired donor-bootstrap ΔAUC with Holm correction.
+- Supplementary Table S17: GSE135779 matched-500 scGPT mean context table.
+- Supplementary Table S18: P9 structured source-only transfer extension.
 - Supplementary Methods: computational environments, data provenance, donor-disjoint folds, Geneformer provenance repair, method registry, P8 audit gates, superseded analyses, KME V5 runner audit, FOCUS trigger audit, source-only transfer, and claim boundary.
 
-## 8. References to add before submission
+## 8. References
 
 - Baechler, E.C. et al. (2003). Interferon-inducible gene expression signature in peripheral blood cells of patients with severe lupus. *Proceedings of the National Academy of Sciences USA*, 100, 2610–2615.
 - Bennett, L. et al. (2003). Interferon and granulopoiesis signatures in systemic lupus erythematosus blood. *Journal of Experimental Medicine*, 197, 711–723.
+- Boiarsky, R. et al. (2024). Deeper evaluation of a single-cell foundation model. *Nature Machine Intelligence*, 6, 1443–1446.
 - Collins, G.S. et al. (2024). TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. *BMJ*.
 - Cui, H. et al. (2024). scGPT: toward building a foundation model for single-cell multi-omics using generative AI. *Nature Methods*, 21, 1470–1480.
+- Ahlmann-Eltze, C., Huber, W. and Anders, S. (2025). Deep-learning-based gene perturbation effect prediction does not yet outperform simple linear baselines. *Nature Methods*, 22, 1657–1661.
 - Hanley, J.A. and McNeil, B.J. (1982). The meaning and use of the area under a receiver operating characteristic curve. *Radiology*, 143, 29–36.
+- Holm, S. (1979). A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics*, 6, 65–70.
+- Ilse, M., Tomczak, J.M. and Welling, M. (2018). Attention-based deep multiple instance learning. *Proceedings of the 35th International Conference on Machine Learning*.
+- Kedzierska, K.Z. et al. (2025). Zero-shot evaluation reveals limitations of single-cell foundation models. *Genome Biology*, 26, 101.
+- McInnes, L., Healy, J. and Melville, J. (2018). UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction. *arXiv*.
+- Muandet, K. et al. (2017). Kernel mean embedding of distributions: a review and beyond. *Foundations and Trends in Machine Learning*, 10, 1–141.
 - Nehar-Belaid, D. et al. (2020). Mapping systemic lupus erythematosus heterogeneity at the single-cell level. *Nature Immunology*, 21, 1094–1106.
+- Pedregosa, F. et al. (2011). Scikit-learn: machine learning in Python. *Journal of Machine Learning Research*, 12, 2825–2830.
 - Perez, R.K. et al. (2022). Single-cell RNA-seq reveals cell type-specific molecular and genetic associations to lupus. *Science*, 376, eabf1970.
+- Paszke, A. et al. (2019). PyTorch: an imperative style, high-performance deep learning library. *Advances in Neural Information Processing Systems*, 32.
+- Soneson, C. and Robinson, M.D. (2018). Bias, robustness and scalability in single-cell differential expression analysis. *Nature Methods*, 15, 255–261.
 - Squair, J.W. et al. (2021). Confronting false discoveries in single-cell differential expression. *Nature Communications*, 12, 5692.
 - Theodoris, C.V. et al. (2023). Transfer learning enables predictions in network biology. *Nature*, 618, 616–624.
-- GSE285773 GEO record: Single cell RNA profiling of blood CD4+ T cells identifies distinct helper and dysfunctional regulatory clusters in children with SLE [CD4+ T cells]. Full publication details to be verified before submission.
+- Virshup, I. et al. (2023). The scverse project provides a computational ecosystem for single-cell omics data analysis. *Nature Biotechnology*, 41, 604–606.
+- Walsh, I. et al. (2021). DOME: recommendations for supervised machine learning validation in biology. *Nature Methods*, 18, 1122–1127.
+- Wolf, F.A., Angerer, P. and Theis, F.J. (2018). SCANPY: large-scale single-cell gene expression data analysis. *Genome Biology*, 19, 15.
+- GSE285773 GEO record: Single cell RNA profiling of blood CD4+ T cells identifies distinct helper and dysfunctional regulatory clusters in children with SLE [CD4+ T cells].

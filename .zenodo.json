@@ -1,0 +1,27 @@
+{
+  "title": "RheumLens: donor-level audit benchmark for single-cell foundation-model disease representations",
+  "upload_type": "software",
+  "description": "Code, audit scripts, manuscript assets and SHA256 manifests for RheumLens.",
+  "creators": [
+    {
+      "name": "LightChainr"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "single-cell RNA-seq",
+    "foundation models",
+    "scGPT",
+    "Geneformer",
+    "systemic lupus erythematosus",
+    "benchmark",
+    "covariate sensitivity"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/LightChainr/rheumlens",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}

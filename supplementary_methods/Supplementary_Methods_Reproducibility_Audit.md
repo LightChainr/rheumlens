@@ -2,7 +2,7 @@
 
 Version: 2026-06-23  
 Project: RheumLens A800 / Mac final manuscript assembly  
-Source report archived at: `/Users/lc/Documents/RheumLens/manuscript/source_reports/RheumLens_A800_full_project_integrated_report_20260623.txt`
+Source report archived at: `source_reports/RheumLens_A800_full_project_integrated_report_20260623.txt`
 
 This document converts the project-level execution history into a manuscript-facing reproducibility supplement. It is intended to support methods, provenance, and auditability. Operational details that do not affect scientific claims, such as transient server failures or SSH connectivity symptoms, are retained only as internal engineering context and are not part of the manuscript claim set.
 
@@ -394,4 +394,3 @@ Early execution was affected by shared-storage and SSH stability problems on mul
 - maintain fail-closed assertions for donor IDs, fold maps, label sources, and OOF uniqueness.
 
 These engineering notes are useful for reproduction and future workflow design but should remain outside the main manuscript narrative.
-

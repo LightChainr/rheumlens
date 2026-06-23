@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use RheumLens, please cite the archived code release and the associated manuscript."
+title: "RheumLens: a donor-level audit benchmark for single-cell foundation-model disease representations in systemic lupus erythematosus"
+authors:
+  - family-names: "LightChainr"
+repository-code: "https://github.com/LightChainr/rheumlens"
+license: "MIT"
+version: "0.1.0"
+date-released: "2026-06-23"
+doi: "10.5281/zenodo.TBD"
+preferred-citation:
+  type: article
+  title: "RheumLens: a donor-level audit benchmark for single-cell foundation-model disease representations in systemic lupus erythematosus"
+  authors:
+    - family-names: "LightChainr"
+  year: 2026
+  journal: "Manuscript in preparation"

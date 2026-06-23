@@ -1,0 +1,3 @@
+cohort,n_donors,n_cases,n_controls,available_covariates,missing_material_covariates,formal_adjustment_status
+GSE135779_matched500,44,33,11,"age,age_group","batch,ancestry,treatment,site,chemistry,processing_date",limited_metadata_only
+GSE285773,26,16,10,"cells_per_donor,mean_umi_per_cell,mean_genes_per_cell,mean_pct_mito","batch,ancestry,treatment,site,chemistry,processing_date",limited_metadata_only

@@ -1,0 +1,32 @@
+{
+  "n_present": 20,
+  "present_genes": [
+    "IFI44L",
+    "IFI44",
+    "IFI27",
+    "ISG15",
+    "MX1",
+    "MX2",
+    "OAS1",
+    "OAS2",
+    "OAS3",
+    "OASL",
+    "IFIT1",
+    "IFIT2",
+    "IFIT3",
+    "RSAD2",
+    "SIGLEC1",
+    "STAT1",
+    "IRF7",
+    "USP18",
+    "XAF1",
+    "EPSTI1"
+  ],
+  "auc": 0.9062850729517397,
+  "welch_p": 3.6407225963837295e-29,
+  "cohen_d": 1.3723018203987645,
+  "mean_sle": 0.17726793885231018,
+  "mean_control": 0.0587330162525177,
+  "n_sle": 162,
+  "n_control": 99
+}

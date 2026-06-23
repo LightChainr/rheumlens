@@ -9,7 +9,7 @@ description = "Leakage-resistant donor-level single-cell benchmarking and origin
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10,<3.13"
-authors = [{name = "LightChainr", email = ""}]
+authors = [{name = "LightChainr"}]
 keywords = [
   "single-cell RNA-seq",
   "foundation model",
@@ -49,7 +49,7 @@ Issues = "https://github.com/LightChainr/rheumlens/issues"
 io = ["anndata>=0.10", "pyarrow>=14"]
 gpu = ["torch>=2.1"]
 full = ["anndata>=0.10", "pyarrow>=14", "torch>=2.1", "matplotlib>=3.8", "psutil>=5.9"]
-dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10", "tabulate>=0.9"]
 
 [project.scripts]
 rheumlens = "rheumlens.run:main"
