@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
-[![DOI](https://zenodo.org/badge/DOI/TBD.svg)](https://doi.org/TBD)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20813923.svg)](https://doi.org/10.5281/zenodo.20813923)
 
 RheumLens is a donor-level benchmark and audit workflow for evaluating single-cell foundation-model disease representations. It uses donor-disjoint folds, out-of-fold prediction, source-only transfer, paired resampling, representation provenance checks, cell-count sensitivity, covariate sensitivity, and kernel diagnostics to produce auditable classification results for systemic lupus erythematosus (SLE) single-cell RNA-seq cohorts.
 

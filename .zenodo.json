@@ -17,6 +17,7 @@
     "benchmark",
     "covariate sensitivity"
   ],
+  "doi": "10.5281/zenodo.20813923",
   "related_identifiers": [
     {
       "identifier": "https://github.com/LightChainr/rheumlens",

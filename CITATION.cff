@@ -7,7 +7,7 @@ repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
 version: "0.1.0"
 date-released: "2026-06-23"
-doi: "10.5281/zenodo.TBD"
+doi: "10.5281/zenodo.20813923"
 preferred-citation:
   type: article
   title: "RheumLens: a donor-level audit benchmark for single-cell foundation-model disease representations in systemic lupus erythematosus"
