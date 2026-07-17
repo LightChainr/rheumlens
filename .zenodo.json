@@ -1,23 +1,26 @@
 {
-  "title": "RheumLens: donor-level audit benchmark for single-cell foundation-model disease representations",
+  "title": "Cross-cohort benchmarking of frozen Geneformer and expression pseudobulk for donor-level SLE classification",
   "upload_type": "software",
-  "description": "Code, audit scripts, manuscript assets and SHA256 manifests for RheumLens.",
+  "description": "Code, donor-level results, source tables, editable multi-panel figures, and manuscript assets for a source-only cross-cohort benchmark of frozen Geneformer and expression pseudobulk in systemic lupus erythematosus.",
   "creators": [
     {
-      "name": "LightChainr"
+      "name": "LightChainr",
+      "affiliation": "Shanghai Pudong Hospital"
     }
   ],
   "license": "MIT",
+  "version": "1.0.0",
+  "publication_date": "2026-07-17",
   "keywords": [
-    "single-cell RNA-seq",
-    "foundation models",
-    "scGPT",
-    "Geneformer",
+    "single-cell RNA sequencing",
     "systemic lupus erythematosus",
-    "benchmark",
-    "covariate sensitivity"
+    "Geneformer",
+    "pseudobulk",
+    "patient-level prediction",
+    "cross-cohort transfer",
+    "foundation models",
+    "bioinformatics benchmarking"
   ],
-  "doi": "10.5281/zenodo.20813923",
   "related_identifiers": [
     {
       "identifier": "https://github.com/LightChainr/rheumlens",

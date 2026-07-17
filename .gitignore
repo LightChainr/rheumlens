@@ -45,7 +45,7 @@ Thumbs.db
 *.parquet
 *.pkl
 *.joblib
-data/
+/data/
 !results_manifest/
 
 # Logs

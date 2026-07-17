@@ -15,7 +15,7 @@ from rheumlens.catalog import catalog_rows
 from rheumlens.config import load_yaml
 from rheumlens.data.io import load_npz_dataset, save_npz_dataset
 from rheumlens.data.validation import validate_embedding, validate_raw_counts
-from rheumlens.evaluation.engine import BagMethod, FixedMethod, run_bag_oof, run_fixed_oof
+from rheumlens.evaluation.engine import FixedMethod, run_bag_oof, run_fixed_oof
 from rheumlens.evaluation.splits import load_folds, make_stratified_folds, save_folds
 from rheumlens.evaluation.transfer import run_source_target
 from rheumlens.evaluation.workflows import (
@@ -453,7 +453,7 @@ def _smoke(config: dict[str, Any]) -> None:
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description="RheumLens v4 donor-level benchmark runner")
+    parser = argparse.ArgumentParser(description="Cross-cohort donor-level benchmark runner")
     parser.add_argument("--config", required=False)
     parser.add_argument(
         "--stage",
