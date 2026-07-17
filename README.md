@@ -39,9 +39,9 @@ All supervised analyses use donors as the independent unit. Reciprocal external 
 | GSE174188 | 261 | CD4-positive T cells |
 | GSE285773 | 26 | CD4-positive T cells |
 
-## Version 1.0.0 archive
+## Version 1.0.1 archive
 
-The `release_v1.0.0/` directory contains the manuscript snapshot and all newly consolidated public assets:
+Version 1.0.1 is a packaging-only correction that stores the manuscript DOCX directly in the repository archive rather than as a Git LFS pointer. The research snapshot remains under `release_v1.0.0/` and contains the manuscript and all newly consolidated public assets:
 
 ```text
 release_v1.0.0/
@@ -78,10 +78,11 @@ The results apply to the evaluated public SLE cohorts, frozen Geneformer embeddi
 
 - Repository: <https://github.com/LightChainr/rheumlens>
 - Stable concept DOI: <https://doi.org/10.5281/zenodo.20813922>
+- Version DOI (`v1.0.0`): <https://doi.org/10.5281/zenodo.21412278>
 - Previous version DOI (`v0.1.1`): <https://doi.org/10.5281/zenodo.20813923>
 - Raw datasets: GEO GSE135779, GSE174188, and GSE285773
 
-Large raw matrices and cell-level embedding archives are not redistributed in Git. Their provenance, hashes, and regeneration context are retained in the project records. Donor-level and plot-ready outputs needed for the public manuscript figures are included in the `v1.0.0` archive.
+Large raw matrices and cell-level embedding archives are not redistributed in Git. Their provenance, hashes, and regeneration context are retained in the project records. Donor-level and plot-ready outputs needed for the public manuscript figures are included in the versioned research archive.
 
 ## Citation
 

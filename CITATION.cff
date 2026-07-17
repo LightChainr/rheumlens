@@ -6,7 +6,7 @@ authors:
     affiliation: "Shanghai Pudong Hospital"
 repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
-version: "1.0.0"
+version: "1.0.1"
 date-released: "2026-07-17"
 doi: "10.5281/zenodo.20813922"
 keywords:
