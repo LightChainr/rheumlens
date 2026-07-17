@@ -6,6 +6,7 @@
 
 - Stored the release manuscript DOCX as a regular Git object so Zenodo's automatically generated source archive contains the complete document instead of a Git LFS pointer.
 - Retained all analyses, figures, source tables, checksums, and scientific conclusions unchanged from version 1.0.0.
+- Archived as version DOI [10.5281/zenodo.21412436](https://doi.org/10.5281/zenodo.21412436).
 
 ## 1.0.0 - 2026-07-17
 
