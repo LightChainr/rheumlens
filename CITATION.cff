@@ -1,16 +1,23 @@
 cff-version: 1.2.0
-message: "If you use RheumLens, please cite the archived code release and the associated manuscript."
-title: "RheumLens: a donor-level audit benchmark for single-cell foundation-model disease representations in systemic lupus erythematosus"
+message: "Please cite the archived software release and the associated manuscript when using these benchmark assets."
+title: "Cross-cohort benchmarking of frozen Geneformer and expression pseudobulk for donor-level SLE classification"
 authors:
   - family-names: "LightChainr"
+    affiliation: "Shanghai Pudong Hospital"
 repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
-version: "0.1.0"
-date-released: "2026-06-23"
-doi: "10.5281/zenodo.20813923"
+version: "1.0.0"
+date-released: "2026-07-17"
+doi: "10.5281/zenodo.20813922"
+keywords:
+  - "single-cell RNA sequencing"
+  - "systemic lupus erythematosus"
+  - "Geneformer"
+  - "pseudobulk"
+  - "cross-cohort transfer"
 preferred-citation:
   type: article
-  title: "RheumLens: a donor-level audit benchmark for single-cell foundation-model disease representations in systemic lupus erythematosus"
+  title: "Cross-cohort SLE transfer reveals a pseudobulk advantage over frozen Geneformer donor representations"
   authors:
     - family-names: "LightChainr"
   year: 2026

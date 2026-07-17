@@ -57,4 +57,12 @@ if [[ -f extension_results_20260623/MANIFEST_SHA256.tsv ]]; then
   check_path_bytes_sha_manifest extension_results_20260623/MANIFEST_SHA256.tsv extension_results_20260623
 fi
 
+if [[ -f release_v1.0.0/MANIFEST_SHA256.txt ]]; then
+  check_sha_path_manifest release_v1.0.0/MANIFEST_SHA256.txt release_v1.0.0
+fi
+
+if [[ -f MANIFEST_SHA256.txt ]]; then
+  check_sha_path_manifest MANIFEST_SHA256.txt .
+fi
+
 echo "Manifest verification passed."

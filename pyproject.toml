@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rheumlens"
-version = "0.1.0"
-description = "Leakage-resistant donor-level single-cell benchmarking and original aggregation models"
+version = "1.0.0"
+description = "Cross-cohort donor-level benchmarking of single-cell representations in SLE"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 requires-python = ">=3.10,<3.13"
 authors = [{name = "LightChainr"}]
 keywords = [
@@ -18,12 +18,11 @@ keywords = [
   "systemic lupus erythematosus",
   "donor-level classification",
   "benchmark",
-  "covariate sensitivity",
+  "cross-cohort transfer",
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",

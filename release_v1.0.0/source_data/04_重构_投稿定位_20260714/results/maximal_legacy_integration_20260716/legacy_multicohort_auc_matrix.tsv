@@ -1,0 +1,32 @@
+label	GSE135779	GSE174188_CD4	GSE285773
+Raw pseudobulk	0.9725	0.9879	0.9562
+Weighted calibrated KME		0.9698	
+Count-calibrated KME		0.9696	
+red / geneformer	0.9642		
+focus lite / scgpt	0.9669	0.9579	
+tail fractions / geneformer	0.9614		
+focus lite / geneformer	0.9614		
+FOCUS-lite		0.9579	
+Expression PCA	0.9146	0.9857	0.9688
+red / scgpt	0.9559	0.9393	
+Graph donor signature		0.9464	
+Mean-HVG pseudobulk	0.8926	0.984	0.9625
+cckme u / scgpt	0.9174	0.9696	
+Mean + variance (Geneformer)	0.9421		
+prototype histogram / geneformer	0.9421		
+Reference evidence decomposition		0.9393	
+DonorCLR		0.9355	
+Geneformer mean	0.9256		
+quantiles / geneformer	0.9174		
+scGPT mean	0.8457	0.9784	0.925
+prototype histogram / scgpt	0.9091	0.9468	0.8688
+Multiscale KME (scGPT)	0.8733	0.9779	0.8625
+Mean + variance (scGPT)	0.9256	0.9666	0.8188
+cckme u / geneformer	0.9036		
+ISG scalar	0.8678		0.9312
+quantiles / scgpt	0.9091	0.9602	0.8125
+Multiscale KME (Geneformer)	0.8926		
+ISG vector	0.876		0.9
+tail fractions / scgpt	0.9091	0.9622	0.7812
+uder kme / scgpt	0.8981	0.5652	
+uder meanvar / scgpt	0.8044	0.5524	
