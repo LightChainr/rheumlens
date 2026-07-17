@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 - 2026-07-17
+
+### Fixed
+
+- Stored the release manuscript DOCX as a regular Git object so Zenodo's automatically generated source archive contains the complete document instead of a Git LFS pointer.
+- Retained all analyses, figures, source tables, checksums, and scientific conclusions unchanged from version 1.0.0.
+
 ## 1.0.0 - 2026-07-17
 
 ### Added
