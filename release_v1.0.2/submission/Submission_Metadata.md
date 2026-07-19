@@ -38,5 +38,6 @@ Cross-Cohort SLE Donor Representations
 
 ## Data and Code
 
-- Stable Zenodo concept DOI: https://doi.org/10.5281/zenodo.20813922
+- Zenodo version DOI: https://doi.org/10.5281/zenodo.21436893
+- Zenodo concept DOI: https://doi.org/10.5281/zenodo.20813922
 - GitHub: https://github.com/LightChainr/rheumlens

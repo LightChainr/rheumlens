@@ -15,10 +15,9 @@ Validation date: 19 July 2026
 - Supplementary DOCX: ZIP/OOXML integrity passed.
 - Supplementary workbook: 25 sheets; Tables S19 and S20 present and readable.
 - Main figures: eight PNG files, each at least 2,327 pixels on its shorter reported axis.
-- Stable DOI substitution: release text and rendered documents reference concept DOI `10.5281/zenodo.20813922`; the previous v1.0.1 DOI is retained only as historical metadata.
+- DOI freeze: release text and rendered documents reference version DOI `10.5281/zenodo.21436893` and stable concept DOI `10.5281/zenodo.20813922`; the previous v1.0.1 DOI is retained only as historical metadata.
 - Release and repository SHA256 manifests: generated and verified.
 
 ## Non-blocking historical lint debt
 
 A full-repository Ruff scan reports 19 pre-existing findings in historical package modules and tests. None is introduced by the v1.0.2 release files or version-consistency test; the changed-file Ruff gate passes. These style findings do not affect the release analyses or package execution.
-

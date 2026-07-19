@@ -26,5 +26,4 @@ Version 1.0.2 is the submission-stage scientific and reproducibility update for 
 - Release and repository SHA256 manifests: generated and verified.
 - Python package version metadata: synchronized at 1.0.2.
 
-The stable Zenodo concept DOI is [10.5281/zenodo.20813922](https://doi.org/10.5281/zenodo.20813922). A version-specific DOI can be documented after Zenodo mints the v1.0.2 record.
-
+The version DOI is [10.5281/zenodo.21436893](https://doi.org/10.5281/zenodo.21436893); the stable concept DOI is [10.5281/zenodo.20813922](https://doi.org/10.5281/zenodo.20813922).

@@ -6,6 +6,7 @@ This document describes the public assets for the cross-cohort SLE donor-represe
 
 - Public repository: <https://github.com/LightChainr/rheumlens>
 - Stable Zenodo concept DOI: <https://doi.org/10.5281/zenodo.20813922>.
+- Version 1.0.2 DOI: <https://doi.org/10.5281/zenodo.21436893>.
 - Submission-stage research snapshot: `release_v1.0.2/`.
 - Reproducible environment files: `environment.yml`, `Dockerfile`, `Singularity.def`.
 - Minimal verification command:
@@ -47,4 +48,4 @@ The GSE174188 feature-name repair table is derived from the source h5ad `var.fea
 
 - Verify repository manifests with `bash scripts/verify_manifests.sh`.
 - Verify the Python package and tests with `pytest -q`.
-- Use the stable concept DOI until a version-specific v1.0.2 DOI is minted.
+- Cite version DOI `10.5281/zenodo.21436893` when referring to the submission-stage snapshot.
