@@ -1,7 +1,7 @@
 {
   "title": "Cross-cohort benchmarking of frozen Geneformer and expression pseudobulk for donor-level SLE classification",
   "upload_type": "software",
-  "description": "Code, donor-level results, source tables, editable multi-panel figures, and manuscript assets for a source-only cross-cohort benchmark of frozen Geneformer and expression pseudobulk in systemic lupus erythematosus.",
+  "description": "Code, donor-level results, source tables, editable multi-panel figures, and manuscript assets for a donor-level, source-only cross-cohort benchmark of frozen Geneformer and expression pseudobulk in systemic lupus erythematosus. Version 1.0.2 adds a fold-scaled, nested-regularization internal sensitivity analysis, cohort-characteristic tables, exact Geneformer extraction details, and calibrated interpretation of external prediction scores.",
   "creators": [
     {
       "name": "LightChainr",
@@ -9,8 +9,8 @@
     }
   ],
   "license": "MIT",
-  "version": "1.0.1",
-  "publication_date": "2026-07-17",
+  "version": "1.0.2",
+  "publication_date": "2026-07-19",
   "keywords": [
     "single-cell RNA sequencing",
     "systemic lupus erythematosus",

@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.0.2 - 2026-07-19
+
+### Added
+
+- A 20-repeat donor-stratified internal benchmark with training-fold feature scaling and nested regularization selection.
+- Supplementary Table S19 with available case-control cohort characteristics, standardized differences, missingness, and donor-level QC.
+- Supplementary Table S20 with corrected internal sensitivity results.
+- Exact Geneformer extraction details and a self-contained Applied Sciences submission snapshot.
+
+### Changed
+
+- Reframed internal AUCs as preprocessing-sensitive and retained strict reciprocal external transfer as the primary representation-selection evidence.
+- Distinguished external discrimination from calibrated clinical risk using prevalence-null Brier references and explicit scope language.
+- Synchronized package metadata and runtime `__version__` at 1.0.2.
+
+### Fixed
+
+- Corrected the primary internal comparison, which previously used unscaled feature blocks with fixed `C=1`.
+- Restored sequential main-table numbering, complete Supplementary Tables S1-S20, and clean repository-link rendering.
+
 ## 1.0.1 - 2026-07-17
 
 ### Fixed

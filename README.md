@@ -39,22 +39,23 @@ All supervised analyses use donors as the independent unit. Reciprocal external 
 | GSE174188 | 261 | CD4-positive T cells |
 | GSE285773 | 26 | CD4-positive T cells |
 
-## Version 1.0.1 archive
+## Version 1.0.2 archive
 
-Version 1.0.1 is a packaging-only correction that stores the manuscript DOCX directly in the repository archive rather than as a Git LFS pointer. The research snapshot remains under `release_v1.0.0/` and contains the manuscript and all newly consolidated public assets:
+Version 1.0.2 is the submission-stage research snapshot. It adds the corrected fold-scaled internal benchmark, complete Supplementary Tables S1-S20, explicit cohort-characteristic reporting, exact Geneformer extraction details, and a calibrated interpretation of external prediction scores. The self-contained snapshot is under `release_v1.0.2/`:
 
 ```text
-release_v1.0.0/
-├── manuscript/           # Markdown, DOCX, and visually verified PDF
-├── figures/svg/          # 11 editable multi-panel SVG figures
-├── figures/previews/     # PNG review copies
-├── source_data/          # 37 traceable figure-source records
-├── scripts/              # Figure, transfer, pooling, and validation scripts
-├── provenance/           # Source mapping, evidence boundaries, and QA reports
+release_v1.0.2/
+├── manuscript/           # Applied Sciences manuscript in Markdown, DOCX, and PDF
+├── supplementary/        # Supplementary text, PDF, and Tables S1-S20 workbook
+├── figures/              # Eight final main figures and editable SVG sources
+├── source_data/          # Corrected repeated-CV metrics
+├── scripts/              # Corrected analysis and workbook builders
+├── submission/           # Cover letter and submission metadata
+├── provenance/           # Technical review and package validation
 └── MANIFEST_SHA256.txt   # Release-level checksums
 ```
 
-The broader repository retains the original benchmarking package, tests, historical supplementary tables, and earlier fixed-split analyses for provenance.
+The broader repository retains the original benchmarking package, the v1.0.0 research snapshot, tests, historical supplementary tables, and earlier fixed-split analyses for provenance.
 
 ## Reproduce and validate
 
@@ -78,7 +79,8 @@ The results apply to the evaluated public SLE cohorts, frozen Geneformer embeddi
 
 - Repository: <https://github.com/LightChainr/rheumlens>
 - Stable concept DOI: <https://doi.org/10.5281/zenodo.20813922>
-- Current version DOI (`v1.0.1`): <https://doi.org/10.5281/zenodo.21412436>
+- Current release (`v1.0.2`): use the stable concept DOI until the version-specific Zenodo DOI is minted: <https://doi.org/10.5281/zenodo.20813922>
+- Previous version DOI (`v1.0.1`): <https://doi.org/10.5281/zenodo.21412436>
 - Superseded version DOI (`v1.0.0`): <https://doi.org/10.5281/zenodo.21412278>
 - Previous version DOI (`v0.1.1`): <https://doi.org/10.5281/zenodo.20813923>
 - Raw datasets: GEO GSE135779, GSE174188, and GSE285773

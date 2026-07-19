@@ -2,5 +2,5 @@
 
 from rheumlens.constants import PRIMARY_ISG_15
 
-__version__ = "4.0.0"
+__version__ = "1.0.2"
 __all__ = ["PRIMARY_ISG_15", "__version__"]

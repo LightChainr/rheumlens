@@ -1,0 +1,65 @@
+{
+  "checks": [
+    {
+      "check": "abstract <= 200 words",
+      "pass": true,
+      "detail": "196"
+    },
+    {
+      "check": "required manuscript sections",
+      "pass": true,
+      "detail": "complete"
+    },
+    {
+      "check": "eight linked main figures",
+      "pass": true,
+      "detail": "8"
+    },
+    {
+      "check": "35 linked supplementary figures",
+      "pass": true,
+      "detail": "35"
+    },
+    {
+      "check": "main-figure pixel dimensions",
+      "pass": true,
+      "detail": "all >=2300x2000"
+    },
+    {
+      "check": "mandatory cover-letter statements",
+      "pass": true,
+      "detail": "complete"
+    },
+    {
+      "check": "ready-to-upload file set",
+      "pass": true,
+      "detail": "Applied_Sciences_Cover_Letter.docx, Applied_Sciences_Main_Manuscript.docx, Applied_Sciences_Supplementary_Information.pdf, Applied_Sciences_Supplementary_Tables_S1-S20.xlsx, Main_Figures_High_Resolution_PNG.zip"
+    },
+    {
+      "check": "journal upload total < 120 MB",
+      "pass": true,
+      "detail": "54.0 MB"
+    },
+    {
+      "check": "main-figure ZIP integrity",
+      "pass": true,
+      "detail": "8 files; bad=None"
+    },
+    {
+      "check": "no submission placeholders",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "check": "Zenodo version DOI present",
+      "pass": true,
+      "detail": "v1.0.1 DOI"
+    },
+    {
+      "check": "GitHub repository present",
+      "pass": true,
+      "detail": "repository URL"
+    }
+  ],
+  "all_pass": true
+}
