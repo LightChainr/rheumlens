@@ -268,7 +268,7 @@ Pseudobulk outperformed mean-pooled frozen Geneformer embeddings in reciprocal c
 
 ## Supplementary Materials
 
-The supporting information is provided as two separate files: Figures S1-S35 with complete captions and scope notes, and Supplementary Tables S1-S20 as an indexed workbook. Reproducibility records, donor-level predictions, analysis scripts, and source data are archived under the [stable Zenodo concept DOI](https://doi.org/10.5281/zenodo.20813922) and [public GitHub repository](https://github.com/LightChainr/rheumlens).
+The supporting information is provided as two separate files: Figures S1-S35 with complete captions and scope notes, and Supplementary Tables S1-S20 as an indexed workbook. Reproducibility records, donor-level predictions, analysis scripts, and source data are archived in the [versioned Zenodo record](https://doi.org/10.5281/zenodo.21436893) and [public GitHub repository](https://github.com/LightChainr/rheumlens).
 
 ## Author Contributions
 
@@ -288,7 +288,7 @@ Not applicable. No new participants were recruited, and the analyses used public
 
 ## Data Availability Statement
 
-All datasets analyzed in this study are publicly available from the Gene Expression Omnibus under accession numbers GSE135779, GSE174188, and GSE285773. Processed donor-level representations, fixed cross-validation splits, predictions, analysis scripts, software manifests, and figure source data are available under the [stable Zenodo concept DOI](https://doi.org/10.5281/zenodo.20813922) and [public GitHub repository](https://github.com/LightChainr/rheumlens).
+All datasets analyzed in this study are publicly available from the Gene Expression Omnibus under accession numbers GSE135779, GSE174188, and GSE285773. Processed donor-level representations, fixed cross-validation splits, predictions, analysis scripts, software manifests, and figure source data are available through the [versioned Zenodo record](https://doi.org/10.5281/zenodo.21436893) (concept DOI: https://doi.org/10.5281/zenodo.20813922) and [public GitHub repository](https://github.com/LightChainr/rheumlens).
 
 ## Acknowledgments
 

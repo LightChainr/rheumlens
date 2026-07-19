@@ -13,5 +13,4 @@ This directory is the self-contained submission-stage evidence snapshot for the 
 
 The primary evidence is strict reciprocal source-only transfer between the two CD4-positive cohorts. The corrected internal benchmark uses 20 repeated donor-stratified five-fold analyses, training-fold scaling of every final feature block, and nested source-donor selection of logistic-regression regularization. Historical unscaled fixed-`C=1` results remain in earlier snapshots only as provenance.
 
-The stable Zenodo concept DOI is [10.5281/zenodo.20813922](https://doi.org/10.5281/zenodo.20813922).
-
+The version DOI is [10.5281/zenodo.21436893](https://doi.org/10.5281/zenodo.21436893); the stable concept DOI is [10.5281/zenodo.20813922](https://doi.org/10.5281/zenodo.20813922).

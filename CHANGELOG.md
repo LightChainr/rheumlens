@@ -19,6 +19,7 @@
 
 - Corrected the primary internal comparison, which previously used unscaled feature blocks with fixed `C=1`.
 - Restored sequential main-table numbering, complete Supplementary Tables S1-S20, and clean repository-link rendering.
+- Archived as version DOI [10.5281/zenodo.21436893](https://doi.org/10.5281/zenodo.21436893).
 
 ## 1.0.1 - 2026-07-17
 

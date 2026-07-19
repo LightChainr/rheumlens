@@ -8,7 +8,7 @@ repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
 version: "1.0.2"
 date-released: "2026-07-19"
-doi: "10.5281/zenodo.20813922"
+doi: "10.5281/zenodo.21436893"
 keywords:
   - "single-cell RNA sequencing"
   - "systemic lupus erythematosus"

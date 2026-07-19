@@ -32,4 +32,4 @@ The revised interpretation is that all three representations discriminate well i
 
 ## Version-freeze status
 
-The public v1.0.1 GitHub/Zenodo release remains an internally consistent archived prior release. Version 1.0.2 adds the fold-scaled analysis, Supplementary Tables S19-S20, revised manuscript, exact extraction details, and corrected package metadata. The release snapshot uses the stable Zenodo concept DOI so it remains valid before and after Zenodo mints the version-specific v1.0.2 DOI. The version DOI should be documented in a follow-up metadata commit after minting.
+The public v1.0.1 GitHub/Zenodo release remains an internally consistent archived prior release. Version 1.0.2 adds the fold-scaled analysis, Supplementary Tables S19-S20, revised manuscript, exact extraction details, and corrected package metadata. Zenodo archived the release as version DOI `10.5281/zenodo.21436893` under stable concept DOI `10.5281/zenodo.20813922`.

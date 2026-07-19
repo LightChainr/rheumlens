@@ -12,7 +12,7 @@ The manuscript makes three contributions. First, it provides reciprocal external
 
 The manuscript fits the Special Issue because it combines an applied computational-biology question, rigorous benchmarking of bioinformatic representations, and a reproducible workflow addressing a concrete biological and translational problem. The study does not claim clinical diagnostic readiness; its contribution is an externally validated framework for representation selection under cohort shift.
 
-This manuscript, in whole or in part, has not been published previously and is not currently under consideration for publication in another journal. All authors have read and approved the manuscript and agree with its submission to *Applied Sciences*. The authors declare no conflicts of interest. The study uses public, de-identified datasets. Reproducibility materials are available at https://doi.org/10.5281/zenodo.20813922 and https://github.com/LightChainr/rheumlens.
+This manuscript, in whole or in part, has not been published previously and is not currently under consideration for publication in another journal. All authors have read and approved the manuscript and agree with its submission to *Applied Sciences*. The authors declare no conflicts of interest. The study uses public, de-identified datasets. Reproducibility materials are available at https://doi.org/10.5281/zenodo.21436893 and https://github.com/LightChainr/rheumlens.
 
 Thank you for your consideration.
 
