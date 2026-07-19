@@ -61,6 +61,10 @@ if [[ -f release_v1.0.0/MANIFEST_SHA256.txt ]]; then
   check_sha_path_manifest release_v1.0.0/MANIFEST_SHA256.txt release_v1.0.0
 fi
 
+if [[ -f release_v1.0.2/MANIFEST_SHA256.txt ]]; then
+  check_sha_path_manifest release_v1.0.2/MANIFEST_SHA256.txt release_v1.0.2
+fi
+
 if [[ -f MANIFEST_SHA256.txt ]]; then
   check_sha_path_manifest MANIFEST_SHA256.txt .
 fi

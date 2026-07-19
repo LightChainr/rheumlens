@@ -1,18 +1,19 @@
-# RheumLens claim boundary
+# Claim boundary
 
 Allowed claims:
 
-- Frozen scGPT and repaired Geneformer embeddings contain reproducible donor-level SLE signal in the audited cohorts.
-- Expression baselines are highly competitive and frequently lead in AUC.
-- Source-only CD4 transfer between GSE285773 and GSE174188 shows cross-study signal.
-- Measured covariates in GSE174188 CD4 carry substantial discriminative information and attenuate interpretation of high AUCs.
-- GSE174188 CD4 donor-level gene analysis recovers a strong interferon-associated SLE axis.
-- RheumLens provides a reproducible donor-level audit framework.
+- Frozen mean-pooled Geneformer embeddings and expression pseudobulk contain donor-level SLE discrimination in the evaluated cohorts.
+- Strict reciprocal source-only CD4 transfer supports a pseudobulk advantage in the evaluated directions.
+- Within-cohort method ordering is sensitive to feature scaling and regularization, while all retained representations discriminate strongly.
+- Geneformer discrimination is associated with an interferon-related expression axis, but this is an attribution sensitivity rather than causal mediation.
+- Cell-budget, source-donor, pooling, fusion, and calibration analyses define the evaluated operating range of the representations.
 
 Disallowed claims:
 
 - Clinical deployment readiness.
+- Direct interpretation of external prediction scores as calibrated individual risk.
 - Causal disease mechanism discovery.
 - Foundation-model superiority over expression baselines.
+- General inferiority of fine-tuned foundation models or learned patient-level pooling.
 - Generalization to untested platforms or future clinical cohorts.
 - Absence of unmeasured confounding.

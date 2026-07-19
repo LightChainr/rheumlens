@@ -6,9 +6,9 @@ authors:
     affiliation: "Shanghai Pudong Hospital"
 repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
-version: "1.0.1"
-date-released: "2026-07-17"
-doi: "10.5281/zenodo.21412436"
+version: "1.0.2"
+date-released: "2026-07-19"
+doi: "10.5281/zenodo.20813922"
 keywords:
   - "single-cell RNA sequencing"
   - "systemic lupus erythematosus"
@@ -17,7 +17,7 @@ keywords:
   - "cross-cohort transfer"
 preferred-citation:
   type: article
-  title: "Cross-cohort SLE transfer reveals a pseudobulk advantage over frozen Geneformer donor representations"
+  title: "Cross-Cohort Benchmarking of Frozen Geneformer and Expression Pseudobulk for Donor-Level SLE Classification"
   authors:
     - family-names: "LightChainr"
   year: 2026
