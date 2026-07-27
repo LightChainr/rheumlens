@@ -1,0 +1,3 @@
+design_variable	n_levels	n_mixed_levels	n_donors_in_mixed_levels	fraction_donors_in_mixed_levels	mixed_levels
+batch	6	5	36	0.8181818181818182	B2,B3,B4,B5,B6
+collection_year	4	2	32	0.7272727272727273	2017,2018

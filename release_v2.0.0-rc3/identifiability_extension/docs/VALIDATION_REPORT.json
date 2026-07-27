@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "check": "simulation row count",
+      "passed": true
+    },
+    {
+      "check": "perfect-collinearity observational equivalence",
+      "passed": true
+    },
+    {
+      "check": "mean information fraction is non-increasing with rho",
+      "passed": true
+    },
+    {
+      "check": "information fraction vanishes at perfect collinearity",
+      "passed": true
+    },
+    {
+      "check": "external AUC is near chance when biological effect is zero",
+      "passed": true
+    },
+    {
+      "check": "GSE135779 complete-design AUC reproduces locked estimate",
+      "passed": true
+    },
+    {
+      "check": "GSE135779 complete design exceeds label-permutation null",
+      "passed": true
+    },
+    {
+      "check": "composition donor count",
+      "passed": true
+    },
+    {
+      "check": "composition case count",
+      "passed": true
+    },
+    {
+      "check": "all composition variants present",
+      "passed": true
+    },
+    {
+      "check": "all composition variants have nontrivial internal AUC",
+      "passed": true
+    },
+    {
+      "check": "wave residualisation attenuates every composition variant",
+      "passed": true
+    },
+    {
+      "check": "Figure_ID1_simulated_identifiability_landscape.svg",
+      "passed": true
+    },
+    {
+      "check": "Figure_ID1_simulated_identifiability_landscape.pdf",
+      "passed": true
+    },
+    {
+      "check": "Figure_ID1_simulated_identifiability_landscape.png",
+      "passed": true
+    },
+    {
+      "check": "Figure_ID2_empirical_null_and_composition.svg",
+      "passed": true
+    },
+    {
+      "check": "Figure_ID2_empirical_null_and_composition.pdf",
+      "passed": true
+    },
+    {
+      "check": "Figure_ID2_empirical_null_and_composition.png",
+      "passed": true
+    }
+  ],
+  "n_checks": 18,
+  "n_failures": 0,
+  "output_sha256": {
+    "figures/Figure_ID1_simulated_identifiability_landscape.pdf": "5e4362208a9ec1c05b5ed13a79e372b4e22538e9f52d741fcdf58e7431a4a371",
+    "figures/Figure_ID1_simulated_identifiability_landscape.png": "7b646759f3473337b30715b525d1b4de4f3ba770e71ba5375dad00fedf1f1f94",
+    "figures/Figure_ID1_simulated_identifiability_landscape.svg": "9c36cf12cced5da12a6f6358d4117bc6047eef35000fd51bfa4e1f1a167c2109",
+    "figures/Figure_ID2_empirical_null_and_composition.pdf": "600bfe37a36faecb6b57d9da233fd8f6e094d4d7b9ad245948e0f7a5d0be26ee",
+    "figures/Figure_ID2_empirical_null_and_composition.png": "77a5cbc8a7ce4365e21845db1647dbffad2915fbc6863b228f757f275a679dcc",
+    "figures/Figure_ID2_empirical_null_and_composition.svg": "2f266dbcb0e6e20bf1b0000bcff999f02b56ba06889fdf9f160a71579dec9c0e",
+    "results/composition/composition_manifest.json": "797499cf1237f18e517dccede891c2c691999004e934619a723c6e5988ba5f71",
+    "results/composition/composition_oof_predictions.tsv.gz": "7b71fe9a7a651a9589e6278ae67f73530e5b1a037e4bbd6a4248dddb36b473ab",
+    "results/composition/composition_repeat_metrics.tsv": "995605f537e7f4347c71cf3fe802ba6b23d4aae14910403f868d9707f6a5d1b7",
+    "results/composition/composition_restriction_metrics.tsv": "08619c0b917a1041f7f552bdbbafa2060dc7c865aca70dca1336c7f022bd58c1",
+    "results/composition/composition_summary.tsv": "96a26082249b8c1bd543b59a8df942e493cee05f708f0b632ab49f873d6fd05d",
+    "results/composition/composition_wave_predictability.tsv": "bff4e3a24a3ad3220614f0b34e937342ae1915cc7c8696259ee9de44cb10cee3",
+    "results/composition/gse174188_cd4_composition_features.tsv.gz": "a7b488a9eea21cb881984cc8e8f5fc325f7923f2015cfdf94d775dd1c29d472c",
+    "results/gse135779_null/design_information_fraction.tsv": "5cccd9ac948a604bafd590f3c977b39259a08e9a6d3dba3b8163e372f9fafb2a",
+    "results/gse135779_null/design_null_distributions.tsv.gz": "6b782e11a13a6b1e37f97931e6e3f5fd02bf095e5e2a55ea6eafd3c193d4dad5",
+    "results/gse135779_null/design_null_summary.tsv": "1c4fa96e5c52b65c35baf2b56bd8ba3cf48fff263ca04f3c8a808b4d5037f340",
+    "results/gse135779_null/discrete_overlap_summary.tsv": "2de316e46022d605762c12a60f44d8f9a190f6b96af8e30059e36f834ce38b1b",
+    "results/gse135779_null/null_audit_manifest.json": "7b6fd548d216fac907f4e7bc504d38f2d438aa0ee364eb1a2612a444d39dfc51",
+    "results/gse135779_null/observed_design_metrics.tsv": "53cddcfee2379a5155afffec9cc5c41662b487e0a219ab205d4b4d7e8590be3a",
+    "results/gse135779_null/restriction_sign_flip_tests.tsv": "53a37bf57a1c7901e09cbbcc9e9e00b338f8ed71a491a0f267ecf2d501aceb0e",
+    "results/simulation/observational_equivalence.json": "292f5b78455fb2e6010ceba2c8426cd0a4d01821ed182c947029799c3adb0b4c",
+    "results/simulation/simulation_manifest.json": "0906e31cf25cd941cab24dfbb8087b5008ac076f3aacc6d46e20e0b48b09cecc",
+    "results/simulation/simulation_replicates.tsv.gz": "f9477872319281c4b6bca0524b694ac4664d8caf40c32f37b097243457a52930",
+    "results/simulation/simulation_summary.tsv": "b82e6cb94640bc1d6d0c25660fed41926c26de6c33210088e2e456b263686567"
+  },
+  "status": "passed"
+}

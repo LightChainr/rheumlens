@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rheumlens"
-version = "2.0.0rc1"
-description = "Design validity and external generalisation of donor-level single-cell classifiers"
+version = "2.0.0rc3"
+description = "Design-label identifiability in patient-level single-cell classifiers"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10,<3.13"

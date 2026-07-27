@@ -1,0 +1,85 @@
+{
+  "base_seed": 2026072800,
+  "blocks": {
+    "all": [
+      [
+        "log_estimated_cells",
+        "log_mean_reads_per_cell",
+        "log_median_genes_per_cell",
+        "sequencing_saturation",
+        "fraction_reads_in_cells",
+        "log_median_umi_per_cell",
+        "age_years"
+      ],
+      [
+        "batch",
+        "collection_year",
+        "sex",
+        "race",
+        "ethnicity"
+      ]
+    ],
+    "batch": [
+      [],
+      [
+        "batch"
+      ]
+    ],
+    "collection_year": [
+      [],
+      [
+        "collection_year"
+      ]
+    ],
+    "demographic": [
+      [
+        "age_years"
+      ],
+      [
+        "sex",
+        "race",
+        "ethnicity"
+      ]
+    ],
+    "qc": [
+      [
+        "log_estimated_cells",
+        "log_mean_reads_per_cell",
+        "log_median_genes_per_cell",
+        "sequencing_saturation",
+        "fraction_reads_in_cells",
+        "log_median_umi_per_cell"
+      ],
+      []
+    ]
+  },
+  "classifier": "fold-contained design encoding; balanced liblinear logistic; inner 5-fold selection of C from 1e-4 through 1e4",
+  "metadata_path": "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/15_design_entanglement_20260726/release/v2.0.0-rc1/results/gse135779_metadata/gse135779_donor_metadata_restored.tsv",
+  "metadata_sha256": "4db7a3720ddd76757ea77dc4ae0898b8a24abc3009d75f5936203ecaf80aa34e",
+  "n_label_permutations_per_block": 1000,
+  "n_random_designs_per_block": 250,
+  "observed_seeds": [
+    20260801,
+    20260802,
+    20260803,
+    20260804,
+    20260805,
+    20260806,
+    20260807,
+    20260808,
+    20260809,
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814,
+    20260815,
+    20260816,
+    20260817,
+    20260818,
+    20260819,
+    20260820
+  ],
+  "restriction_path": "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/15_design_entanglement_20260726/release/v2.0.0-rc1/results/locked_validity_audit/gse135779_mixed_batch_matched.tsv",
+  "restriction_sha256": "267ae8377e017879168cbfd5f617c8ee4cc6f2f190c500ba93a902f77d7b1564"
+}

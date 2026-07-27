@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.0.0-rc3 - 2026-07-27
+
+### Added
+
+- A quantitative design-adjusted label-information scale, 11,200 simulations and
+  an exact observational-equivalence construction.
+- Complete-pipeline nulls, nonlinear design-only prediction and fold-contained
+  random-forest residualisation.
+- An internal batch-exposure negative control, attenuation-difference intervals,
+  a synthetic positive control and confound-leakage sensitivity experiment.
+- Eight main figures, Supplementary Tables S1-S30 and a complete PLOS
+  Computational Biology review object.
+- A five-check validity standard spanning estimability, full-pipeline nulls,
+  design exposure, overlap restriction and source-only external transfer.
+
+### Changed
+
+- Reframed the manuscript from a representation comparison to a general
+  identifiability problem in patient-level single-cell classification.
+- Rebuilt Figure 6 as a six-panel robustness analysis.
+- Updated the abstract, Author Summary, cover letter, references, reproducibility
+  documentation and release validator.
+
+### Validated
+
+- Four theory tests, 18 identifiability-extension checks, 16 PLOS robustness
+  checks and the 203-file release manifest passed.
+
 ## 2.0.0-rc1 - 2026-07-27
 
 ### Added

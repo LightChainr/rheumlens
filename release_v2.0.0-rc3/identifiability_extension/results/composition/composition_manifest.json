@@ -1,0 +1,45 @@
+{
+  "cell_filter": "cell_type == CD4-positive, alpha-beta T cell",
+  "classifier": "balanced liblinear logistic; training-fold scaling; inner 5-fold C selection from 1e-4 through 1e4",
+  "clr_definition": "add 0.5 to each donor-part count, close to proportions, take log, subtract donor mean log; omit final coordinate",
+  "h5ad_path": "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/05_\u539f\u59cb\u6570\u636e/GSE174188_CELLxGENE_2025-11-08.h5ad",
+  "h5ad_sha256": "7ba85edbdc033a9aeeecabe7a1cfcb0660282cc24b04f49fb52dd3825052c620",
+  "metadata_path": "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/15_design_entanglement_20260726/release/v2.0.0-rc1/inputs/design_metadata/gse174188_final_donor_covariates.tsv",
+  "metadata_sha256": "103044d004b16de8c2b372bbd6d25173d49daaf9f036ee3572e6c48036da19a8",
+  "parts": [
+    "T4_naive",
+    "T4_em",
+    "T4_reg",
+    "other_or_unassigned"
+  ],
+  "ridge_alpha": 1.0,
+  "seeds": [
+    20260801,
+    20260802,
+    20260803,
+    20260804,
+    20260805,
+    20260806,
+    20260807,
+    20260808,
+    20260809,
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814,
+    20260815,
+    20260816,
+    20260817,
+    20260818,
+    20260819,
+    20260820
+  ],
+  "variants": {
+    "clr_composition": 3,
+    "clr_plus_log_cells": 4,
+    "raw_plus_log_cells": 4,
+    "raw_proportions": 3
+  },
+  "zero_replacement_count": 0.5
+}

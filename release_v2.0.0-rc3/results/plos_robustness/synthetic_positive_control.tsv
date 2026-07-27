@@ -1,0 +1,6 @@
+simulation_setting	check	value	illustrative_pass_rule	passed
+beta=1; delta=0.5; rho=0.25; 100 replicates	design_label_estimability	0.9328842907635736	information_fraction >= 0.80	True
+beta=1; delta=0.5; rho=0.25; 100 replicates	complete_pipeline_permutation_null	0.00398406374501992	empirical upper-tail p <= 0.01	True
+beta=1; delta=0.5; rho=0.25; 100 replicates	representation_to_design_exposure	0.6258627142593532	design_only_auc <= 0.70	True
+beta=1; delta=0.5; rho=0.25; 100 replicates	adjustment_and_overlap_stability	0.02827843448121037	maximum AUC loss <= 0.05	True
+beta=1; delta=0.5; rho=0.25; 100 replicates	source_only_external_stability	-0.004743634953718878	internal minus external AUC <= 0.05	True

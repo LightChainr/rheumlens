@@ -1,0 +1,33 @@
+{
+  "analysis": "PLOS-focused robustness extension",
+  "seeds": [
+    20260801,
+    20260802,
+    20260803,
+    20260804,
+    20260805,
+    20260806,
+    20260807,
+    20260808,
+    20260809,
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814,
+    20260815,
+    20260816,
+    20260817,
+    20260818,
+    20260819,
+    20260820
+  ],
+  "outer_folds": 5,
+  "forest_trees": 96,
+  "bootstrap_replicates": 5000,
+  "confound_leakage_replicates": 100,
+  "nonlinear_residualiser": "RandomForestRegressor fitted only on outer-training donors; max_depth=4, min_samples_leaf=3.",
+  "batch_location_adjustment": "Training-only batch location centring; no empirical-Bayes scale shrinkage and therefore labelled ComBat-style rather than ComBat.",
+  "propensity_adjustment": "Training-only logistic propensity model with clipped overlap weights.",
+  "bootstrap_scope": "Paired resampling of repeat-level residualisation losses; matched restriction discrepancies are locked point estimates. Intervals are split-sensitivity intervals, not population confidence intervals."
+}

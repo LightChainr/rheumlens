@@ -1,0 +1,4 @@
+{
+  "max_absolute_difference": 0.0,
+  "statement": "At D=Y, beta=1.5/delta=0 and beta=0/delta=1.5 produce identical observed source data when the effect direction and noise are shared."
+}

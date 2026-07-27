@@ -1,20 +1,22 @@
-# Design validity in donor-level single-cell classifiers
+# Identifiability in patient-level single-cell classifiers
 
-> When design predicts disease: residualisation failure and generalisation gaps in
-> donor-level single-cell classifiers
+> When study design predicts disease: an identifiability limit for patient-level
+> single-cell classifiers
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20813922.svg)](https://doi.org/10.5281/zenodo.20813922)
 
-This branch contains the local `v2.0.0-rc1` candidate for a two-cohort evaluation of
-study-design entanglement in patient-level single-cell classification. The public
-repository name and Python package name remain `rheumlens` for backward
-compatibility; neither is used as a manuscript concept or method name.
+Version `v2.0.0-rc3` is a self-contained study of design-label identifiability in
+patient-level single-cell classification. The public repository and Python package
+retain the historical name `rheumlens` for backward compatibility; that name is not
+used as a manuscript concept or method.
 
-The self-contained candidate is under [`release_v2.0.0-rc1/`](release_v2.0.0-rc1/).
-It has not yet been tagged or deposited in Zenodo. The published `v1.0.2` benchmark
-and its DOI remain unchanged.
+The complete review object is under
+[`release_v2.0.0-rc3/`](release_v2.0.0-rc3/). It includes the manuscript, eight
+editable figure groups, Supplementary Tables S1-S30, donor-level inputs and
+predictions, simulations, complete-pipeline nulls, two locked environments,
+checksums and executable validators.
 
 ## Current scientific question
 
@@ -24,12 +26,17 @@ attributable and transportable when disease status is entangled with processing
 wave, collection year, sequencing quality, demographics and other recorded design
 variables.
 
-The current release candidate combines:
+The current release combines:
 
 - disease prediction from recorded design alone;
+- a quantitative design-adjusted label-information scale;
+- 11,200 simulations and a synthetic positive control;
+- complete-pipeline permutation and design-column-shuffle nulls;
 - recovery of batch identity from donor representations;
-- fold-contained residualisation;
+- linear and nonlinear fold-contained residualisation;
 - design restriction with size- and label-matched controls;
+- an internal batch-exposure negative control;
+- attenuation-uncertainty and confound-leakage sensitivity analyses;
 - cross-batch and strict source-only cross-cohort transfer; and
 - independent-target evaluation of learned set pooling.
 
@@ -37,17 +44,21 @@ The current release candidate combines:
 
 - Complete measured design predicts disease at AUC 0.953 in GSE174188 and 0.952 in
   GSE135779.
-- Frozen Geneformer and expression-pseudobulk representations recover recorded
-  batch identity at AUC up to 0.9997.
+- The GSE135779 complete-design AUC exceeds 1,000 complete-pipeline label
+  permutations and leaves 20.3% design-adjusted label information.
+- Donor representations recover recorded batch identity at AUC up to 0.9997.
+- Batch provides an internal negative control: batch alone predicts disease at
+  0.499 and batch residualisation changes disease AUC by at most 0.009.
 - Disease discrimination largely survives restriction to observed design overlap.
 - Residualisation can remove 0.230–0.430 AUC and collapse performance to chance when
   the projected covariates also predict disease.
 - Cross-batch and cross-cohort transfer expose the reproducible generalisation gap.
 - Learned pooling does not repair the independent-target gap.
 
-These results support four minimum checks: design-only disease AUC,
-representation-to-design predictability, design-restricted evaluation with matched
-donor controls, and fully source-fitted external validation.
+These results support five minimum checks: quantify design-label estimability, test
+the complete pipeline under null data, report representation-to-design
+predictability, pair residualisation with matched overlap restriction, and require
+fully source-fitted external validation.
 
 ## v1.0.2 benchmark question
 
@@ -100,13 +111,13 @@ The broader repository retains the original benchmarking package, the v1.0.0 res
 
 ## Reproduce and validate
 
-Validate the release candidate:
+Validate the release object:
 
 ```bash
-python3 release_v2.0.0-rc1/scripts/validate_rc_package.py release_v2.0.0-rc1
+python3 release_v2.0.0-rc3/scripts/validate_rc_package.py release_v2.0.0-rc3
 ```
 
-The candidate carries separate exact environment files for the locked donor-level
+The release carries separate exact environment files for the locked donor-level
 audit and archived Geneformer extraction. The commands below reproduce the legacy
 package and its unit tests.
 
@@ -130,8 +141,8 @@ The results apply to the evaluated public SLE cohorts, frozen Geneformer embeddi
 
 - Repository: <https://github.com/LightChainr/rheumlens>
 - Stable concept DOI: <https://doi.org/10.5281/zenodo.20813922>
-- Current published version DOI (`v1.0.2`): <https://doi.org/10.5281/zenodo.21436893>
-- Unpublished release candidate: `release_v2.0.0-rc1/`
+- Current release object: `release_v2.0.0-rc3/`
+- Previous published version DOI (`v1.0.2`): <https://doi.org/10.5281/zenodo.21436893>
 - Previous version DOI (`v1.0.1`): <https://doi.org/10.5281/zenodo.21412436>
 - Superseded version DOI (`v1.0.0`): <https://doi.org/10.5281/zenodo.21412278>
 - Previous version DOI (`v0.1.1`): <https://doi.org/10.5281/zenodo.20813923>
