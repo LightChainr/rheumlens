@@ -5,10 +5,9 @@
 
 ## Decision
 
-The research-object package is ready for the dedicated
-`release/v2.0.0-rc1` repository branch. It is not yet ready for a final public
-Zenodo version DOI because author declarations and the immutable release tag remain
-open.
+The research-object package is published for review on the dedicated
+`release/v2.0.0-rc1` repository branch. It is not yet ready for a final public Zenodo
+version DOI because author declarations and the immutable release tag remain open.
 
 ## Completed
 

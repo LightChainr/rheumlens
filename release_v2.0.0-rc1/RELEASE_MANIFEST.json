@@ -2,7 +2,7 @@
   "version": "2.0.0-rc1",
   "status": "passed",
   "file_count": 143,
-  "total_bytes": 96101269,
+  "total_bytes": 96101336,
   "errors": [],
   "files": [
     {
@@ -22,8 +22,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4424,
-      "sha256": "dce22fd81eec203853817a3e4c050f9d41db89d82172ea890182b1a75001639a"
+      "bytes": 4477,
+      "sha256": "bb76bcb4e164d8e618e2b8c1cc14883c498c3d1923623b604f5da49961faea38"
     },
     {
       "path": "REPRODUCE.md",
@@ -47,8 +47,8 @@
     },
     {
       "path": "docs/RC1_READINESS_20260727.md",
-      "bytes": 2423,
-      "sha256": "9e10afae450cdb18a76b37e5ce28b6f74e5c5498b40240e30213f50d1834fe5d"
+      "bytes": 2437,
+      "sha256": "0cbfc95d84187f823e1587cd571adce8ebc8a6b170c22f3c32e13a0c14009e79"
     },
     {
       "path": "docs/RELEASE_GATE_v1.0.3_20260727.md",

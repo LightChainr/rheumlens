@@ -6,7 +6,7 @@ This directory is the local `v2.0.0-rc1` release candidate for:
 > in donor-level single-cell classifiers**
 
 It preserves the public `v1.0.2` benchmark and starts a new scientific release line.
-This candidate is prepared for the `release/v2.0.0-rc1` prerelease branch. It has
+This candidate is published for review on the `release/v2.0.0-rc1` branch. It has
 not been tagged as a final release or deposited as a new Zenodo version.
 
 ## Scientific contribution
@@ -81,6 +81,7 @@ locked in `docs/METHODS_LOCK_20260726.md`.
 - Scientific reconstruction: **passed**
 - Manuscript numeric validation: **passed**
 - Main figures: **locked**
+- GitHub prerelease branch: **published for review**
 - Target-journal route: **PLOS Computational Biology → GigaScience →
   Bioinformatics Advances → Applied Sciences special issue**
 - Final GitHub tag and Zenodo version: **not yet published**
