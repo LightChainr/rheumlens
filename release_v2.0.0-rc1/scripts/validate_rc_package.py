@@ -21,11 +21,15 @@ FIGURES = {
 }
 REQUIRED = {
     "README.md",
+    "REPRODUCE.md",
     "CITATION.cff",
     ".zenodo.json",
+    "environment-analysis-lock.yml",
+    "environment-geneformer-lock.yml",
     "manuscript/manuscript.md",
     "docs/METHODS_LOCK_20260726.md",
     "docs/LITERATURE_AND_NOVELTY_AUDIT_20260726.md",
+    "docs/INDEPENDENT_REPRODUCTION_20260727.md",
     "docs/TECHNICAL_AUDIT_20260727.md",
     "docs/TARGET_JOURNAL_STRATEGY_20260727.md",
     "results/locked_validity_audit/release_validation.json",
@@ -37,8 +41,28 @@ REQUIRED = {
     "results/strict_source_only_transfer/strict_source_only_transfer_metrics.tsv",
     "results/learned_pooling/learned_pooling_metrics.tsv",
     "results/learned_pooling/learned_pooling_paired_tests.tsv",
+    "inputs/design_metadata/gse174188_final_donor_covariates.tsv",
+    "inputs/public_metadata/GSE135779_ST1b_donor_clinical.csv",
+    "inputs/public_metadata/GSE135779_ST1c_sequencing.csv",
+    "inputs/public_metadata/GSE135779_GEO_samples.csv",
+    "inputs/public_metadata/GSE135779_study_name_to_donor_id.csv",
+    "inputs/donor_level/SLE_GSE135779/donor_labels.tsv",
+    "inputs/donor_level/SLE_GSE135779/donor_log1p_cpm.parquet",
+    "inputs/donor_level/SLE_GSE135779/donor_embedding.parquet",
+    "inputs/donor_level/SLE_GSE174188_CD4/donor_labels.tsv",
+    "inputs/donor_level/SLE_GSE174188_CD4/donor_log1p_cpm.parquet",
+    "inputs/donor_level/SLE_GSE174188_CD4/donor_embedding.parquet",
+    "inputs/donor_level/SLE_GSE285773_CD4/donor_labels.tsv",
+    "inputs/donor_level/SLE_GSE285773_CD4/donor_log1p_cpm.parquet",
+    "inputs/donor_level/SLE_GSE285773_CD4/donor_embedding.parquet",
+    "scripts/path_config.py",
+    "scripts/build_plos_submission_pdf.py",
     "submission/plos_computational_biology/AUTHOR_SUMMARY.md",
     "submission/plos_computational_biology/COVER_LETTER.md",
+    "submission/plos_computational_biology/FIGURE_LEGENDS.md",
+    "submission/plos_computational_biology/SUPPLEMENTARY_TABLE_INDEX.md",
+    "submission/plos_computational_biology/Supplementary_Tables_v2.0.0-rc1.xlsx",
+    "submission/plos_computational_biology/Design_validity_v2.0.0-rc1_initial_submission.pdf",
 }
 FORBIDDEN_MANUSCRIPT_PATTERNS = {
     "source-internal cross-validation overestimates independent-target AUC by 0.10",
@@ -132,10 +156,22 @@ def main() -> int:
         if path.is_symlink():
             fail(errors, f"release candidate contains a symlink: {path.relative_to(root)}")
 
+    forbidden_prefixes = ("/" + "Volumes" + "/", "/" + "Users" + "/")
+    for path in (root / "scripts").rglob("*.py"):
+        text = path.read_text(encoding="utf-8")
+        if any(prefix in text for prefix in forbidden_prefixes):
+            fail(
+                errors,
+                f"machine-specific absolute path remains in {path.relative_to(root)}",
+            )
+
     files = [
         path
         for path in root.rglob("*")
-        if path.is_file() and path.name not in GENERATED
+        if path.is_file()
+        and path.name not in GENERATED
+        and "__pycache__" not in path.parts
+        and path.suffix != ".pyc"
     ]
     records = [
         {

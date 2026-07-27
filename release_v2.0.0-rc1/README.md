@@ -6,7 +6,8 @@ This directory is the local `v2.0.0-rc1` release candidate for:
 > in donor-level single-cell classifiers**
 
 It preserves the public `v1.0.2` benchmark and starts a new scientific release line.
-This candidate has **not** been tagged, pushed to GitHub or deposited in Zenodo.
+This candidate is prepared for the `release/v2.0.0-rc1` prerelease branch. It has
+not been tagged as a final release or deposited as a new Zenodo version.
 
 ## Scientific contribution
 
@@ -38,9 +39,13 @@ controls, and source-only external performance.
 - `results/covariate_audit/`: repeated covariate/residualisation supporting results.
 - `results/learned_pooling/`: learned and deterministic pooling predictions and
   paired tests.
+- `inputs/donor_level/`: donor labels, pseudobulk matrices and primary frozen
+  Geneformer donor embeddings for all three cohorts.
+- `inputs/public_metadata/` and `inputs/design_metadata/`: compact inputs required
+  for the two-cohort design audit.
 - `scripts/`: analysis code grouped by scientific block.
 - `docs/`: methods lock, technical audit, verified references, novelty audit,
-  release gate and 2026 journal strategy.
+  release gate, clean-copy reproduction record and 2026 journal strategy.
 - `submission/plos_computational_biology/`: journal-specific working documents;
   these are not part of the journal-neutral scientific claim.
 
@@ -59,16 +64,17 @@ Exact values and validation hashes are recorded in
 
 ## Reproducibility boundary
 
-The release candidate contains compact donor-level outputs, metadata, predictions,
-source tables and analysis scripts. Public raw sequencing matrices remain at their
-GEO accessions. Large intermediate cell embeddings are not duplicated here. Exact
-Geneformer checkpoint, tokenizer, extraction, sampling, software and random-seed
-details are locked in `docs/METHODS_LOCK_20260726.md`.
+The release candidate contains the donor-level inputs required to rerun the locked
+validity audit and strict source-only transfer. Public raw sequencing matrices remain
+at their GEO accessions. Cell-level embeddings used to train the exploratory learned
+pooling networks are not duplicated in Git; their locked predictions and paired
+tests are included, and the optional cell-input location is configurable through
+`RHEUMLENS_LEARNED_POOLING_INPUT_ROOT`.
 
-Some scripts retain the original project-relative paths used to generate the locked
-outputs. They are included for provenance. Before public `v2.0.0`, paths must be
-parameterised or wrapped by one repository-level runner, and the package must pass
-an independent clean-directory execution check.
+All release-facing paths default to the extracted package and can be overridden
+through the environment variables documented in `REPRODUCE.md`. Exact Geneformer
+checkpoint, tokenizer, extraction, sampling, software and random-seed details are
+locked in `docs/METHODS_LOCK_20260726.md`.
 
 ## Release status
 
@@ -77,5 +83,8 @@ an independent clean-directory execution check.
 - Main figures: **locked**
 - Target-journal route: **PLOS Computational Biology → GigaScience →
   Bioinformatics Advances → Applied Sciences special issue**
-- Public GitHub/Zenodo release: **not yet published**
+- Final GitHub tag and Zenodo version: **not yet published**
+- Clean-copy donor-level reproduction: **passed**
+- PLOS initial-submission PDF and stable supplementary workbook: **passed**
 
+See `REPRODUCE.md` for validation and analysis commands.

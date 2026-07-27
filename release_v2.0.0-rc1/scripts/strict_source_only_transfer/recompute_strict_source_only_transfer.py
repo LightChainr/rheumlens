@@ -28,17 +28,11 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 
 
-PROJECT = Path(__file__).resolve().parents[1]
-REPO = PROJECT.parents[0]
-ARCHIVE = (
-    REPO
-    / "03_远程回传"
-    / "final_gpu_figure_ready_20260709"
-    / "extracted_plus"
-    / "RheumLens_GPU_figure_ready_plus_20260709"
-)
-EXTRA = ARCHIVE / "extra"
-OUT = PROJECT / "results" / "strict_source_only_transfer_20260715"
+HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parents[1]))
+from path_config import DONOR_LEVEL_ROOT, RESULTS_ROOT
+
+OUT = RESULTS_ROOT / "strict_source_only_transfer"
 
 DATASETS = ("SLE_GSE174188_CD4", "SLE_GSE285773_CD4")
 GENEFORMER_METHOD = "geneformer_v2_316m_cell_sample1000_clspool_logistic_maxlen4096_seed001"
@@ -67,15 +61,15 @@ def sha256_lines(values: list[str]) -> str:
 
 
 def pseudobulk_path(dataset: str) -> Path:
-    return EXTRA / "pseudobulk" / dataset / "donor_log1p_cpm.parquet"
+    return DONOR_LEVEL_ROOT / dataset / "donor_log1p_cpm.parquet"
 
 
 def label_path(dataset: str) -> Path:
-    return EXTRA / "pseudobulk" / dataset / "donor_labels.tsv"
+    return DONOR_LEVEL_ROOT / dataset / "donor_labels.tsv"
 
 
 def embedding_path(dataset: str) -> Path:
-    return EXTRA / "04_models" / "Geneformer" / dataset / GENEFORMER_METHOD / "donor_embedding.parquet"
+    return DONOR_LEVEL_ROOT / dataset / "donor_embedding.parquet"
 
 
 def load_labels(dataset: str) -> pd.Series:

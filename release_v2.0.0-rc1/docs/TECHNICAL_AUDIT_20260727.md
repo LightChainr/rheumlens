@@ -106,11 +106,12 @@ advantage or the observed batch-label design structure.
 5. `scripts/validate_design_validity_release.py` passes and writes a hash-locked
    numerical validation record.
 
-## Repository packaging blockers
+## Repository packaging closure
 
-1. Replace pseudonymous Zenodo/CITATION creator metadata with Hongyu Ying,
-   Dandan Yun and Dan Liu before the next public archive.
-2. Synchronise the new manuscript, figures, source tables and release metadata from
-   one release manifest.
-3. Publish the reconstruction as a major scientific line, not as patch version
-   `v1.0.3`.
+- Creator metadata now names Hongyu Ying, Dandan Yun and Dan Liu.
+- The manuscript, figures, source tables, donor-level inputs and release metadata are
+  synchronised under one SHA256 manifest.
+- The reconstruction is prepared as `v2.0.0-rc1`, not patch version `v1.0.3`.
+- A clean-copy rerun reproduced the donor-level audit and transfer outputs.
+- The remaining checks concern author declarations and final DOI/tag substitution,
+  not analytical validity.

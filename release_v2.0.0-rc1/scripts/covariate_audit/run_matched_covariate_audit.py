@@ -18,12 +18,23 @@ from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_s
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from common import WORKSPACE, embedding_path, label_path, load_embedding, load_labels, load_pseudobulk, pseudobulk_path, sha256_file
+from common import (
+    DESIGN_METADATA_ROOT,
+    FIGURES_ROOT,
+    RESULTS_ROOT,
+    embedding_path,
+    label_path,
+    load_embedding,
+    load_labels,
+    load_pseudobulk,
+    pseudobulk_path,
+    sha256_file,
+)
 
 
 DATASET = "SLE_GSE174188_CD4"
-OUT = WORKSPACE / "results" / "02_covariate_audit"
-FIGURE = WORKSPACE / "figures" / "figure_covariate_audit"
+OUT = RESULTS_ROOT / "covariate_audit"
+FIGURE = FIGURES_ROOT / "reproduced" / "covariate_audit"
 N_REPEATS = int(os.environ.get("N_REPEATS", "20"))
 N_JOBS = min(int(os.environ.get("N_JOBS", "6")), os.cpu_count() or 1)
 N_SPLITS = 5
@@ -349,8 +360,13 @@ def plot(metrics: pd.DataFrame) -> None:
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    WORKSPACE.joinpath("figures").mkdir(parents=True, exist_ok=True)
-    covariates = pd.read_csv(WORKSPACE / "results" / "01_inputs" / "gse174188_final_donor_covariates.tsv", sep="\t", dtype={"donor_id": str}).set_index("donor_id")
+    FIGURE.parent.mkdir(parents=True, exist_ok=True)
+    covariate_path = DESIGN_METADATA_ROOT / "gse174188_final_donor_covariates.tsv"
+    covariates = pd.read_csv(
+        covariate_path,
+        sep="\t",
+        dtype={"donor_id": str},
+    ).set_index("donor_id")
     labels = load_labels(DATASET)
     donors = labels.index.to_list()
     covariates = covariates.loc[donors].copy()
@@ -403,7 +419,7 @@ def main() -> None:
             "embedding": {"path": str(embedding_path(DATASET)), "sha256": sha256_file(embedding_path(DATASET))},
             "pseudobulk": {"path": str(pseudobulk_path(DATASET)), "sha256": sha256_file(pseudobulk_path(DATASET))},
             "labels": {"path": str(label_path(DATASET)), "sha256": sha256_file(label_path(DATASET))},
-            "covariates": str(WORKSPACE / "results" / "01_inputs" / "gse174188_final_donor_covariates.tsv"),
+            "covariates": str(covariate_path),
         },
         "claim_boundary": "Sensitivity to measured covariates; no causal attribution or proof of biological independence.",
     }

@@ -25,9 +25,17 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import protocol
 
 IN, OUT = sys.argv[1], sys.argv[2]
-PROJ = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
-ARCH = (PROJ + "/04_重构_投稿定位_20260714/results/strict_source_only_transfer_20260715"
-        "/strict_source_only_transfer_predictions.tsv")
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from path_config import RESULTS_ROOT
+
+ARCH = os.environ.get(
+    "RHEUMLENS_TRANSFER_PREDICTIONS",
+    str(
+        RESULTS_ROOT
+        / "strict_source_only_transfer"
+        / "strict_source_only_transfer_predictions.tsv"
+    ),
+)
 MODELS = ("deepsets", "gatedmil", "pma")
 DIRECTIONS = (("GSE174188", "GSE285773"), ("GSE285773", "GSE174188"))
 BOOT = 5000

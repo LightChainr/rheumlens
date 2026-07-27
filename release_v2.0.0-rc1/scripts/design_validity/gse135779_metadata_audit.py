@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -18,25 +19,12 @@ import pandas as pd
 
 
 HERE = Path(__file__).resolve()
-WORKSPACE = HERE.parents[1]
-PROJECT = HERE.parents[2]
-PUBLIC = (
-    PROJECT
-    / "10_zenodo_release_20260717"
-    / "rheumlens"
-    / "evidence_package"
-    / "public_metadata"
-)
-EXTRA = (
-    PROJECT
-    / "03_远程回传"
-    / "final_gpu_figure_ready_20260709"
-    / "extracted_plus"
-    / "RheumLens_GPU_figure_ready_plus_20260709"
-    / "extra"
-)
-LABELS = EXTRA / "pseudobulk" / "SLE_GSE135779" / "donor_labels.tsv"
-OUT = WORKSPACE / "results" / "gse135779_metadata"
+sys.path.insert(0, str(HERE.parents[1]))
+from path_config import DONOR_LEVEL_ROOT, PUBLIC_METADATA_ROOT, RELEASE_ROOT, RESULTS_ROOT
+
+PUBLIC = PUBLIC_METADATA_ROOT
+LABELS = DONOR_LEVEL_ROOT / "SLE_GSE135779" / "donor_labels.tsv"
+OUT = RESULTS_ROOT / "gse135779_metadata"
 
 CLINICAL = PUBLIC / "GSE135779_ST1b_donor_clinical.csv"
 SEQUENCING = PUBLIC / "GSE135779_ST1c_sequencing.csv"
@@ -215,7 +203,10 @@ def main() -> None:
             "metadata_location": "Supplementary Table 1b (clinical/batch) and 1c (sequencing QC)",
         },
         "source_files": {
-            str(path.relative_to(PROJECT)): {"sha256": sha256(path), "bytes": path.stat().st_size}
+            str(path.relative_to(RELEASE_ROOT)): {
+                "sha256": sha256(path),
+                "bytes": path.stat().st_size,
+            }
             for path in source_files
         },
         "batch_counts": {

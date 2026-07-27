@@ -16,8 +16,14 @@ from matplotlib.colors import LinearSegmentedColormap
 
 
 HERE = Path(__file__).resolve()
-WS = HERE.parents[1]
-OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else WS / "figures_locked"
+sys.path.insert(0, str(HERE.parents[1]))
+from path_config import FIGURES_ROOT, RESULTS_ROOT
+
+OUT = (
+    Path(sys.argv[1])
+    if len(sys.argv) > 1
+    else FIGURES_ROOT / "reproduced_locked"
+)
 OUT.mkdir(parents=True, exist_ok=True)
 
 BLUE = "#2866b1"
@@ -95,33 +101,30 @@ def save(fig, stem: str) -> None:
 
 
 summary = pd.read_csv(
-    WS / "results" / "locked_validity_audit" / "summary.tsv", sep="\t"
+    RESULTS_ROOT / "locked_validity_audit" / "summary.tsv", sep="\t"
 )
 batch_pred = pd.read_csv(
-    WS
-    / "results"
+    RESULTS_ROOT
     / "locked_validity_audit"
     / "representation_batch_predictability_summary.tsv",
     sep="\t",
 )
 subset135 = pd.read_csv(
-    WS
-    / "results"
+    RESULTS_ROOT
     / "locked_validity_audit"
     / "gse135779_mixed_batch_matched.tsv",
     sep="\t",
 )
 meta135 = pd.read_csv(
-    WS
-    / "results"
+    RESULTS_ROOT
     / "gse135779_metadata"
     / "gse135779_donor_metadata_restored.tsv",
     sep="\t",
 )
-ent174 = pd.read_csv(WS / "results" / "design_entanglement_metrics.tsv", sep="\t")
-pure174 = pd.read_csv(WS / "results" / "pure_wave_stratum.tsv", sep="\t")
+ent174 = pd.read_csv(RESULTS_ROOT / "design_entanglement_metrics.tsv", sep="\t")
+pure174 = pd.read_csv(RESULTS_ROOT / "pure_wave_stratum.tsv", sep="\t")
 comp174 = pd.read_csv(
-    WS / "results" / "raw_h5ad_wave_by_disease_cd4_only.tsv",
+    RESULTS_ROOT / "raw_h5ad_wave_by_disease_cd4_only.tsv",
     sep="\t",
     index_col=0,
 )

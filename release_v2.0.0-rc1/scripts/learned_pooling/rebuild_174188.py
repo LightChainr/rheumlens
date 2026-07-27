@@ -3,10 +3,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np, pandas as pd
 from minipq import read_column
 
-P = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
-W = P + "/08_Applied_Sciences_special_issue_submission_20260717/server_results/extracted/patient_generalization_work"
-CE = W + "/outputs/cell_embeddings_cap500/SLE_GSE174188_CD4"
-OUT = P + "/14_learned_pooling_20260726/inputs"
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from path_config import (
+    CELL_EMBEDDING_ROOT,
+    DESIGN_METADATA_ROOT,
+    LEARNED_POOLING_INPUT_ROOT,
+)
+
+CE = str(CELL_EMBEDDING_ROOT / "SLE_GSE174188_CD4")
+OUT = str(LEARNED_POOLING_INPUT_ROOT)
+os.makedirs(OUT, exist_ok=True)
 
 shards = sorted(glob.glob(CE + "/shards/part-*.embeddings.npy"))
 donor_seq = []
@@ -18,7 +24,10 @@ donors = sorted(set(donor_seq))
 pos = {d: i for i, d in enumerate(donors)}
 cell_idx = np.asarray([pos[d] for d in donor_seq], dtype=np.int32)
 counts = np.bincount(cell_idx, minlength=len(donors))
-cov = pd.read_csv(P + "/05_patient_classifier_generalization_20260716/results/01_inputs/gse174188_final_donor_covariates.tsv", sep="\t")
+cov = pd.read_csv(
+    DESIGN_METADATA_ROOT / "gse174188_final_donor_covariates.tsv",
+    sep="\t",
+)
 cov["donor_id"] = cov["donor_id"].astype(str)
 exp = cov.set_index("donor_id").loc[donors, "cells_per_donor"].clip(upper=500).to_numpy()
 print("counts match expected:", bool((counts == exp).all()), flush=True)

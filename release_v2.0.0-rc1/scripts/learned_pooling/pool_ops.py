@@ -5,10 +5,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np, pandas as pd
 from minipq import read_column
 
-P = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
-W = P + "/08_Applied_Sciences_special_issue_submission_20260717/server_results/extracted/patient_generalization_work"
-CE = W + "/outputs/cell_embeddings_cap500"
-OUT = P + "/14_learned_pooling_20260726/inputs"
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from path_config import CELL_EMBEDDING_ROOT, LEARNED_POOLING_INPUT_ROOT
+
+CE = str(CELL_EMBEDDING_ROOT)
+OUT = str(LEARNED_POOLING_INPUT_ROOT)
+os.makedirs(OUT, exist_ok=True)
 
 def blocks_174188():
     shards = sorted(glob.glob(CE + "/SLE_GSE174188_CD4/shards/part-*.embeddings.npy"))

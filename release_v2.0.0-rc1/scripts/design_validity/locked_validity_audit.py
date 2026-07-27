@@ -30,30 +30,13 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 HERE = Path(__file__).resolve()
-WORKSPACE = HERE.parents[1]
-PROJECT = HERE.parents[2]
-EXTRA = (
-    PROJECT
-    / "03_远程回传"
-    / "final_gpu_figure_ready_20260709"
-    / "extracted_plus"
-    / "RheumLens_GPU_figure_ready_plus_20260709"
-    / "extra"
-)
-OUT = WORKSPACE / "results" / "locked_validity_audit"
-META135 = (
-    WORKSPACE
-    / "results"
-    / "gse135779_metadata"
-    / "gse135779_donor_metadata_restored.tsv"
-)
-META174 = (
-    PROJECT
-    / "05_patient_classifier_generalization_20260716"
-    / "results"
-    / "01_inputs"
-    / "gse174188_final_donor_covariates.tsv"
-)
+sys.path.insert(0, str(HERE.parents[1]))
+from path_config import DESIGN_METADATA_ROOT, DONOR_LEVEL_ROOT, RELEASE_ROOT, RESULTS_ROOT
+
+WORKSPACE = RELEASE_ROOT
+OUT = RESULTS_ROOT / "locked_validity_audit"
+META135 = RESULTS_ROOT / "gse135779_metadata" / "gse135779_donor_metadata_restored.tsv"
+META174 = DESIGN_METADATA_ROOT / "gse174188_final_donor_covariates.tsv"
 
 SEEDS = list(range(20260801, 20260821))
 BATCH_SEEDS = SEEDS[:5]
@@ -67,7 +50,7 @@ REPS = ("geneformer", "hvg_pseudobulk", "pca_pseudobulk")
 
 sys.path.insert(
     0,
-    str(PROJECT / "14_learned_pooling_20260726" / "scripts"),
+    str(RELEASE_ROOT / "scripts" / "learned_pooling"),
 )
 import protocol  # noqa: E402
 
@@ -234,15 +217,8 @@ def residualize(
 
 def load_cohort_135779() -> Cohort:
     metadata = pd.read_csv(META135, sep="\t", dtype={"donor_id": str})
-    gf_path = (
-        EXTRA
-        / "04_models"
-        / "Geneformer"
-        / "SLE_GSE135779"
-        / "geneformer_v2_316m_cell_sample500_clspool_logistic_maxlen4096_seed001"
-        / "donor_embedding.parquet"
-    )
-    pb_path = EXTRA / "pseudobulk" / "SLE_GSE135779" / "donor_log1p_cpm.parquet"
+    gf_path = DONOR_LEVEL_ROOT / "SLE_GSE135779" / "donor_embedding.parquet"
+    pb_path = DONOR_LEVEL_ROOT / "SLE_GSE135779" / "donor_log1p_cpm.parquet"
     gf = pd.read_parquet(gf_path)
     pb = pd.read_parquet(pb_path)
     gf.index = gf.index.astype(str)
@@ -263,20 +239,8 @@ def load_cohort_135779() -> Cohort:
 
 def load_cohort_174188() -> Cohort:
     metadata = pd.read_csv(META174, sep="\t", dtype={"donor_id": str})
-    gf_path = (
-        EXTRA
-        / "04_models"
-        / "Geneformer"
-        / "SLE_GSE174188_CD4"
-        / "geneformer_v2_316m_cell_sample1000_clspool_logistic_maxlen4096_seed001"
-        / "donor_embedding.parquet"
-    )
-    pb_path = (
-        EXTRA
-        / "pseudobulk"
-        / "SLE_GSE174188_CD4"
-        / "donor_log1p_cpm.parquet"
-    )
+    gf_path = DONOR_LEVEL_ROOT / "SLE_GSE174188_CD4" / "donor_embedding.parquet"
+    pb_path = DONOR_LEVEL_ROOT / "SLE_GSE174188_CD4" / "donor_log1p_cpm.parquet"
     gf = pd.read_parquet(gf_path)
     pb = pd.read_parquet(pb_path)
     gf.index = gf.index.astype(str)
@@ -679,7 +643,7 @@ def main() -> None:
         )
     )
     existing_wave = pd.read_csv(
-        WORKSPACE / "results" / "wave_predictability.tsv", sep="\t"
+        RESULTS_ROOT / "wave_predictability.tsv", sep="\t"
     )
     existing_wave = existing_wave[
         existing_wave["target"].str.match(r"wave\d+_vs_rest")
@@ -713,23 +677,10 @@ def main() -> None:
     input_paths = [
         META135,
         META174,
-        EXTRA
-        / "04_models"
-        / "Geneformer"
-        / "SLE_GSE135779"
-        / "geneformer_v2_316m_cell_sample500_clspool_logistic_maxlen4096_seed001"
-        / "donor_embedding.parquet",
-        EXTRA / "pseudobulk" / "SLE_GSE135779" / "donor_log1p_cpm.parquet",
-        EXTRA
-        / "04_models"
-        / "Geneformer"
-        / "SLE_GSE174188_CD4"
-        / "geneformer_v2_316m_cell_sample1000_clspool_logistic_maxlen4096_seed001"
-        / "donor_embedding.parquet",
-        EXTRA
-        / "pseudobulk"
-        / "SLE_GSE174188_CD4"
-        / "donor_log1p_cpm.parquet",
+        DONOR_LEVEL_ROOT / "SLE_GSE135779" / "donor_embedding.parquet",
+        DONOR_LEVEL_ROOT / "SLE_GSE135779" / "donor_log1p_cpm.parquet",
+        DONOR_LEVEL_ROOT / "SLE_GSE174188_CD4" / "donor_embedding.parquet",
+        DONOR_LEVEL_ROOT / "SLE_GSE174188_CD4" / "donor_log1p_cpm.parquet",
     ]
     manifest = {
         "analysis": "locked two-cohort donor-level validity audit",

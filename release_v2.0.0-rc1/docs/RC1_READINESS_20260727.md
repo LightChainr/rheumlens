@@ -5,8 +5,10 @@
 
 ## Decision
 
-The local research-object package is ready to enter a dedicated repository branch.
-It is not yet ready for a public Zenodo DOI.
+The research-object package is ready for the dedicated
+`release/v2.0.0-rc1` repository branch. It is not yet ready for a final public
+Zenodo version DOI because author declarations and the immutable release tag remain
+open.
 
 ## Completed
 
@@ -19,18 +21,26 @@ It is not yet ready for a public Zenodo DOI.
   gate and 2026 journal strategy are included.
 - Creator metadata names Hongyu Ying, Dandan Yun and Dan Liu.
 - Exact analysis and Geneformer environment specifications are included.
+- Donor-level pseudobulk, primary Geneformer embeddings, labels and compact design
+  metadata are included for portable reruns of the core audit and strict transfer.
+- Release-facing scripts use package-relative paths with environment-variable
+  overrides; no machine-specific absolute paths remain.
 - A package-level validator checks required files, figure triplets, manuscript hash,
   stale claims, metadata donor count, creator metadata and symlinks.
 - The candidate passes validation with no errors.
+- A clean-copy rerun reproduced the restored GSE135779 metadata, strict source-only
+  transfer, all 540 locked repeat metrics, summary tables and decompressed OOF
+  predictions.
+- A 15-sheet stable supplementary workbook was generated and every worksheet was
+  rendered for visual inspection.
+- A 16-page initial-submission PDF containing the complete manuscript, Author Summary,
+  six main figures and full legends was rendered and visually inspected.
 
 ## Remaining before public v2.0.0
 
-1. Parameterise scripts that retain original project-relative paths.
-2. Run the package from a clean directory against documented upstream inputs.
-3. Produce stable supplementary tables and a submission PDF.
-4. Confirm author contributions, ORCIDs, funding, ethics and competing interests.
-5. Replace future-tense repository language with the final Git tag and Zenodo DOI.
-6. Commit the candidate on a dedicated branch, review the diff, then publish a
+1. Confirm author contributions, ORCIDs, funding, ethics and competing interests.
+2. Replace future-tense repository language with the final Git tag and Zenodo DOI.
+3. Review the dedicated branch diff, then publish a
    prerelease before minting the final version DOI.
 
 ## Release boundary

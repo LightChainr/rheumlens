@@ -6,22 +6,24 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 
 import pandas as pd
 
 
 HERE = Path(__file__).resolve()
-WS = HERE.parents[1]
-MANUSCRIPT = WS / "manuscript" / "design_validity_draft_v2.md"
-SUMMARY = WS / "results" / "locked_validity_audit" / "summary.tsv"
+sys.path.insert(0, str(HERE.parents[1]))
+from path_config import RELEASE_ROOT, RESULTS_ROOT
+
+MANUSCRIPT = RELEASE_ROOT / "manuscript" / "manuscript.md"
+SUMMARY = RESULTS_ROOT / "locked_validity_audit" / "summary.tsv"
 SUBSET = (
-    WS
-    / "results"
+    RESULTS_ROOT
     / "locked_validity_audit"
     / "gse135779_mixed_batch_matched.tsv"
 )
-OUT = WS / "results" / "locked_validity_audit" / "release_validation.json"
+OUT = RESULTS_ROOT / "locked_validity_audit" / "release_validation.json"
 
 
 def sha256(path: Path) -> str:

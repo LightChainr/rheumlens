@@ -2,12 +2,9 @@
 
 **Lock date:** 2026-07-26  
 **Scope:** design-entanglement manuscript candidate  
-**Executable sources:** `scripts/gse135779_metadata_audit.py`,
-`scripts/locked_validity_audit.py`,
-`scripts/augment_gse135779_design_residualisation.py`,
-`scripts/design_entanglement.py`,
-`scripts/pure_wave_stratum.py`, `scripts/deconfounded_transfer.py`, and
-`../14_learned_pooling_20260726/scripts/`.
+**Executable sources:** `scripts/design_validity/`,
+`scripts/strict_source_only_transfer/`, `scripts/covariate_audit/` and
+`scripts/learned_pooling/`.
 
 This document distinguishes the frozen cell-embedding generation environment from the
 local donor-level reanalysis environment. No target-cohort label or target-fitted

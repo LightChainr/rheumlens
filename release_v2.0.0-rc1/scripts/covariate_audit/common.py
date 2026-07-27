@@ -1,24 +1,26 @@
 from __future__ import annotations
 
 import hashlib
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 
-WORKSPACE = Path(__file__).resolve().parents[1]
-REPO = WORKSPACE.parent
-REFRAME = REPO / "04_重构_投稿定位_20260714"
-ARCHIVE = (
-    REPO
-    / "03_远程回传"
-    / "final_gpu_figure_ready_20260709"
-    / "extracted_plus"
-    / "RheumLens_GPU_figure_ready_plus_20260709"
+HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parents[1]))
+from path_config import (
+    DESIGN_METADATA_ROOT,
+    DONOR_LEVEL_ROOT,
+    FIGURES_ROOT,
+    RAW_H5AD,
+    RELEASE_ROOT,
+    RESULTS_ROOT,
 )
-EXTRA = ARCHIVE / "extra"
-H5AD = REPO / "05_原始数据" / "GSE174188_CELLxGENE_2025-11-08.h5ad"
+
+WORKSPACE = RELEASE_ROOT
+H5AD = RAW_H5AD
 GENEFORMER_METHOD = "geneformer_v2_316m_cell_sample1000_clspool_logistic_maxlen4096_seed001"
 DATASETS = ("SLE_GSE135779", "SLE_GSE174188_CD4", "SLE_GSE285773_CD4")
 
@@ -32,19 +34,16 @@ def sha256_file(path: Path, block_size: int = 1024 * 1024) -> str:
 
 
 def label_path(dataset: str) -> Path:
-    return EXTRA / "pseudobulk" / dataset / "donor_labels.tsv"
+    return DONOR_LEVEL_ROOT / dataset / "donor_labels.tsv"
 
 
 def pseudobulk_path(dataset: str) -> Path:
-    return EXTRA / "pseudobulk" / dataset / "donor_log1p_cpm.parquet"
+    return DONOR_LEVEL_ROOT / dataset / "donor_log1p_cpm.parquet"
 
 
 def embedding_path(dataset: str, cap: str | int = 1000) -> Path:
-    if cap == "allavailable":
-        method = "geneformer_v2_316m_cell_allavailable_clspool_logistic_allavailable_maxlen4096_seed001"
-    else:
-        method = f"geneformer_v2_316m_cell_sample{cap}_clspool_logistic_maxlen4096_seed001"
-    return EXTRA / "04_models" / "Geneformer" / dataset / method / "donor_embedding.parquet"
+    del cap
+    return DONOR_LEVEL_ROOT / dataset / "donor_embedding.parquet"
 
 
 def load_labels(dataset: str) -> pd.Series:

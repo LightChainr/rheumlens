@@ -94,18 +94,21 @@ matched donor controls, the residualisation/restriction discrepancy or strict SL
 cross-cohort transfer. The new preprint therefore increases the timeliness of this
 paper instead of eliminating its novelty.
 
-## Public-release blockers
+## Packaging gate closure
 
-The scientific analysis is ready for a release candidate. The public repository is
-not yet ready for a new DOI because:
+The release-candidate packaging blockers identified in the initial decision are
+closed:
 
-1. `CITATION.cff`, `.zenodo.json` and `pyproject.toml` still identify the creator as
-   `LightChainr`; they must name Hongyu Ying, Dandan Yun and Dan Liu.
-2. The new manuscript, six main figures, locked source tables, scripts and methods
-   manifests have not yet been copied into one self-contained release directory.
-3. README and DOI text still describe the v1.0.2 representation benchmark.
+1. `CITATION.cff`, `.zenodo.json` and `pyproject.toml` name Hongyu Ying,
+   Dandan Yun and Dan Liu.
+2. The new manuscript, six main figures, locked source tables, portable donor-level
+   inputs, scripts and methods manifests are contained in one release directory.
+3. README and DOI-facing metadata describe the design-validity reconstruction.
+4. A clean-copy rerun reproduced the locked donor-level outputs.
+5. Stable supplementary tables and an initial-submission PDF are included.
 
-These are packaging blockers, not scientific blockers.
+The remaining final-release requirements are author declarations, immutable tag/DOI
+substitution and one last branch review; they do not block the prerelease branch.
 
 ## Recommended release sequence
 
@@ -124,4 +127,4 @@ These are packaging blockers, not scientific blockers.
 
 **Scientific reconstruction: GO.**  
 **Publish as `v1.0.3`: NO-GO.**  
-**Prepare `v2.0.0-rc1`: GO after repository packaging.**
+**Prepare `v2.0.0-rc1`: GO; repository packaging and clean-copy reproduction passed.**

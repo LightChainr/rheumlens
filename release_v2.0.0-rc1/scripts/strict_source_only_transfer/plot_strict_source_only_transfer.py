@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -10,11 +11,14 @@ import numpy as np
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / "results" / "strict_source_only_transfer_20260715"
+HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parents[1]))
+from path_config import FIGURES_ROOT, RESULTS_ROOT
+
+RESULTS = RESULTS_ROOT / "strict_source_only_transfer"
 METRICS = RESULTS / "strict_source_only_transfer_metrics.tsv"
 COMPARISONS = RESULTS / "strict_source_only_transfer_paired_delong.tsv"
-OUT = ROOT / "figures" / "figure_03_strict_source_only_transfer_20260715"
+OUT = FIGURES_ROOT / "reproduced" / "strict_source_only_transfer"
 
 METHODS = ("frozen_geneformer", "source_hvg_pseudobulk", "source_pca_pseudobulk")
 LABELS = {

@@ -11,11 +11,11 @@ import anndata as ad
 import numpy as np
 import pandas as pd
 
-from common import H5AD, WORKSPACE, label_path, load_labels, sha256_file
+from common import DESIGN_METADATA_ROOT, H5AD, label_path, load_labels, sha256_file
 
 
 DATASET = "SLE_GSE174188_CD4"
-OUT = WORKSPACE / "results" / "01_inputs"
+OUT = DESIGN_METADATA_ROOT
 CELL_TYPE = "CD4-positive, alpha-beta T cell"
 CHUNK_SIZE = 5_000
 
