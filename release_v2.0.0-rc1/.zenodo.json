@@ -1,0 +1,41 @@
+{
+  "title": "Design validity, residualisation and generalisation in donor-level single-cell classifiers",
+  "upload_type": "software",
+  "description": "Code, restored donor metadata, locked predictions, source tables, figures and manuscript assets for a two-cohort audit of design-label entanglement in donor-level single-cell classifiers. The release compares frozen Geneformer donor means with expression pseudobulk under repeated donor-level evaluation, design-only prediction, representation-to-design recovery, fold-contained residualisation, matched design restriction, strict source-only transfer and learned pooling.",
+  "creators": [
+    {
+      "name": "Ying, Hongyu",
+      "affiliation": "Department of Rheumatology and Immunology, Shanghai Pudong Hospital, Fudan University Pudong Medical Center"
+    },
+    {
+      "name": "Yun, Dandan",
+      "affiliation": "Department of Rheumatology and Immunology, Shanghai Pudong Hospital, Fudan University Pudong Medical Center"
+    },
+    {
+      "name": "Liu, Dan",
+      "affiliation": "Department of Rheumatology and Immunology, Shanghai Pudong Hospital, Fudan University Pudong Medical Center"
+    }
+  ],
+  "license": "MIT",
+  "version": "2.0.0-rc1",
+  "publication_date": "2026-07-27",
+  "keywords": [
+    "single-cell RNA sequencing",
+    "patient-level classification",
+    "study design",
+    "batch confounding",
+    "residualisation",
+    "external validation",
+    "Geneformer",
+    "pseudobulk",
+    "systemic lupus erythematosus"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/LightChainr/rheumlens",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}
+

@@ -43,6 +43,7 @@ Thumbs.db
 *.h5ad
 *.npz
 *.parquet
+!release_v2.0.0-rc3/**/*.parquet
 *.pkl
 *.joblib
 /data/

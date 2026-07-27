@@ -1,5 +1,60 @@
 # Changelog
 
+## 2.0.0-rc3 - 2026-07-27
+
+### Added
+
+- A quantitative design-adjusted label-information scale, 11,200 simulations and
+  an exact observational-equivalence construction.
+- Complete-pipeline nulls, nonlinear design-only prediction and fold-contained
+  random-forest residualisation.
+- An internal batch-exposure negative control, attenuation-difference intervals,
+  a synthetic positive control and confound-leakage sensitivity experiment.
+- Eight main figures, Supplementary Tables S1-S30 and a complete PLOS
+  Computational Biology review object.
+- A five-check validity standard spanning estimability, full-pipeline nulls,
+  design exposure, overlap restriction and source-only external transfer.
+
+### Changed
+
+- Reframed the manuscript from a representation comparison to a general
+  identifiability problem in patient-level single-cell classification.
+- Rebuilt Figure 6 as a six-panel robustness analysis.
+- Updated the abstract, Author Summary, cover letter, references, reproducibility
+  documentation and release validator.
+
+### Validated
+
+- Four theory tests, 18 identifiability-extension checks, 16 PLOS robustness
+  checks and the 203-file release manifest passed.
+
+## 2.0.0-rc1 - 2026-07-27
+
+### Added
+
+- A two-cohort design-validity reconstruction with restored GSE135779 batch,
+  collection-year, demographic and sequencing metadata.
+- Repeated donor-level design-only prediction, representation-to-design recovery,
+  fold-contained residualisation, matched design restriction and source-only
+  transfer.
+- Six new main figures, locked donor-level predictions, source tables, methods
+  provenance, verified references and a package-level SHA256 manifest.
+- A four-check validity standard for patient-level single-cell classification.
+
+### Changed
+
+- Reframed the scientific object from a Geneformer-versus-pseudobulk leaderboard to
+  attribution and transportability under design-label entanglement.
+- Restricted learned-pooling claims to independent-target evidence.
+- Updated release-candidate creator metadata to Hongyu Ying, Dandan Yun and Dan Liu.
+
+### Preserved
+
+- Version 1.0.2 and DOI
+  [10.5281/zenodo.21436893](https://doi.org/10.5281/zenodo.21436893) remain unchanged.
+- The `rheumlens` repository and Python package names remain for backward
+  compatibility and are not used as manuscript terminology.
+
 ## 1.0.2 - 2026-07-19
 
 ### Added

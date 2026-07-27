@@ -1,0 +1,66 @@
+{
+  "analysis": "locked two-cohort donor-level validity audit",
+  "seeds": [
+    20260801,
+    20260802,
+    20260803,
+    20260804,
+    20260805,
+    20260806,
+    20260807,
+    20260808,
+    20260809,
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814,
+    20260815,
+    20260816,
+    20260817,
+    20260818,
+    20260819,
+    20260820
+  ],
+  "batch_predictability_seeds": [
+    20260801,
+    20260802,
+    20260803,
+    20260804,
+    20260805
+  ],
+  "outer_folds": 5,
+  "inner_folds": 5,
+  "C_grid": [
+    0.0001,
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0,
+    1000.0,
+    10000.0
+  ],
+  "n_hvg": 4000,
+  "n_pc": 30,
+  "ridge_alpha": 1.0,
+  "standardisation": "Fit once on each outer-training fold; inner resampling selects C conditional on the outer-training representation.",
+  "residualisation": "Ridge map from outer-training design matrix to each raw representation coordinate; train and test residuals passed through the identical outer-fold representation and classifier pipeline.",
+  "input_sha256": {
+    "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/15_design_entanglement_20260726/results/gse135779_metadata/gse135779_donor_metadata_restored.tsv": "4db7a3720ddd76757ea77dc4ae0898b8a24abc3009d75f5936203ecaf80aa34e",
+    "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/05_patient_classifier_generalization_20260716/results/01_inputs/gse174188_final_donor_covariates.tsv": "103044d004b16de8c2b372bbd6d25173d49daaf9f036ee3572e6c48036da19a8",
+    "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/03_\u8fdc\u7a0b\u56de\u4f20/final_gpu_figure_ready_20260709/extracted_plus/RheumLens_GPU_figure_ready_plus_20260709/extra/04_models/Geneformer/SLE_GSE135779/geneformer_v2_316m_cell_sample500_clspool_logistic_maxlen4096_seed001/donor_embedding.parquet": "9dbcee67a627a5ac6e96c4f475d2a0bb1ab39c6c879ce29f42e312fd0889892b",
+    "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/03_\u8fdc\u7a0b\u56de\u4f20/final_gpu_figure_ready_20260709/extracted_plus/RheumLens_GPU_figure_ready_plus_20260709/extra/pseudobulk/SLE_GSE135779/donor_log1p_cpm.parquet": "51a876ba2665aadb5867f9bfe492f0eed1ae3d1fc6a58734810f9b3af02a9017",
+    "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/03_\u8fdc\u7a0b\u56de\u4f20/final_gpu_figure_ready_20260709/extracted_plus/RheumLens_GPU_figure_ready_plus_20260709/extra/04_models/Geneformer/SLE_GSE174188_CD4/geneformer_v2_316m_cell_sample1000_clspool_logistic_maxlen4096_seed001/donor_embedding.parquet": "5a1a09529d7bbfbf71edcde8c8017a7e2314b2e9c026e32a46dc299d1fbe7d7a",
+    "/Volumes/Mac Data/Research/\u8bba\u6587\u9879\u76ee\u603b\u5e93/07_RheumLens_scGPT/03_\u8fdc\u7a0b\u56de\u4f20/final_gpu_figure_ready_20260709/extracted_plus/RheumLens_GPU_figure_ready_plus_20260709/extra/pseudobulk/SLE_GSE174188_CD4/donor_log1p_cpm.parquet": "1c49b617ee369f92645e722697d5c4c53f32f31cc4b1647e7b179ca286777ba9"
+  },
+  "claim_boundary": "Residualisation and design restriction estimate different quantities under label-design collinearity; neither alone identifies a causal technical effect.",
+  "gse135779_additional_residualisation": {
+    "blocks": [
+      "collection_year",
+      "all"
+    ],
+    "implementation": "Same outer folds, feature construction, scaling, inner C selection, ridge alpha and classifier as the primary locked run."
+  }
+}

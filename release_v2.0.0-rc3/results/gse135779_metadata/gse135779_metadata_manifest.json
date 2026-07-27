@@ -1,0 +1,67 @@
+{
+  "analysis": "GSE135779 childhood-cohort donor metadata restoration",
+  "n_donors": 44,
+  "n_cases": 33,
+  "n_controls": 11,
+  "mapping_complete": true,
+  "source_publication": {
+    "title": "Mapping systemic lupus erythematosus heterogeneity at the single-cell level",
+    "doi": "10.1038/s41590-020-0743-0",
+    "metadata_location": "Supplementary Table 1b (clinical/batch) and 1c (sequencing QC)"
+  },
+  "source_files": {
+    "03_\u8fdc\u7a0b\u56de\u4f20/final_gpu_figure_ready_20260709/extracted_plus/RheumLens_GPU_figure_ready_plus_20260709/extra/pseudobulk/SLE_GSE135779/donor_labels.tsv": {
+      "sha256": "981744f1e1fbc253f5b4e76e51cf1a947f9714f5c67eb4a91254c0699e71bae0",
+      "bytes": 627
+    },
+    "10_zenodo_release_20260717/rheumlens/evidence_package/public_metadata/GSE135779_study_name_to_donor_id.csv": {
+      "sha256": "a36cbb83368e255fe3111391bb333db8788151a7600125112f4e453ab1c9e6b2",
+      "bytes": 2356
+    },
+    "10_zenodo_release_20260717/rheumlens/evidence_package/public_metadata/GSE135779_ST1b_donor_clinical.csv": {
+      "sha256": "b0a9c1b07fec053c9cffcfc5b0f437c5809fe390302bd5ad7b6d309bd40dc3f1",
+      "bytes": 12511
+    },
+    "10_zenodo_release_20260717/rheumlens/evidence_package/public_metadata/GSE135779_ST1c_sequencing.csv": {
+      "sha256": "f12813c5bb9d853e2531bf8152d40655b5d6f06f25982856950213b8effad9b2",
+      "bytes": 6707
+    },
+    "10_zenodo_release_20260717/rheumlens/evidence_package/public_metadata/GSE135779_GEO_samples.csv": {
+      "sha256": "fbad224cb952e8cc08867ace19fa6dd4a9e5330cc14f765ff06d4b19775becc8",
+      "bytes": 53590
+    }
+  },
+  "batch_counts": {
+    "B1": {
+      "case": 8,
+      "control": 0,
+      "total": 8
+    },
+    "B2": {
+      "case": 3,
+      "control": 1,
+      "total": 4
+    },
+    "B3": {
+      "case": 6,
+      "control": 2,
+      "total": 8
+    },
+    "B4": {
+      "case": 6,
+      "control": 2,
+      "total": 8
+    },
+    "B5": {
+      "case": 6,
+      "control": 2,
+      "total": 8
+    },
+    "B6": {
+      "case": 4,
+      "control": 4,
+      "total": 8
+    }
+  },
+  "claim_boundary": "Batch and collection year are observed design variables. Associations with disease labels do not identify a purely technical causal effect."
+}
