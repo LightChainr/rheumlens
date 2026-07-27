@@ -141,7 +141,8 @@ The results apply to the evaluated public SLE cohorts, frozen Geneformer embeddi
 
 - Repository: <https://github.com/LightChainr/rheumlens>
 - Stable concept DOI: <https://doi.org/10.5281/zenodo.20813922>
-- Current release object: `release_v2.0.0-rc3/`
+- Current published version DOI (`v2.0.0-rc3`): <https://doi.org/10.5281/zenodo.21618824>
+- Current release object: [`release_v2.0.0-rc3/`](release_v2.0.0-rc3/)
 - Previous published version DOI (`v1.0.2`): <https://doi.org/10.5281/zenodo.21436893>
 - Previous version DOI (`v1.0.1`): <https://doi.org/10.5281/zenodo.21412436>
 - Superseded version DOI (`v1.0.0`): <https://doi.org/10.5281/zenodo.21412278>

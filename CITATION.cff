@@ -14,6 +14,8 @@ authors:
 repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
 version: "2.0.0-rc3"
+doi: "10.5281/zenodo.21618824"
+date-released: "2026-07-27"
 keywords:
   - "single-cell RNA sequencing"
   - "patient-level classification"

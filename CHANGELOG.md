@@ -27,6 +27,8 @@
 
 - Four theory tests, 18 identifiability-extension checks, 16 PLOS robustness
   checks and the 203-file release manifest passed.
+- Archived as version DOI
+  [10.5281/zenodo.21618824](https://doi.org/10.5281/zenodo.21618824).
 
 ## 2.0.0-rc1 - 2026-07-27
 
