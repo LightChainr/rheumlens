@@ -1,5 +1,32 @@
 # Changelog
 
+## 2.0.0-rc1 - 2026-07-27
+
+### Added
+
+- A two-cohort design-validity reconstruction with restored GSE135779 batch,
+  collection-year, demographic and sequencing metadata.
+- Repeated donor-level design-only prediction, representation-to-design recovery,
+  fold-contained residualisation, matched design restriction and source-only
+  transfer.
+- Six new main figures, locked donor-level predictions, source tables, methods
+  provenance, verified references and a package-level SHA256 manifest.
+- A four-check validity standard for patient-level single-cell classification.
+
+### Changed
+
+- Reframed the scientific object from a Geneformer-versus-pseudobulk leaderboard to
+  attribution and transportability under design-label entanglement.
+- Restricted learned-pooling claims to independent-target evidence.
+- Updated release-candidate creator metadata to Hongyu Ying, Dandan Yun and Dan Liu.
+
+### Preserved
+
+- Version 1.0.2 and DOI
+  [10.5281/zenodo.21436893](https://doi.org/10.5281/zenodo.21436893) remain unchanged.
+- The `rheumlens` repository and Python package names remain for backward
+  compatibility and are not used as manuscript terminology.
+
 ## 1.0.2 - 2026-07-19
 
 ### Added

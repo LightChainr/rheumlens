@@ -1,0 +1,10 @@
+source_set	representation	n_source	selected_C	target_auc	ci_low	ci_high	wave4_percentile_among_random	n_draws
+full	geneformer	261	0.1	0.9	0.7625	0.99375		
+full	hvg_pseudobulk	261	10.0	0.94375	0.84375	1.0		
+full	pca_pseudobulk	261	0.1	0.96875	0.8875	1.0		
+wave4	geneformer	89	0.1	0.79375	0.6	0.94375		
+wave4	hvg_pseudobulk	89	1000.0	0.89375	0.75	1.0		
+wave4	pca_pseudobulk	89	0.1	0.8875	0.73125	1.0		
+random_n89	geneformer	89		0.8762500000000001	0.645	0.9565625	0.1	20.0
+random_n89	hvg_pseudobulk	89		0.96125	0.94046875	0.98453125	0.0	20.0
+random_n89	pca_pseudobulk	89		0.9525	0.90171875	0.9875	0.05	20.0

@@ -4,12 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rheumlens"
-version = "1.0.2"
-description = "Cross-cohort donor-level benchmarking of single-cell representations in SLE"
+version = "2.0.0rc1"
+description = "Design validity and external generalisation of donor-level single-cell classifiers"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10,<3.13"
-authors = [{name = "LightChainr"}]
+authors = [
+  {name = "Hongyu Ying"},
+  {name = "Dandan Yun"},
+  {name = "Dan Liu"},
+]
 keywords = [
   "single-cell RNA-seq",
   "foundation model",
@@ -19,6 +23,9 @@ keywords = [
   "donor-level classification",
   "benchmark",
   "cross-cohort transfer",
+  "study design",
+  "batch confounding",
+  "residualisation",
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
