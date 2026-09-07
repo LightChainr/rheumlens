@@ -1,0 +1,2 @@
+cohort	n_donor	I_D	design_auc_linear	design_auc_rf	disease_auc	p_standard	p_design_preserving
+SLE_GSE174188_CD4	261	0.4872	0.9042	0.9115	0.9747	0.01961	0.01961

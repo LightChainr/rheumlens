@@ -51,3 +51,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# multi-disease extension: downloaded cohort matrices stay out of git
+data/h5ad/
+data/**/*.h5ad

@@ -1,0 +1,9 @@
+{
+  "seed": 20260907,
+  "n_splits": 5,
+  "n_repeat": 5,
+  "n_perm": 50,
+  "cohorts": [
+    "SLE_GSE174188_CD4"
+  ]
+}

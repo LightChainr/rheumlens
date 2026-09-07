@@ -1,5 +1,0 @@
-method	unadjusted_auc	residualized_auc	kind
-Technical/demographic covariates	0.7888		Covariates only
-scGPT mean	0.9783638857712932	0.9129	Representation
-Expression PCA	0.9856590597331338	0.8853	Representation
-Mean-HVG pseudobulk	0.983975558049632	0.9159	Representation
