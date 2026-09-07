@@ -96,7 +96,7 @@ def design_matrix(cov: pd.DataFrame) -> dict[str, np.ndarray]:
 
 def label_information_fraction(y: np.ndarray, D: np.ndarray,
                                n_perm: int = 200,
-                               seed: int = SEED) -> dict:
+                               seed: int | None = None) -> dict:
     """Design-adjusted label contrast, reported against its own permutation null.
 
     The v2 quantity was 1 - R^2(Y ~ D) computed IN SAMPLE. In-sample R^2 inflates
@@ -116,6 +116,11 @@ def label_information_fraction(y: np.ndarray, D: np.ndarray,
     PLOS reviewer #1 raised exactly this: "the boundary 1-R^2(Y~D) depends on the
     parameterisation of the design matrix, which can be problematic."
     """
+    # Read SEED at call time: a default argument would bind the module-level
+    # value at definition time and silently ignore --seed.
+    if seed is None:
+        seed = SEED
+
     r2_in = LinearRegression().fit(D, y).score(D, y)
     i_d_in = float(1.0 - max(r2_in, 0.0))
 
