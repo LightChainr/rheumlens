@@ -1,0 +1,2 @@
+cohort	block	n_donor	n_case	n_design_feature	I_D	I_D_cv	I_D_null_mean	I_D_vs_null	p_I_D	design_auc_linear	design_auc_rf	disease_auc	observed_frozen_auc	p_standard	p_design_preserving	n_strata	degenerate	degenerate_reason	underpowered	underpowered_reason
+COMBAT_CROSS	all	111	100	7	0.1432	0.1861	0.9379	-0.7947	0.005	0.9898	0.9945	0.8971	0.6527	0.10689	0.93806	2	True	tuned AUC 0.897 vs frozen 0.653 differ by >0.20 (overfitting)	True	minority class 11 below 15

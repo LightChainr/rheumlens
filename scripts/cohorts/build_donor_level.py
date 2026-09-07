@@ -59,6 +59,20 @@ BATCH_CANDIDATE_PATTERNS = [
     r"^pool", r"pool$", r"^library", r"library_id", r"^sample_id$",
     r"^lane", r"^run", r"^chemistry", r"^processing", r"^wave", r"^timepoint",
     r"^collection", r"^institute", r"^cohort$", r"^sequencing",
+    # Added after COVID_REN: its collection centre is recorded as "City" and its
+    # source sub-study as "Unpublished" (PMIDs), neither of which the patterns
+    # above match. A missed acquisition column silently under-specifies the
+    # design block and inflates I_D.
+    r"^city$", r"^region$", r"^province$", r"^hospital", r"^clinic",
+    r"^study$", r"^substudy", r"^source", r"^dataset", r"^donor_source",
+]
+
+# obs columns that must NEVER enter the design block: they are defined in terms
+# of the disease label or are consequences of disease, not acquisition. Adjusting
+# for these removes genuine disease signal and can make design AUC trivially 1.0.
+LABEL_DERIVED_PATTERNS = [
+    r"severity", r"outcome", r"comorbid", r"medication", r"treatment",
+    r"sample.?time", r"symptom", r"diagnos", r"stage$", r"grade$", r"who.?score",
 ]
 
 
@@ -123,6 +137,8 @@ def detect_batch_columns(obs: pd.DataFrame, donor_col: str = "donor_id") -> list
     found = []
     for col in obs.columns:
         if col in {donor_col, "disease", "cell_type", "tissue"}:
+            continue
+        if any(re.search(p, col.lower()) for p in LABEL_DERIVED_PATTERNS):
             continue
         if not any(re.search(p, col.lower()) for p in BATCH_CANDIDATE_PATTERNS):
             continue

@@ -295,6 +295,31 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
     print(f"  p_standard={p_std:.4f}  p_design_preserving={p_dpn:.4f} "
           f"(usable stratified permutations: {perm['n_usable_stratified_perm']})")
 
+    # Degeneracy gate. A contrast where the design perfectly separates the label
+    # is the complete-collinearity case: the design and disease contributions are
+    # not separately identifiable, the design-preserving null cannot be formed
+    # (no stratum holds both classes), and a donor-level classifier on thousands
+    # of features will separate any labelling. Such a row is not a measurement of
+    # confounding strength and must not be ranked alongside the others.
+    # NOT ESTIMABLE: the quantity itself has no meaning for this contrast.
+    degenerate: list[str] = []
+    if np.isnan(p_dpn):
+        degenerate.append("design-preserving null undefined (no mixed stratum)")
+    if abs(disease_auc - perm["observed_frozen_auc"]) > 0.20:
+        degenerate.append(
+            f"tuned AUC {disease_auc:.3f} vs frozen {perm['observed_frozen_auc']:.3f}"
+            " differ by >0.20 (overfitting)")
+
+    # UNDERPOWERED: the quantity is estimable but the estimate is unstable.
+    # Kept in the spectrum, flagged, and to be reported with a seed range rather
+    # than a single p-value.
+    underpowered: list[str] = []
+    minority = min(int(y.sum()), int((y == 0).sum()))
+    if len(y) < 40:
+        underpowered.append(f"n={len(y)} below 40")
+    if minority < 15:
+        underpowered.append(f"minority class {minority} below 15")
+
     rows = []
     for block, D in design_matrix(cov).items():
         idm = label_information_fraction(y.astype(float), D)
@@ -304,6 +329,8 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
         print(f"  [{block:<12}] I_D={idm['i_d_insample']:.3f} "
               f"(cv={idm['i_d_cv']:.3f}, null={idm['i_d_null_mean']:.3f}, "
               f"p={idm['p_i_d']:.3f})  design AUC lin={a_lin:.3f} rf={a_rf:.3f}{flag}")
+        if block == "all" and a_lin >= 0.999 and not degenerate:
+            degenerate.append("design-only AUC = 1.000 (complete collinearity)")
         rows.append({
             "cohort": cohort, "block": block, "n_donor": len(y),
             "n_case": int(y.sum()), "n_design_feature": int(D.shape[1]),
@@ -319,6 +346,10 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
             "p_standard": round(p_std, 5),
             "p_design_preserving": None if np.isnan(p_dpn) else round(p_dpn, 5),
             "n_strata": int(len(np.unique(strata))),
+            "degenerate": bool(degenerate),
+            "degenerate_reason": "; ".join(degenerate) if degenerate else "",
+            "underpowered": bool(underpowered),
+            "underpowered_reason": "; ".join(underpowered) if underpowered else "",
         })
     return rows
 
@@ -361,7 +392,20 @@ def main() -> None:
 
     # Sort by cross-fitted design AUC, not by raw I_D: the raw value is not
     # comparable across cohorts with different design-feature counts.
-    spectrum = (df[df.block == "all"]
+    allb = df[df.block == "all"]
+    if "degenerate" in allb.columns and allb["degenerate"].any():
+        bad = allb[allb["degenerate"]]
+        bad.to_csv(OUT / "degenerate_contrasts.tsv", sep="\t", index=False)
+        print("\n!! excluded from the spectrum as NOT ESTIMABLE:")
+        for _, r in bad.iterrows():
+            print(f"   {r['cohort']}: {r['degenerate_reason']}")
+        allb = allb[~allb["degenerate"]]
+    if "underpowered" in allb.columns and allb["underpowered"].any():
+        print("\n!! kept but UNDERPOWERED - report a seed range, not a single p:")
+        for _, r in allb[allb["underpowered"]].iterrows():
+            print(f"   {r['cohort']}: {r['underpowered_reason']}")
+
+    spectrum = (allb
                 .sort_values("design_auc_linear")
                 [["cohort", "n_donor", "n_design_feature",
                   "design_auc_linear", "design_auc_rf",
