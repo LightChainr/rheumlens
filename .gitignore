@@ -43,7 +43,9 @@ Thumbs.db
 *.h5ad
 *.npz
 *.parquet
-!release_v2.0.0-rc3/**/*.parquet
+# rc3 was promoted to the repository root in the v3 restructure; this
+# negation must track inputs/ or new donor tables are silently skipped.
+!inputs/donor_level/**/*.parquet
 *.pkl
 *.joblib
 /data/

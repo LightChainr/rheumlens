@@ -1,0 +1,23 @@
+{
+  "cohort": "CMV_HIHA",
+  "dataset_id": "e522d2cd-7927-4e59-a4ed-064009569279",
+  "citation": "Gong et al. (2025) Nature (Human Immune Health Atlas)",
+  "n_donor": 108,
+  "n_case": 45,
+  "n_control": 63,
+  "n_cell_used": 1821725,
+  "n_gene": 32357,
+  "case_labels": [
+    "cytomegalovirus infection"
+  ],
+  "control_labels": [
+    "normal"
+  ],
+  "raw_source": "raw",
+  "batch_columns": [
+    "batch_id",
+    "pool_id"
+  ],
+  "age_recovered": 108,
+  "expected_confounding": "weak"
+}
