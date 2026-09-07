@@ -1,0 +1,4 @@
+cohort	n_donor	I_D	design_auc_linear	design_auc_rf	disease_auc	p_standard	p_design_preserving
+COMBAT_INFLUENZA	21	0.0	1.0	1.0	0.9982	0.36634	
+COMBAT_CROSS	111	0.1432	0.9878	0.9958	0.8778	0.0297	0.74257
+COMBAT_COVID	110	0.8074	0.8456	0.8468	0.997	0.0099	0.0099

@@ -1,2 +1,0 @@
-dataset	n_donors	n_cells_cap1000	n_cells_all_available	auc_cap1000	auc_all_available	probability_spearman	probability_mean_absolute_difference	probability_max_absolute_difference	embedding_cosine_median	embedding_cosine_min	embedding_cosine_max
-GSE285773 CD4	26	26000	277051	0.93125	0.93125	0.9993162393162391	0.0069078178994586995	0.0369191100551462	0.9999901	0.999975	0.9999933

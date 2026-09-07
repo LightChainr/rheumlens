@@ -1,0 +1,11 @@
+{
+  "seed": 20260911,
+  "n_splits": 5,
+  "n_repeat": 5,
+  "n_perm": 1000,
+  "cohorts": [
+    "COMBAT_CROSS"
+  ],
+  "i_d_estimator": "in-sample + cross-fitted + permutation null",
+  "spectrum_sorted_by": "design_auc_linear"
+}

@@ -1,0 +1,22 @@
+{
+  "cohort": "COMBAT_CROSS",
+  "dataset_id": "ebc2e1ff-c8f9-466a-acf4-9d291afaf8b3",
+  "citation": "Ahern et al. (2022) Cell (COMBAT consortium)",
+  "n_donor": 111,
+  "n_case": 100,
+  "n_control": 11,
+  "n_cell_used": 743732,
+  "n_gene": 36306,
+  "case_labels": [
+    "COVID-19"
+  ],
+  "control_labels": [
+    "influenza"
+  ],
+  "raw_source": "raw",
+  "batch_columns": [
+    "Institute"
+  ],
+  "age_recovered": 106,
+  "expected_confounding": "controlled"
+}

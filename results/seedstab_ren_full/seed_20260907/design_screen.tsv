@@ -1,0 +1,5 @@
+cohort	block	n_donor	n_case	n_design_feature	I_D	I_D_cv	I_D_null_mean	I_D_vs_null	p_I_D	design_auc_linear	design_auc_rf	disease_auc	observed_frozen_auc	p_standard	p_design_preserving	n_strata
+COVID_REN	qc	182	157	4	0.9762	1.0	0.9781	-0.0019	0.3532	0.6276	0.7612	0.9491	0.9664	0.0005	0.0005	25
+COVID_REN	demographic	182	157	3	0.9478	0.9802	0.9816	-0.0338	0.0647	0.6746	0.6518	0.9491	0.9664	0.0005	0.0005	25
+COVID_REN	batch	182	157	19	0.7599	1.0	0.9026	-0.1428	0.005	0.75	0.7547	0.9491	0.9664	0.0005	0.0005	25
+COVID_REN	all	182	157	26	0.6675	1.0	0.8619	-0.1944	0.005	0.8211	0.8671	0.9491	0.9664	0.0005	0.0005	25

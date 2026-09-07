@@ -1,0 +1,5 @@
+cohort	block	n_donor	n_case	n_design_feature	I_D	I_D_cv	I_D_null_mean	I_D_vs_null	p_I_D	design_auc_linear	design_auc_rf	disease_auc	observed_frozen_auc	p_standard	p_design_preserving	n_strata
+CMV_HIHA	qc	108	45	4	0.9577	1.0	0.9586	-0.0009	0.393	0.5096	0.4485	0.896	0.854	0.0005	0.0005	46
+CMV_HIHA	demographic	108	45	5	0.8926	1.0	0.9499	-0.0573	0.0348	0.616	0.6038	0.896	0.854	0.0005	0.0005	46
+CMV_HIHA	batch	108	45	80	0.6235	1.0	0.5822	0.0413	0.7811	0.459	0.4893	0.896	0.854	0.0005	0.0005	46
+CMV_HIHA	all	108	45	89	0.4683	1.0	0.4958	-0.0276	0.3532	0.4795	0.4945	0.896	0.854	0.0005	0.0005	46

@@ -1,0 +1,5 @@
+cohort	block	n_donor	n_case	n_design_feature	I_D	I_D_cv	I_D_null_mean	I_D_vs_null	p_I_D	design_auc_linear	design_auc_rf	disease_auc	observed_frozen_auc	p_standard	p_design_preserving	n_strata	degenerate	degenerate_reason	underpowered	underpowered_reason
+COMBAT_CROSS	qc	111	100	4	0.5372	0.6233	0.9624	-0.4252	0.005	0.9024	0.9031	0.9084	0.7309	0.02398	0.8971	2	False		True	minority class 11 below 15
+COMBAT_CROSS	demographic	111	100	2	0.9863	1.0	0.9828	0.0035	0.4378	0.5431	0.4961	0.9084	0.7309	0.02398	0.8971	2	False		True	minority class 11 below 15
+COMBAT_CROSS	batch	111	100	1	0.1708	0.1938	0.9925	-0.8217	0.005	0.9842	0.984	0.9084	0.7309	0.02398	0.8971	2	False		True	minority class 11 below 15
+COMBAT_CROSS	all	111	100	7	0.1432	0.1856	0.9375	-0.7943	0.005	0.9873	0.9951	0.9084	0.7309	0.02398	0.8971	2	False		True	minority class 11 below 15

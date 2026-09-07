@@ -1,0 +1,123 @@
+# Multi-disease cohort registry
+#
+# Every entry was verified against the CZ CELLxGENE Discover curation API on
+# 2026-09-07. Donor counts, cell counts, disease labels, assay labels and asset
+# URLs are taken directly from that API response, not from the publications.
+#
+# Design rationale
+# ----------------
+# The v2 manuscript was rejected partly because all empirical evidence came from
+# a single disease (SLE). This registry defines a *design-confounding spectrum*
+# rather than simply "one more disease":
+#
+#   weak    : CMV_HIHA        - standardised prospective atlas, single assay
+#   medium  : SLE_GSE174188   - processing waves, existing cohort
+#   strong  : COVID_STEPHENSON- three collection sites
+#   strong  : COVID_REN       - multi-centre AND two different 10x chemistries
+#   control : COMBAT          - COVID-19 + influenza + normal inside ONE
+#                               acquisition structure, so disease can be varied
+#                               while acquisition is held approximately constant
+#
+# The COMBAT entry is the scientifically load-bearing one: it is the only design
+# in which the disease contrast changes while the acquisition process does not.
+
+schema_version: 1
+
+defaults:
+  organism: Homo sapiens
+  tissue_filter: blood          # keep only blood cells; Ren2021 also has lung/saliva
+  min_cells_per_donor: 200      # donors below this are dropped before pseudobulk
+  control_label: normal         # obs.disease value treated as y=0
+
+cohorts:
+
+  - name: SLE_GSE174188
+    status: existing            # donor-level files already in inputs/donor_level/
+    disease_group: SLE
+    expected_confounding: medium
+    dataset_id: 218acb0f-9f2f-4f76-b90b-15a4b7c7f629
+    citation: Perez et al. (2022) Science
+    n_donor: 261
+    n_cell: 1263676
+    h5ad_gb: 12.22
+    h5ad_url: https://datasets.cellxgene.cziscience.com/c55dc602-d168-4d15-acc1-5de4f2f5d551.h5ad
+    case_labels: [systemic lupus erythematosus]
+    notes: >
+      Already processed as SLE_GSE174188_CD4 (CD4 subset). Listed here so the
+      multi-cohort screen can re-derive it under identical rules and confirm the
+      new pipeline reproduces the locked v2 numbers.
+
+  - name: COVID_REN
+    status: new
+    disease_group: COVID-19
+    expected_confounding: strong
+    dataset_id: 9dbab10c-118d-496b-966a-67f1763a6b7d
+    citation: Ren et al. (2021) Cell
+    n_donor: 196
+    n_cell: 1462702
+    h5ad_gb: 13.97
+    h5ad_url: https://datasets.cellxgene.cziscience.com/481a2da9-2e61-424a-87e4-171e940006a4.h5ad
+    case_labels: [COVID-19]
+    notes: >
+      Contains blood, lung and saliva - MUST be subset to blood. Two assays are
+      present ("10x 3' v3" and "10x 5' v2"); assay is therefore a first-class
+      design variable here and must enter the design block.
+
+  - name: COVID_STEPHENSON
+    status: new
+    disease_group: COVID-19
+    expected_confounding: strong
+    dataset_id: c7775e88-49bf-4ba2-a03b-93f00447c958
+    citation: Stephenson et al. (2021) Nat Med (CITIID-NIHR BioResource)
+    n_donor: 120
+    n_cell: 647366
+    h5ad_gb: 7.06
+    h5ad_url: https://datasets.cellxgene.cziscience.com/fe2e847c-1602-4f1b-86a4-112e4dc7a8e3.h5ad
+    case_labels: [COVID-19]
+    exclude_labels: [respiratory system disorder]
+    notes: >
+      Three collection sites (Ncl / Cambridge / Sanger in the original obs).
+      Look for a site or centre column in obs and register it as batch.
+      "respiratory system disorder" donors are neither case nor control and are
+      excluded to keep a clean binary contrast.
+
+  - name: COMBAT
+    status: new
+    disease_group: COVID-19 + influenza
+    expected_confounding: controlled
+    dataset_id: ebc2e1ff-c8f9-466a-acf4-9d291afaf8b3
+    citation: Ahern et al. (2022) Cell (COMBAT consortium)
+    n_donor: 124
+    n_cell: 836148
+    h5ad_gb: 5.6
+    h5ad_url: https://datasets.cellxgene.cziscience.com/359ed2e3-7f6d-4ec4-9e4a-63113cfbcd84.h5ad
+    case_labels: [COVID-19]
+    notes: >
+      KEY COHORT. Run three separate binary contrasts from the same h5ad:
+        COMBAT_COVID     : COVID-19 vs normal
+        COMBAT_INFLUENZA : influenza vs normal
+        COMBAT_CROSS     : COVID-19 vs influenza (both diseased, same acquisition)
+      Because all three share one acquisition process, comparing their design-only
+      AUCs isolates how much of the design signal is disease-specific rather than
+      cohort-specific. This is the controlled comparison the PLOS reviewers asked
+      for and it cannot be obtained from separate cohorts.
+
+  - name: CMV_HIHA
+    status: new
+    disease_group: CMV
+    expected_confounding: weak
+    dataset_id: e522d2cd-7927-4e59-a4ed-064009569279
+    citation: Gong et al. (2025) Nature (Human Immune Health Atlas)
+    n_donor: 108
+    n_cell: 1821725
+    h5ad_gb: 11.53
+    h5ad_url: https://datasets.cellxgene.cziscience.com/c1ce03ce-4b71-4b8d-b695-c3cec99cdfc2.h5ad
+    case_labels: [cytomegalovirus infection]
+    notes: >
+      Expected NEGATIVE/weak case. A standardised prospective atlas with a single
+      assay and CMV serostatus that is not tied to recruitment logistics. If the
+      framework is sound, this cohort should show HIGH 1-R2(Y~D) - i.e. design
+      does NOT predict the label - and should pass the validity checks. It is the
+      real-data counterpart of the simulated positive control in the v2 paper.
+      A framework that flags every cohort as confounded is not a useful framework;
+      this entry is what makes the screen falsifiable.

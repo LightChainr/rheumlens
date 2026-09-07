@@ -1,0 +1,2 @@
+cohort	n_donor	n_design_feature	design_auc_linear	design_auc_rf	I_D	I_D_cv	I_D_null_mean	p_I_D	disease_auc	p_standard	p_design_preserving
+COVID_STEPHENSON	115	8	0.7998	0.8419	0.5755	0.6496	0.9305	0.005	0.9639	0.0005	0.0005

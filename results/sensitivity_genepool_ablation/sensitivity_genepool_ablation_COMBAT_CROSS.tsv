@@ -1,0 +1,4 @@
+cohort	dropped_buckets	kept_gene_pool	disease_auc_frozen_C1
+COMBAT_CROSS	[1, 2]	2666	0.8982
+COMBAT_CROSS	[0, 2]	2667	0.9165
+COMBAT_CROSS	[0, 1]	2667	0.9049

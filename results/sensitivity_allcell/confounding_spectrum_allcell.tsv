@@ -1,0 +1,2 @@
+cohort	n_donor	I_D	design_auc_linear	design_auc_rf	disease_auc	p_standard	p_design_preserving
+SLE_GSE174188_ALLCELL	261	0.6048	0.851	0.9039	0.9892	0.001	0.001

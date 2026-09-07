@@ -1,0 +1,4 @@
+cohort	block	n_donor	n_case	n_design_feature	I_D	design_auc_linear	design_auc_rf	disease_auc	observed_frozen_auc	p_standard	p_design_preserving	n_strata
+COVID_REN_ASSAY_10x_5_v2	qc	161	136	4	0.9577	0.6495	0.7152	0.9464	0.9315	0.001	0.001	3
+COVID_REN_ASSAY_10x_5_v2	demographic	161	136	3	0.9362	0.7042	0.6591	0.9464	0.9315	0.001	0.001	3
+COVID_REN_ASSAY_10x_5_v2	all	161	136	7	0.8773	0.7426	0.788	0.9464	0.9315	0.001	0.001	3

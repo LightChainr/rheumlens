@@ -1,0 +1,2 @@
+cohort	n_donor	n_design_feature	design_auc_linear	design_auc_rf	I_D	I_D_cv	I_D_null_mean	p_I_D	disease_auc	p_standard	p_design_preserving
+COVID_REN	182	26	0.8048	0.8591	0.6675	0.8728	0.8643	0.005	0.9421	0.0005	0.0005
