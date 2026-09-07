@@ -1,0 +1,20 @@
+{
+  "cohort": "COVID_REN",
+  "dataset_id": "9dbab10c-118d-496b-966a-67f1763a6b7d",
+  "citation": "Ren et al. (2021) Cell",
+  "n_donor": 182,
+  "n_case": 157,
+  "n_control": 25,
+  "n_cell_used": 1399186,
+  "n_gene": 27131,
+  "case_labels": [
+    "COVID-19"
+  ],
+  "control_labels": [
+    "normal"
+  ],
+  "raw_source": "raw",
+  "batch_columns": [],
+  "age_recovered": 181,
+  "expected_confounding": "strong"
+}

@@ -2,14 +2,10 @@
   "seed": 20260907,
   "n_splits": 5,
   "n_repeat": 5,
-  "n_perm": 1000,
+  "n_perm": 100,
   "cohorts": [
-    "SLE_GSE174188_CD4",
-    "CMV_HIHA",
-    "COVID_STEPHENSON",
     "COMBAT_COVID",
     "COMBAT_INFLUENZA",
-    "COMBAT_CROSS",
-    "COVID_REN"
+    "COMBAT_CROSS"
   ]
 }

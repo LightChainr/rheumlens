@@ -1,0 +1,10 @@
+{
+  "seed": 20260908,
+  "n_splits": 5,
+  "n_repeat": 5,
+  "n_perm": 5000,
+  "cohorts": [
+    "COMBAT_COVID",
+    "COMBAT_CROSS"
+  ]
+}

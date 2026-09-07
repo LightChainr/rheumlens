@@ -1,0 +1,4 @@
+cohort	block	n_donor	n_case	n_design_feature	I_D	design_auc_linear	design_auc_rf	disease_auc	observed_frozen_auc	p_standard	p_design_preserving	n_strata
+SLE_GSE174188_ALLCELL	qc	261	162	4	0.7034	0.8286	0.8713	0.9892	0.9872	0.001	0.001	3
+SLE_GSE174188_ALLCELL	demographic	261	162	5	0.8485	0.6918	0.7248	0.9892	0.9872	0.001	0.001	3
+SLE_GSE174188_ALLCELL	all	261	162	9	0.6048	0.851	0.9039	0.9892	0.9872	0.001	0.001	3

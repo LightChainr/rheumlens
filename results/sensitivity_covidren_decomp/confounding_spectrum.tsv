@@ -1,0 +1,2 @@
+cohort	n_donor	I_D	design_auc_linear	design_auc_rf	disease_auc	p_standard	p_design_preserving
+COVID_REN_ASSAY_10x_5_v2	161	0.8773	0.7426	0.788	0.9464	0.001	0.001

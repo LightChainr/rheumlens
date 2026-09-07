@@ -1,0 +1,4 @@
+cohort	dropped_buckets	kept_gene_pool	disease_auc_frozen_C1
+SLE_GSE174188_CD4	[1, 2]	2666	0.9742
+SLE_GSE174188_CD4	[0, 2]	2667	0.9841
+SLE_GSE174188_CD4	[0, 1]	2667	0.9827
