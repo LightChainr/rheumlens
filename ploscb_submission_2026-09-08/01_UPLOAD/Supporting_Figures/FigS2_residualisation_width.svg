@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='510.24pt' height='249.45pt' viewBox='0 0 510.24 249.45'>
+<g class='svglite'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw1MTAuMjR8MC4wMHwyNDkuNDU='>
+    <rect x='0.00' y='0.00' width='510.24' height='249.45' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw1MTAuMjR8MC4wMHwyNDkuNDU=)'>
+<rect x='0.00' y='-0.000000000000028' width='510.24' height='249.45' style='stroke-width: 0.78; stroke: #FFFFFF; fill: #FFFFFF;' />
+</g>
+<defs>
+  <clipPath id='cpMjcuODl8NTA2LjI1fDI5LjAzfDIyNi44Mw=='>
+    <rect x='27.89' y='29.03' width='478.36' height='197.81' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjcuODl8NTA2LjI1fDI5LjAzfDIyNi44Mw==)'>
+<rect x='27.89' y='29.03' width='478.36' height='197.81' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<line x1='27.89' y1='163.72' x2='506.25' y2='163.72' style='stroke-width: 0.64; stroke: #999999; stroke-dasharray: 2.00,2.00; stroke-linecap: butt;' />
+<polygon points='49.63,156.57 54.41,155.09 63.97,147.94 83.08,150.13 121.31,145.41 197.78,131.73 274.24,38.02 350.70,43.24 427.16,82.35 484.51,120.90 484.51,178.06 427.16,166.26 350.70,132.55 274.24,145.17 197.78,204.89 121.31,217.84 83.08,205.83 63.97,203.24 54.41,208.94 49.63,205.36 ' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; fill: #3C6E9F; fill-opacity: 0.15;' />
+<polyline points='49.63,156.57 54.41,155.09 63.97,147.94 83.08,150.13 121.31,145.41 197.78,131.73 274.24,38.02 350.70,43.24 427.16,82.35 484.51,120.90 ' style='stroke-width: 0.78; stroke: none; stroke-linecap: butt;' />
+<polyline points='484.51,178.06 427.16,166.26 350.70,132.55 274.24,145.17 197.78,204.89 121.31,217.84 83.08,205.83 63.97,203.24 54.41,208.94 49.63,205.36 ' style='stroke-width: 0.78; stroke: none; stroke-linecap: butt;' />
+<polyline points='49.63,183.18 54.41,182.23 63.97,179.42 83.08,178.96 121.31,171.19 197.78,163.52 274.24,97.10 350.70,95.12 427.16,126.50 484.51,150.31 ' style='stroke-width: 1.28; stroke: #3C6E9F; stroke-linecap: butt;' />
+<circle cx='49.63' cy='183.18' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='54.41' cy='182.23' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='63.97' cy='179.42' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='83.08' cy='178.96' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='121.31' cy='171.19' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='197.78' cy='163.52' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='274.24' cy='97.10' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='350.70' cy='95.12' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='427.16' cy='126.50' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<circle cx='484.51' cy='150.31' r='1.96' style='stroke-width: 0.52; stroke: #3C6E9F; fill: #3C6E9F;' />
+<polyline points='255.12,95.46 264.68,95.46 ' style='stroke-width: 0.85; stroke: #B4913C; stroke-linecap: butt;' />
+<polyline points='259.90,95.46 259.90,170.84 ' style='stroke-width: 0.85; stroke: #B4913C; stroke-linecap: butt;' />
+<polyline points='255.12,170.84 264.68,170.84 ' style='stroke-width: 0.85; stroke: #B4913C; stroke-linecap: butt;' />
+<polygon points='259.90,132.06 263.70,138.63 256.11,138.63 ' style='stroke-width: 0.52; stroke: none; fill: #B4913C;' />
+<text x='245.56' y='134.07' text-anchor='end' style='font-size: 6.54px;fill: #8A6E2A; font-family: "Arial";' textLength='58.75px' lengthAdjust='spacingAndGlyphs'>CMV-shaped design</text>
+<text x='245.56' y='143.50' text-anchor='end' style='font-size: 6.54px;fill: #8A6E2A; font-family: "Arial";' textLength='16.31px' lengthAdjust='spacingAndGlyphs'>0.091</text>
+<line x1='27.89' y1='79.10' x2='506.25' y2='79.10' style='stroke-width: 0.96; stroke: #8C3B26; stroke-dasharray: 2.56,1.28; stroke-linecap: butt;' />
+<text x='54.41' y='76.16' style='font-size: 6.83px;fill: #8C3B26; font-family: "Arial";' textLength='78.19px' lengthAdjust='spacingAndGlyphs'>observed CMV loss 0.282</text>
+</g>
+<g clip-path='url(#cpMC4wMHw1MTAuMjR8MC4wMHwyNDkuNDU=)'>
+<polyline points='27.89,226.83 27.89,29.03 ' style='stroke-width: 0.78; stroke-linecap: square;' />
+<text x='24.30' y='226.05' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='11.38px' lengthAdjust='spacingAndGlyphs'>-0.2</text>
+<text x='24.30' y='166.08' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>0.0</text>
+<text x='24.30' y='106.11' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>0.2</text>
+<text x='24.30' y='46.13' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>0.4</text>
+<polyline points='25.89,223.69 27.89,223.69 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<polyline points='25.89,163.72 27.89,163.72 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<polyline points='25.89,103.75 27.89,103.75 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<polyline points='25.89,43.77 27.89,43.77 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<polyline points='27.89,226.83 506.25,226.83 ' style='stroke-width: 0.78; stroke-linecap: square;' />
+<polyline points='44.85,228.82 44.85,226.83 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<polyline points='164.32,228.82 164.32,226.83 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<polyline points='283.80,228.82 283.80,226.83 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<polyline points='403.27,228.82 403.27,226.83 ' style='stroke-width: 0.78; stroke-linecap: butt;' />
+<text x='44.85' y='235.14' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='3.67px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='164.32' y='235.14' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='7.34px' lengthAdjust='spacingAndGlyphs'>25</text>
+<text x='283.80' y='235.14' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='7.34px' lengthAdjust='spacingAndGlyphs'>50</text>
+<text x='403.27' y='235.14' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='7.34px' lengthAdjust='spacingAndGlyphs'>75</text>
+<text x='267.07' y='243.89' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='124.25px' lengthAdjust='spacingAndGlyphs'>one-hot design columns (108 donors)</text>
+<text transform='translate(9.36,127.93) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='87.97px' lengthAdjust='spacingAndGlyphs'>AUC lost to residualisation</text>
+<text x='3.99' y='16.91' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='340.92px' lengthAdjust='spacingAndGlyphs'>Design generated independently of the diagnosis; biological effect calibrated so unadjusted AUC matches the CMV cohort.</text>
+<text x='3.99' y='23.72' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='295.02px' lengthAdjust='spacingAndGlyphs'>Ribbon is the 2.5th-97.5th percentile over 60 draws. The triangle reuses the real batch-by-pool level sizes.</text>
+<text x='3.99' y='9.72' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='230.34px' lengthAdjust='spacingAndGlyphs'>Figure S2  Residualisation loss with no confounding present</text>
+</g>
+</g>
+</svg>

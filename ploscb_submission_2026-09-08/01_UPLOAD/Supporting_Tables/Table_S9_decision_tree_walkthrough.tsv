@@ -1,0 +1,4 @@
+cohort	n_donor	n_case	n_design_col	stratum_variable	design_only_auc	n_strata	n_mixed_strata	n_donor_in_mixed	disease_auc	disease_auc_sd	residualised_auc	residualisation_loss	n_usable_strata	restriction_stratum	restricted_auc	matched_subset_auc	restriction_loss	n_in_stratum	n_case_in_stratum	matched_subset_sd
+CMV_HIHA	108	45	89	batch__batch_id x batch__pool_id	0.4828	46	21	72	0.8452	0.0186	0.563	0.2822	0							
+COVID_REN	182	157	26	batch__City x batch__SourceStudy x batch__BCRseq x batch__TCRseq x assay	0.8397	25	8	88	0.9484	0.0164	0.8488	0.0997	1	9.0	0.9715	0.7485	0.2231	18.0	13.0	0.1166
+COMBAT_INFLUENZA	21	11	7	batch__Institute	1.0	2	0	0	0.9936	0.0042	0.1614	0.8323	0							

@@ -1,0 +1,151 @@
+cohort	block	raw_column	kind	n_levels	n_expanded_columns
+CMV_HIHA	all	age_years	numeric		1
+CMV_HIHA	all	aggregate_pct_mito	numeric		1
+CMV_HIHA	all	batch__batch_id	categorical	36.0	35
+CMV_HIHA	all	batch__pool_id	categorical	46.0	45
+CMV_HIHA	all	ethnicity	categorical	4.0	3
+CMV_HIHA	all	log_cells_per_donor	numeric		1
+CMV_HIHA	all	log_mean_genes_per_cell	numeric		1
+CMV_HIHA	all	log_mean_umi_per_cell	numeric		1
+CMV_HIHA	all	sex	categorical	2.0	1
+CMV_HIHA	batch	batch__batch_id	categorical	36.0	35
+CMV_HIHA	batch	batch__pool_id	categorical	46.0	45
+CMV_HIHA	demographic	age_years	numeric		1
+CMV_HIHA	demographic	ethnicity	categorical	4.0	3
+CMV_HIHA	demographic	sex	categorical	2.0	1
+CMV_HIHA	qc	aggregate_pct_mito	numeric		1
+CMV_HIHA	qc	log_cells_per_donor	numeric		1
+CMV_HIHA	qc	log_mean_genes_per_cell	numeric		1
+CMV_HIHA	qc	log_mean_umi_per_cell	numeric		1
+COMBAT_COVID	all	age_years	numeric		1
+COMBAT_COVID	all	aggregate_pct_mito	numeric		1
+COMBAT_COVID	all	batch__Institute	categorical	2.0	1
+COMBAT_COVID	all	ethnicity	categorical	1.0	0
+COMBAT_COVID	all	log_cells_per_donor	numeric		1
+COMBAT_COVID	all	log_mean_genes_per_cell	numeric		1
+COMBAT_COVID	all	log_mean_umi_per_cell	numeric		1
+COMBAT_COVID	all	sex	categorical	2.0	1
+COMBAT_COVID	batch	batch__Institute	categorical	2.0	1
+COMBAT_COVID	demographic	age_years	numeric		1
+COMBAT_COVID	demographic	ethnicity	categorical	1.0	0
+COMBAT_COVID	demographic	sex	categorical	2.0	1
+COMBAT_COVID	qc	aggregate_pct_mito	numeric		1
+COMBAT_COVID	qc	log_cells_per_donor	numeric		1
+COMBAT_COVID	qc	log_mean_genes_per_cell	numeric		1
+COMBAT_COVID	qc	log_mean_umi_per_cell	numeric		1
+COMBAT_CROSS	all	age_years	numeric		1
+COMBAT_CROSS	all	aggregate_pct_mito	numeric		1
+COMBAT_CROSS	all	batch__Institute	categorical	2.0	1
+COMBAT_CROSS	all	ethnicity	categorical	1.0	0
+COMBAT_CROSS	all	log_cells_per_donor	numeric		1
+COMBAT_CROSS	all	log_mean_genes_per_cell	numeric		1
+COMBAT_CROSS	all	log_mean_umi_per_cell	numeric		1
+COMBAT_CROSS	all	sex	categorical	2.0	1
+COMBAT_CROSS	batch	batch__Institute	categorical	2.0	1
+COMBAT_CROSS	demographic	age_years	numeric		1
+COMBAT_CROSS	demographic	ethnicity	categorical	1.0	0
+COMBAT_CROSS	demographic	sex	categorical	2.0	1
+COMBAT_CROSS	qc	aggregate_pct_mito	numeric		1
+COMBAT_CROSS	qc	log_cells_per_donor	numeric		1
+COMBAT_CROSS	qc	log_mean_genes_per_cell	numeric		1
+COMBAT_CROSS	qc	log_mean_umi_per_cell	numeric		1
+COMBAT_INFLUENZA	all	age_years	numeric		1
+COMBAT_INFLUENZA	all	aggregate_pct_mito	numeric		1
+COMBAT_INFLUENZA	all	batch__Institute	categorical	2.0	1
+COMBAT_INFLUENZA	all	ethnicity	categorical	1.0	0
+COMBAT_INFLUENZA	all	log_cells_per_donor	numeric		1
+COMBAT_INFLUENZA	all	log_mean_genes_per_cell	numeric		1
+COMBAT_INFLUENZA	all	log_mean_umi_per_cell	numeric		1
+COMBAT_INFLUENZA	all	sex	categorical	2.0	1
+COMBAT_INFLUENZA	batch	batch__Institute	categorical	2.0	1
+COMBAT_INFLUENZA	demographic	age_years	numeric		1
+COMBAT_INFLUENZA	demographic	ethnicity	categorical	1.0	0
+COMBAT_INFLUENZA	demographic	sex	categorical	2.0	1
+COMBAT_INFLUENZA	qc	aggregate_pct_mito	numeric		1
+COMBAT_INFLUENZA	qc	log_cells_per_donor	numeric		1
+COMBAT_INFLUENZA	qc	log_mean_genes_per_cell	numeric		1
+COMBAT_INFLUENZA	qc	log_mean_umi_per_cell	numeric		1
+COVID_REN	all	age_years	numeric		1
+COVID_REN	all	aggregate_pct_mito	numeric		1
+COVID_REN	all	assay	categorical	2.0	1
+COVID_REN	all	batch__BCRseq	categorical	2.0	1
+COVID_REN	all	batch__City	categorical	12.0	11
+COVID_REN	all	batch__SourceStudy	categorical	6.0	5
+COVID_REN	all	batch__TCRseq	categorical	2.0	1
+COVID_REN	all	ethnicity	categorical	1.0	0
+COVID_REN	all	log_cells_per_donor	numeric		1
+COVID_REN	all	log_mean_genes_per_cell	numeric		1
+COVID_REN	all	log_mean_umi_per_cell	numeric		1
+COVID_REN	all	sex	categorical	3.0	2
+COVID_REN	batch	assay	categorical	2.0	1
+COVID_REN	batch	batch__BCRseq	categorical	2.0	1
+COVID_REN	batch	batch__City	categorical	12.0	11
+COVID_REN	batch	batch__SourceStudy	categorical	6.0	5
+COVID_REN	batch	batch__TCRseq	categorical	2.0	1
+COVID_REN	demographic	age_years	numeric		1
+COVID_REN	demographic	ethnicity	categorical	1.0	0
+COVID_REN	demographic	sex	categorical	3.0	2
+COVID_REN	qc	aggregate_pct_mito	numeric		1
+COVID_REN	qc	log_cells_per_donor	numeric		1
+COVID_REN	qc	log_mean_genes_per_cell	numeric		1
+COVID_REN	qc	log_mean_umi_per_cell	numeric		1
+COVID_REN_ASSAY_10x_5_v2	all	age_years	numeric		1
+COVID_REN_ASSAY_10x_5_v2	all	aggregate_pct_mito	numeric		1
+COVID_REN_ASSAY_10x_5_v2	all	ethnicity	categorical	1.0	0
+COVID_REN_ASSAY_10x_5_v2	all	log_cells_per_donor	numeric		1
+COVID_REN_ASSAY_10x_5_v2	all	log_mean_genes_per_cell	numeric		1
+COVID_REN_ASSAY_10x_5_v2	all	log_mean_umi_per_cell	numeric		1
+COVID_REN_ASSAY_10x_5_v2	all	sex	categorical	3.0	2
+COVID_REN_ASSAY_10x_5_v2	demographic	age_years	numeric		1
+COVID_REN_ASSAY_10x_5_v2	demographic	ethnicity	categorical	1.0	0
+COVID_REN_ASSAY_10x_5_v2	demographic	sex	categorical	3.0	2
+COVID_REN_ASSAY_10x_5_v2	qc	aggregate_pct_mito	numeric		1
+COVID_REN_ASSAY_10x_5_v2	qc	log_cells_per_donor	numeric		1
+COVID_REN_ASSAY_10x_5_v2	qc	log_mean_genes_per_cell	numeric		1
+COVID_REN_ASSAY_10x_5_v2	qc	log_mean_umi_per_cell	numeric		1
+COVID_STEPHENSON	all	age_years	numeric		1
+COVID_STEPHENSON	all	aggregate_pct_mito	numeric		1
+COVID_STEPHENSON	all	batch__Site	categorical	3.0	2
+COVID_STEPHENSON	all	ethnicity	categorical	1.0	0
+COVID_STEPHENSON	all	log_cells_per_donor	numeric		1
+COVID_STEPHENSON	all	log_mean_genes_per_cell	numeric		1
+COVID_STEPHENSON	all	log_mean_umi_per_cell	numeric		1
+COVID_STEPHENSON	all	sex	categorical	2.0	1
+COVID_STEPHENSON	batch	batch__Site	categorical	3.0	2
+COVID_STEPHENSON	demographic	age_years	numeric		1
+COVID_STEPHENSON	demographic	ethnicity	categorical	1.0	0
+COVID_STEPHENSON	demographic	sex	categorical	2.0	1
+COVID_STEPHENSON	qc	aggregate_pct_mito	numeric		1
+COVID_STEPHENSON	qc	log_cells_per_donor	numeric		1
+COVID_STEPHENSON	qc	log_mean_genes_per_cell	numeric		1
+COVID_STEPHENSON	qc	log_mean_umi_per_cell	numeric		1
+SLE_GSE174188_ALLCELL	all	age_years	numeric		1
+SLE_GSE174188_ALLCELL	all	aggregate_pct_mito	numeric		1
+SLE_GSE174188_ALLCELL	all	ethnicity	categorical	4.0	3
+SLE_GSE174188_ALLCELL	all	log_cells_per_donor	numeric		1
+SLE_GSE174188_ALLCELL	all	log_mean_genes_per_cell	numeric		1
+SLE_GSE174188_ALLCELL	all	log_mean_umi_per_cell	numeric		1
+SLE_GSE174188_ALLCELL	all	sex	categorical	2.0	1
+SLE_GSE174188_ALLCELL	demographic	age_years	numeric		1
+SLE_GSE174188_ALLCELL	demographic	ethnicity	categorical	4.0	3
+SLE_GSE174188_ALLCELL	demographic	sex	categorical	2.0	1
+SLE_GSE174188_ALLCELL	qc	aggregate_pct_mito	numeric		1
+SLE_GSE174188_ALLCELL	qc	log_cells_per_donor	numeric		1
+SLE_GSE174188_ALLCELL	qc	log_mean_genes_per_cell	numeric		1
+SLE_GSE174188_ALLCELL	qc	log_mean_umi_per_cell	numeric		1
+SLE_GSE174188_CD4	all	age_years	numeric		1
+SLE_GSE174188_CD4	all	aggregate_pct_mito	numeric		1
+SLE_GSE174188_CD4	all	batch__processing_wave	categorical	4.0	3
+SLE_GSE174188_CD4	all	ethnicity	categorical	4.0	3
+SLE_GSE174188_CD4	all	log_cells_per_donor	numeric		1
+SLE_GSE174188_CD4	all	log_mean_genes_per_cell	numeric		1
+SLE_GSE174188_CD4	all	log_mean_umi_per_cell	numeric		1
+SLE_GSE174188_CD4	all	sex	categorical	2.0	1
+SLE_GSE174188_CD4	batch	batch__processing_wave	categorical	4.0	3
+SLE_GSE174188_CD4	demographic	age_years	numeric		1
+SLE_GSE174188_CD4	demographic	ethnicity	categorical	4.0	3
+SLE_GSE174188_CD4	demographic	sex	categorical	2.0	1
+SLE_GSE174188_CD4	qc	aggregate_pct_mito	numeric		1
+SLE_GSE174188_CD4	qc	log_cells_per_donor	numeric		1
+SLE_GSE174188_CD4	qc	log_mean_genes_per_cell	numeric		1
+SLE_GSE174188_CD4	qc	log_mean_umi_per_cell	numeric		1

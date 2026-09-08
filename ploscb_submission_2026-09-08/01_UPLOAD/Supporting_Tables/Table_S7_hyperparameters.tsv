@@ -1,0 +1,31 @@
+model	role	setting	value	selected_or_fixed
+logistic regression	main donor classifier	solver	liblinear	fixed
+logistic regression	main donor classifier	class_weight	balanced	fixed
+logistic regression	main donor classifier	max_iter	20000	fixed
+logistic regression	main donor classifier	C	1e-4 to 1e4, decade steps	selected by 5-fold resampling inside each outer training fold
+logistic regression	frozen permutation pipeline	C	1.0	fixed (must be frozen so observed and null share one pipeline)
+PCA	frozen permutation pipeline	n_components	50, or n_donor-2 if smaller	fixed
+random forest	design-only nonlinear arm	n_estimators	256	fixed
+random forest	design-only nonlinear arm	max_depth	4	fixed
+random forest	design-only nonlinear arm	min_samples_leaf	3	fixed
+histogram gradient boosting	design-only nonlinear arm	max_iter	150	fixed
+histogram gradient boosting	design-only nonlinear arm	learning_rate	0.05	fixed
+histogram gradient boosting	design-only nonlinear arm	max_leaf_nodes	7	fixed
+histogram gradient boosting	design-only nonlinear arm	min_samples_leaf	5	fixed
+ridge	fold-contained residualiser	alpha	1.0	fixed
+ridge	fold-contained residualiser	fit_intercept	True (intercept fitted, not penalised)	fixed
+random forest	nonlinear residualiser	n_estimators	96	fixed
+random forest	nonlinear residualiser	max_depth	4	fixed
+random forest	nonlinear residualiser	min_samples_leaf	3	fixed
+HVG selection	pseudobulk	n_genes	4000, by training-donor variance	fixed
+PCA	pseudobulk	n_components	up to 30, training-fold only	fixed
+Geneformer V2-316M	cell embedding	encoder	frozen, final-layer CLS, 1152-d	fixed
+Geneformer V2-316M	cell embedding	cells per donor	500 (GSE135779) / 1000 (others), seed 1	fixed
+DeepSets / gated attention / multi-head attention	learned pooling	hidden width	16 or 32	selected by 5-fold source-donor CV
+DeepSets / gated attention / multi-head attention	learned pooling	weight decay	0.01 or 0.1	selected by 5-fold source-donor CV
+DeepSets / gated attention / multi-head attention	learned pooling	Adam learning rate	0.02, 150 epochs	fixed
+permutation	free and collection-preserving	n_perm	1000 (every run; smallest returnable p = 1/1001)	fixed
+permutation	design-only AUC null	n_perm	200 (smallest returnable p = 1/201)	fixed
+V_D null	per design matrix	n_perm	200 (smallest returnable p = 1/201)	fixed
+cross-fitting	V_D and design-only AUC	folds	5, shuffled, seeded by run seed	fixed
+repeated evaluation	internal analyses	repeats x folds	20 x 5, seeds 20260801-20260820	fixed

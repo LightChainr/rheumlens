@@ -1,0 +1,70 @@
+cohort	column	in_any_design_block	reason
+CMV_HIHA	assay	no	constant in this cohort, so it carries no information and expands to zero columns
+CMV_HIHA	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+CMV_HIHA	disease_label	no	human-readable form of the diagnosis label - never a predictor
+CMV_HIHA	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+CMV_HIHA	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+CMV_HIHA	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+CMV_HIHA	y_true	no	diagnosis label or a direct proxy - never a predictor
+COMBAT_COVID	assay	no	constant in this cohort, so it carries no information and expands to zero columns
+COMBAT_COVID	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_COVID	disease_label	no	human-readable form of the diagnosis label - never a predictor
+COMBAT_COVID	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_COVID	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_COVID	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+COMBAT_COVID	y_true	no	diagnosis label or a direct proxy - never a predictor
+COMBAT_CROSS	assay	no	constant in this cohort, so it carries no information and expands to zero columns
+COMBAT_CROSS	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_CROSS	disease_label	no	human-readable form of the diagnosis label - never a predictor
+COMBAT_CROSS	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_CROSS	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_CROSS	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+COMBAT_CROSS	y_true	no	diagnosis label or a direct proxy - never a predictor
+COMBAT_INFLUENZA	assay	no	constant in this cohort, so it carries no information and expands to zero columns
+COMBAT_INFLUENZA	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_INFLUENZA	disease_label	no	human-readable form of the diagnosis label - never a predictor
+COMBAT_INFLUENZA	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_INFLUENZA	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COMBAT_INFLUENZA	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+COMBAT_INFLUENZA	y_true	no	diagnosis label or a direct proxy - never a predictor
+COVID_REN	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+COVID_REN	disease_label	no	human-readable form of the diagnosis label - never a predictor
+COVID_REN	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COVID_REN	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COVID_REN	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+COVID_REN	y_true	no	diagnosis label or a direct proxy - never a predictor
+COVID_REN_ASSAY_10x_5_v2	assay	no	constant in this cohort, so it carries no information and expands to zero columns
+COVID_REN_ASSAY_10x_5_v2	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+COVID_REN_ASSAY_10x_5_v2	disease_label	no	human-readable form of the diagnosis label - never a predictor
+COVID_REN_ASSAY_10x_5_v2	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COVID_REN_ASSAY_10x_5_v2	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COVID_REN_ASSAY_10x_5_v2	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+COVID_REN_ASSAY_10x_5_v2	y_true	no	diagnosis label or a direct proxy - never a predictor
+COVID_STEPHENSON	assay	no	constant in this cohort, so it carries no information and expands to zero columns
+COVID_STEPHENSON	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+COVID_STEPHENSON	disease_label	no	human-readable form of the diagnosis label - never a predictor
+COVID_STEPHENSON	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COVID_STEPHENSON	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+COVID_STEPHENSON	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+COVID_STEPHENSON	y_true	no	diagnosis label or a direct proxy - never a predictor
+SLE_GSE174188_ALLCELL	assay	no	constant in this cohort, so it carries no information and expands to zero columns
+SLE_GSE174188_ALLCELL	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+SLE_GSE174188_ALLCELL	disease_label	no	human-readable form of the diagnosis label - never a predictor
+SLE_GSE174188_ALLCELL	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+SLE_GSE174188_ALLCELL	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+SLE_GSE174188_ALLCELL	suspension_type	no	constant in this cohort, so it carries no information and expands to zero columns
+SLE_GSE174188_ALLCELL	y_true	no	diagnosis label or a direct proxy - never a predictor
+SLE_GSE174188_CD4	case_control	no	diagnosis label or a direct proxy - never a predictor
+SLE_GSE174188_CD4	cells_per_donor	no	superseded by log_cells_per_donor, which is on the whitelist; the raw and logged forms would be redundant
+SLE_GSE174188_CD4	mean_cell_pct_mito	no	aggregate_pct_mito is the whitelisted mitochondrial summary; the per-cell mean would be redundant
+SLE_GSE174188_CD4	mean_genes_per_cell	no	superseded by log_mean_genes_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+SLE_GSE174188_CD4	mean_umi_per_cell	no	superseded by log_mean_umi_per_cell, which is on the whitelist; the raw and logged forms would be redundant
+SLE_GSE174188_CD4	n_libraries	no	per-donor counts of library preparations; not on the prespecified whitelist
+SLE_GSE174188_CD4	n_processing_cohorts	no	per-donor counts of library preparations; not on the prespecified whitelist
+SLE_GSE174188_CD4	n_samples	no	per-donor counts of library preparations; not on the prespecified whitelist
+SLE_GSE174188_CD4	n_suspensions	no	per-donor counts of library preparations; not on the prespecified whitelist
+SLE_GSE174188_CD4	processing_fraction_1_0	no	per-donor share of a processing wave; the wave itself enters as batch__processing_wave, so the fractions would duplicate it
+SLE_GSE174188_CD4	processing_fraction_2_0	no	per-donor share of a processing wave; the wave itself enters as batch__processing_wave, so the fractions would duplicate it
+SLE_GSE174188_CD4	processing_fraction_3_0	no	per-donor share of a processing wave; the wave itself enters as batch__processing_wave, so the fractions would duplicate it
+SLE_GSE174188_CD4	processing_fraction_4_0	no	per-donor share of a processing wave; the wave itself enters as batch__processing_wave, so the fractions would duplicate it
+SLE_GSE174188_CD4	y_true	no	diagnosis label or a direct proxy - never a predictor

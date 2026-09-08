@@ -1,0 +1,22 @@
+{
+  "cohort": "COVID_STEPHENSON",
+  "dataset_id": "c7775e88-49bf-4ba2-a03b-93f00447c958",
+  "citation": "Stephenson et al. (2021) Nat Med (CITIID-NIHR BioResource)",
+  "n_donor": 115,
+  "n_case": 86,
+  "n_control": 29,
+  "n_cell_used": 632209,
+  "n_gene": 24245,
+  "case_labels": [
+    "COVID-19"
+  ],
+  "control_labels": [
+    "normal"
+  ],
+  "raw_source": "raw",
+  "batch_columns": [
+    "Site"
+  ],
+  "age_recovered": 115,
+  "expected_confounding": "strong"
+}

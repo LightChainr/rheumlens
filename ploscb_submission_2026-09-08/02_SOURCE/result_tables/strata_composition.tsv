@@ -1,0 +1,91 @@
+cohort	stratum	controls	cases	mixed	stratum_var
+CMV_HIHA	0	3	3	1	batch__batch_id × batch__pool_id
+CMV_HIHA	1	2	3	1	batch__batch_id × batch__pool_id
+CMV_HIHA	2	0	3	0	batch__batch_id × batch__pool_id
+CMV_HIHA	3	4	2	1	batch__batch_id × batch__pool_id
+CMV_HIHA	4	3	2	1	batch__batch_id × batch__pool_id
+CMV_HIHA	5	2	2	1	batch__batch_id × batch__pool_id
+CMV_HIHA	6	2	2	1	batch__batch_id × batch__pool_id
+CMV_HIHA	7	1	2	1	batch__batch_id × batch__pool_id
+CMV_HIHA	8	1	2	1	batch__batch_id × batch__pool_id
+CMV_HIHA	9	1	2	1	batch__batch_id × batch__pool_id
+CMV_HIHA	10	0	2	0	batch__batch_id × batch__pool_id
+CMV_HIHA	11	4	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	12	3	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	13	3	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	14	2	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	15	2	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	16	1	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	17	1	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	18	1	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	19	1	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	20	1	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	21	1	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	22	1	1	1	batch__batch_id × batch__pool_id
+CMV_HIHA	23	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	24	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	25	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	26	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	27	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	28	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	29	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	30	0	1	0	batch__batch_id × batch__pool_id
+CMV_HIHA	31	3	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	32	3	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	33	2	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	34	2	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	35	2	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	36	2	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	37	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	38	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	39	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	40	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	41	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	42	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	43	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	44	1	0	0	batch__batch_id × batch__pool_id
+CMV_HIHA	45	1	0	0	batch__batch_id × batch__pool_id
+COVID_REN_ASSAY_10x_5_v2	0	7	47	1	log cells (tertiles)
+COVID_REN_ASSAY_10x_5_v2	1	8	46	1	log cells (tertiles)
+COVID_REN_ASSAY_10x_5_v2	2	10	43	1	log cells (tertiles)
+COVID_STEPHENSON	0	18	39	1	batch__Site
+COVID_STEPHENSON	1	11	36	1	batch__Site
+COVID_STEPHENSON	2	0	11	0	batch__Site
+COVID_REN	0	0	17	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	1	5	13	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	2	3	13	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	3	0	13	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	4	0	12	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	5	0	12	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	6	3	10	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	7	2	10	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	8	2	8	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	9	0	7	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	10	1	6	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	11	3	5	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	12	0	5	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	13	0	5	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	14	0	4	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	15	0	4	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	16	1	3	1	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	17	0	3	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	18	0	2	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	19	0	2	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	20	0	1	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	21	0	1	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	22	0	1	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	23	3	0	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COVID_REN	24	2	0	0	batch__City × batch__SourceStudy × batch__BCRseq × batch__TCRseq × assay
+COMBAT_COVID	0	10	98	1	batch__Institute
+COMBAT_COVID	1	0	2	0	batch__Institute
+SLE_GSE174188_ALLCELL	0	31	55	1	log cells (tertiles)
+SLE_GSE174188_ALLCELL	1	34	54	1	log cells (tertiles)
+SLE_GSE174188_ALLCELL	2	34	53	1	log cells (tertiles)
+SLE_GSE174188_CD4	0	18	97	1	batch__processing_wave
+SLE_GSE174188_CD4	1	43	46	1	batch__processing_wave
+SLE_GSE174188_CD4	2	6	19	1	batch__processing_wave
+SLE_GSE174188_CD4	3	32	0	0	batch__processing_wave
+COMBAT_CROSS	0	0	98	0	batch__Institute
+COMBAT_CROSS	1	11	2	1	batch__Institute
+COMBAT_INFLUENZA	0	0	11	0	batch__Institute
+COMBAT_INFLUENZA	1	10	0	0	batch__Institute

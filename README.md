@@ -45,20 +45,31 @@ cohorts**.
 
 ## Submission snapshot
 
-The submission-stage manuscript source and cover letter are under:
+The research object for this submission is under `ploscb_submission_2026-09-08/`:
+the manuscript source, cover letter and line-numbered submission PDF, all 15 figures,
+Supporting Tables S1-S9, the analysis and figure scripts, every result table behind
+Figures 2-8, the five per-seed screen outputs, the cohort registry and the donor-level
+interface tables, and the QA records. See its `REPRODUCE.md`.
 
-`ploscb_submission_2026-09-08/`
+Public expression matrices are not mirrored there; they stay at their original GEO and
+CELLxGENE Discover accessions, which `cohorts/registry.yaml` lists.
 
-The line-numbered, double-spaced submission PDF is generated from that snapshot. The
-same snapshot is also packaged for archival release outside GitHub so that figures,
-supporting tables, staged scripts, result tables and QA records remain version-locked.
+To re-run the manuscript checks against those files:
+
+```bash
+bash ploscb_submission_2026-09-08/verify.sh
+```
+
+That re-derives 24 numbers from the released outputs and requires each verbatim in the
+manuscript, then runs ~30 structural checks over the manuscript, the rendered figures
+and the released tables. `SHA256SUMS` covers every file in the directory.
 
 ## Reproducibility and scope
 
 All supervised analyses use the donor as the independent unit. Cells from one donor do
-not cross training/test partitions. The repository records cohort metadata, design
-variable inventories, analysis scripts, simulation outputs, per-seed results and figure
-source code.
+not cross training/test partitions. `ploscb_submission_2026-09-08/` records the cohort
+metadata, design variable inventories, analysis scripts, simulation outputs, per-seed
+results and figure source code for the current study.
 
 The checks only see **recorded** structure. A low metadata-only AUC does not rule out
 unrecorded collection effects. A significant collection-preserving permutation result

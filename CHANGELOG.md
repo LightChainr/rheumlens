@@ -22,6 +22,8 @@
 
 - Prepared the 2026-09-08 PLOS Computational Biology submission snapshot under `ploscb_submission_2026-09-08/`.
 - Generated a 72-page, double-spaced, continuously line-numbered submission PDF with eight main figures embedded.
+- Committed the research object itself under `ploscb_submission_2026-09-08/`: manuscript source, cover letter, PDF, all 15 figures, Supporting Tables S1-S9, analysis and figure scripts, result tables, the five per-seed screen outputs, cohort registry, donor-level interface tables and QA records.
+- Added `REPRODUCE.md`, `SHA256SUMS` and `verify.sh`, which re-runs the 24 number checks and the structural checks against the released files alone.
 
 ## 2.0.0-rc3 - 2026-07-27
 
