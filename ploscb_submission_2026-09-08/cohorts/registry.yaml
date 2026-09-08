@@ -6,9 +6,9 @@
 #
 # Design rationale
 # ----------------
-# The v2 manuscript was rejected partly because all empirical evidence came from
-# a single disease (SLE). This registry defines a *design-confounding spectrum*
-# rather than simply "one more disease":
+# The earlier empirical analysis focused on SLE cohorts. This registry broadens
+# the evaluation across diseases and acquisition settings, defining a
+# *design-confounding spectrum* rather than simply adding one more disease:
 #
 #   weak    : CMV_HIHA        - standardised prospective atlas, single assay
 #   medium  : SLE_GSE174188   - processing waves, existing cohort
@@ -45,7 +45,7 @@ cohorts:
     notes: >
       Already processed as SLE_GSE174188_CD4 (CD4 subset). Listed here so the
       multi-cohort screen can re-derive it under identical rules and confirm the
-      new pipeline reproduces the locked v2 numbers.
+      new pipeline reproduces the locked earlier-analysis numbers.
 
   - name: COVID_REN
     status: new
@@ -99,8 +99,8 @@ cohorts:
         COMBAT_CROSS     : COVID-19 vs influenza (both diseased, same acquisition)
       Because all three share one acquisition process, comparing their design-only
       AUCs isolates how much of the design signal is disease-specific rather than
-      cohort-specific. This is the controlled comparison the PLOS reviewers asked
-      for and it cannot be obtained from separate cohorts.
+      cohort-specific. This within-cohort controlled comparison cannot be obtained
+      from separate cohorts.
 
   - name: CMV_HIHA
     status: new
@@ -116,8 +116,8 @@ cohorts:
     notes: >
       Expected NEGATIVE/weak case. A standardised prospective atlas with a single
       assay and CMV serostatus that is not tied to recruitment logistics. If the
-      framework is sound, this cohort should show HIGH 1-R2(Y~D) - i.e. design
-      does NOT predict the label - and should pass the validity checks. It is the
-      real-data counterpart of the simulated positive control in the v2 paper.
-      A framework that flags every cohort as confounded is not a useful framework;
+      diagnostics behave as intended, this cohort should show weak metadata-label
+      association and should sit near the bottom of the design-only screen. It is
+      the real-data negative control for the multi-disease analysis. A diagnostic
+      that flags every cohort as strongly metadata-associated would not be useful;
       this entry is what makes the screen falsifiable.
