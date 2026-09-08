@@ -1,164 +1,75 @@
-# Identifiability in patient-level single-cell classifiers
+# Recorded study metadata and patient-level single-cell classification
 
-> When study design predicts disease: an identifiability limit for patient-level
-> single-cell classifiers
+This repository accompanies the PLOS Computational Biology submission:
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20813922.svg)](https://doi.org/10.5281/zenodo.20813922)
+**Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons**
 
-Version `v2.0.0-rc3` is a self-contained study of design-label identifiability in
-patient-level single-cell classification. The public repository and Python package
-retain the historical name `rheumlens` for backward compatibility; that name is not
-used as a manuscript concept or method.
-
-The complete review object is under
-[`release_v2.0.0-rc3/`](release_v2.0.0-rc3/). It includes the manuscript, eight
-editable figure groups, Supplementary Tables S1-S30, donor-level inputs and
-predictions, simulations, complete-pipeline nulls, two locked environments,
-checksums and executable validators.
+The current submission snapshot is dated **2026-09-08**. It supersedes the earlier
+`v2.0.0-rc3` identifiability-framed manuscript while retaining that historical release
+for provenance.
 
 ## Current scientific question
 
-Single-cell RNA sequencing measures cells, while clinical labels and statistical
-inference concern patients. We test whether high donor-level discrimination is
-attributable and transportable when disease status is entangled with processing
-wave, collection year, sequencing quality, demographics and other recorded design
-variables.
+Patient-level single-cell classifiers can report very high internal AUC even when the
+recorded details of recruitment, processing and sequencing also predict the diagnosis.
+The current study asks a narrower empirical question: how strongly does recorded
+metadata predict diagnosis in a cohort, which variable groups carry that association,
+and what can common validation procedures establish when collection structure and the
+label are entangled?
 
-The current release combines:
+The manuscript does **not** claim a general identifiability theorem and does **not**
+present the checks as a required validity standard. They are complementary diagnostics
+with explicit scope and failure modes.
 
-- disease prediction from recorded design alone;
-- a quantitative design-adjusted label-information scale;
-- 11,200 simulations and a synthetic positive control;
-- complete-pipeline permutation and design-column-shuffle nulls;
-- recovery of batch identity from donor representations;
-- linear and nonlinear fold-contained residualisation;
-- design restriction with size- and label-matched controls;
-- an internal batch-exposure negative control;
-- attenuation-uncertainty and confound-leakage sensitivity analyses;
-- cross-batch and strict source-only cross-cohort transfer; and
-- independent-target evaluation of learned set pooling.
+## Current study
 
-## Current findings
+The main screen contains nine case-control comparisons from five public datasets
+(809 donors), spanning lupus, COVID-19, influenza, cytomegalovirus infection, and a
+sepsis-versus-COVID-19 contrast.
 
-- Complete measured design predicts disease at AUC 0.953 in GSE174188 and 0.952 in
-  GSE135779.
-- The GSE135779 complete-design AUC exceeds 1,000 complete-pipeline label
-  permutations and leaves 20.3% design-adjusted label information.
-- Donor representations recover recorded batch identity at AUC up to 0.9997.
-- Batch provides an internal negative control: batch alone predicts disease at
-  0.499 and batch residualisation changes disease AUC by at most 0.009.
-- Disease discrimination largely survives restriction to observed design overlap.
-- Residualisation can remove 0.230–0.430 AUC and collapse performance to chance when
-  the projected covariates also predict disease.
-- Cross-batch and cross-cohort transfer expose the reproducible generalisation gap.
-- Learned pooling does not repair the independent-target gap.
+Key results:
 
-These results support five minimum checks: quantify design-label estimability, test
-the complete pipeline under null data, report representation-to-design
-predictability, pair residualisation with matched overlap restriction, and require
-fully source-fitted external validation.
+- recorded metadata alone predicts diagnosis significantly in eight of nine comparisons;
+- collection variables alone are significant in four of seven comparisons that record a varying collection block;
+- a prespecified CMV cohort is the negative control, with metadata-only prediction at chance while the diagnosis classifier remains strong;
+- an influenza comparison is not estimable by the collection-preserving permutation because collection strata contain only one label;
+- free and collection-preserving complete-pipeline permutations disagree in the sepsis-versus-COVID-19 comparison;
+- two COVID-19 cohorts with similar overall metadata predictability are affected through different variable groups, sample quality in one and recruiting hospital/sub-study in the other;
+- downstream lupus analyses distinguish representation-level batch information from actual classifier use of that information;
+- residualisation and restriction answer different questions and cannot be interpreted as bounds on a biological effect;
+- external validation only tests design confounding to the extent that the target acquisition mechanism is genuinely different.
 
-## v1.0.2 benchmark question
+The simulation study covers seven data-generating regimes, seven levels of
+design-diagnosis association, binary and continuous outcomes, and **19,600 simulated
+cohorts**.
 
-Single-cell RNA sequencing measures cells, whereas clinical classification is performed at the patient level. We test which donor representation best preserves systemic lupus erythematosus (SLE) discrimination when cohort, population, and technical context change.
+## Submission snapshot
 
-The primary comparison is between:
+The submission-stage manuscript source and cover letter are under:
 
-- mean-pooled frozen Geneformer cell embeddings;
-- source-selected highly variable gene pseudobulk;
-- source-fitted PCA pseudobulk.
+`ploscb_submission_2026-09-08/`
 
-All supervised analyses use donors as the independent unit. Reciprocal external transfer uses source-only feature selection, scaling, dimensionality reduction, and regularization selection.
+The line-numbered, double-spaced submission PDF is generated from that snapshot. The
+same snapshot is also packaged for archival release outside GitHub so that figures,
+supporting tables, staged scripts, result tables and QA records remain version-locked.
 
-## v1.0.2 benchmark findings
+## Reproducibility and scope
 
-- All three representation families retain strong within-cohort donor discrimination.
-- Pseudobulk provides the stronger external-transfer representation in the evaluated SLE cohorts.
-- In the 261-donor independent target, Geneformer, HVG pseudobulk, and PCA pseudobulk achieved AUCs of 0.884, 0.919, and 0.926.
-- A shared source-internal fold sensitivity preserved the larger-target pseudobulk advantage.
-- Source-only early fusion and seven fixed distribution-preserving pooling alternatives produced no stable bidirectional improvement.
-- The pseudobulk advantage widened as source donors accumulated, while per-donor performance plateaued between 500 and 1000 cells in the evaluated Geneformer configurations.
-- Geneformer discrimination was associated with an interferon-related expression axis, but matched structured expression modules produced similar attenuation.
-- Donor-mean Geneformer embeddings occupied a low-dimensional subspace relative to sampled cell embeddings; this is a descriptive geometric result, not a causal explanation of transfer performance.
+All supervised analyses use the donor as the independent unit. Cells from one donor do
+not cross training/test partitions. The repository records cohort metadata, design
+variable inventories, analysis scripts, simulation outputs, per-seed results and figure
+source code.
 
-## Cohorts
+The checks only see **recorded** structure. A low metadata-only AUC does not rule out
+unrecorded collection effects. A significant collection-preserving permutation result
+rules out the recorded collection strata used for restriction, not every possible
+technical, demographic or sample-quality explanation. None of the internal checks alone
+establishes biological attribution or clinical usefulness.
 
-| Dataset | Donors | Analysis population |
-|---|---:|---|
-| GSE135779 | 44 | PBMC-derived donor benchmark |
-| GSE174188 | 261 | CD4-positive T cells |
-| GSE285773 | 26 | CD4-positive T cells |
+## Historical snapshots
 
-## Version 1.0.2 archive
+- `release_v2.0.0-rc3/` - previous PLOS Computational Biology review object, retained unchanged for provenance.
+- `release_v1.0.2/` - earlier SLE representation benchmark snapshot.
 
-Version 1.0.2 is the submission-stage research snapshot. It adds the corrected fold-scaled internal benchmark, complete Supplementary Tables S1-S20, explicit cohort-characteristic reporting, exact Geneformer extraction details, and a calibrated interpretation of external prediction scores. The self-contained snapshot is under `release_v1.0.2/`:
-
-```text
-release_v1.0.2/
-├── manuscript/           # Applied Sciences manuscript in Markdown, DOCX, and PDF
-├── supplementary/        # Supplementary text, PDF, and Tables S1-S20 workbook
-├── figures/              # Eight final main figures and editable SVG sources
-├── source_data/          # Corrected repeated-CV metrics
-├── scripts/              # Corrected analysis and workbook builders
-├── submission/           # Cover letter and submission metadata
-├── provenance/           # Technical review and package validation
-└── MANIFEST_SHA256.txt   # Release-level checksums
-```
-
-The broader repository retains the original benchmarking package, the v1.0.0 research snapshot, tests, historical supplementary tables, and earlier fixed-split analyses for provenance.
-
-## Reproduce and validate
-
-Validate the release object:
-
-```bash
-python3 release_v2.0.0-rc3/scripts/validate_rc_package.py release_v2.0.0-rc3
-```
-
-The release carries separate exact environment files for the locked donor-level
-audit and archived Geneformer extraction. The commands below reproduce the legacy
-package and its unit tests.
-
-```bash
-conda env create -f environment.yml
-conda activate rheumlens
-pip install -e ".[dev,io]"
-
-pytest -q
-bash scripts/reproduce_minimal.sh
-bash scripts/verify_manifests.sh
-```
-
-The release-specific plotting and validation scripts are under `release_v1.0.0/scripts/`. Several scripts use project-relative archived inputs recorded in `release_v1.0.0/provenance/figure_source_index.tsv`; the exact source tables are copied under `release_v1.0.0/source_data/`.
-
-## Scope
-
-The results apply to the evaluated public SLE cohorts, frozen Geneformer embeddings, and fixed donor-level aggregation. They do not establish clinical diagnostic readiness, causal disease mechanisms, formal cell-count sufficiency, or general inferiority of fine-tuned or learned patient representations. See [CLAIM_BOUNDARY.md](CLAIM_BOUNDARY.md) and the release evidence disposition for the complete scope.
-
-## Data and code availability
-
-- Repository: <https://github.com/LightChainr/rheumlens>
-- Stable concept DOI: <https://doi.org/10.5281/zenodo.20813922>
-- Current published version DOI (`v2.0.0-rc3`): <https://doi.org/10.5281/zenodo.21618824>
-- Current release object: [`release_v2.0.0-rc3/`](release_v2.0.0-rc3/)
-- Previous published version DOI (`v1.0.2`): <https://doi.org/10.5281/zenodo.21436893>
-- Previous version DOI (`v1.0.1`): <https://doi.org/10.5281/zenodo.21412436>
-- Superseded version DOI (`v1.0.0`): <https://doi.org/10.5281/zenodo.21412278>
-- Previous version DOI (`v0.1.1`): <https://doi.org/10.5281/zenodo.20813923>
-- Raw datasets: GEO GSE135779, GSE174188, and GSE285773
-
-Large raw matrices and cell-level embedding archives are not redistributed in Git. Their provenance, hashes, and regeneration context are retained in the project records. Donor-level and plot-ready outputs needed for the public manuscript figures are included in the versioned research archive.
-
-## Citation
-
-Use the versioned Zenodo citation generated for the release or the stable concept DOI above. Machine-readable citation metadata are provided in [CITATION.cff](CITATION.cff).
-
-## License
-
-MIT. See [LICENSE](LICENSE).
-
-## Affiliation
-
-Shanghai Pudong Hospital / 上海市浦东医院
+The public package name `rheumlens` is retained for repository continuity; it is not the
+name of a method introduced by the current manuscript.
