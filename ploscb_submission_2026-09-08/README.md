@@ -20,12 +20,16 @@ The manuscript no longer claims an identifiability theorem and does not present 
 
 ## Submission PDF
 
-A line-numbered, double-spaced, 72-page PDF with the eight main figures embedded was generated on 2026-09-08.
+A line-numbered, double-spaced, 72-page PDF with the eight main figures embedded,
+generated with XeLaTeX on 2026-09-08 and committed at `01_UPLOAD/Manuscript.pdf`.
 
-SHA256: `5cc5d61f8b13f25051c9907fd00e1f92a50197726a9e5c778f5d0dca4600c7ca`
+SHA256: `3ddddf09e2016386b5a0ccd01c87c2d9ff6d3f3de67e9f71de3435b3d6498eae`
 
-The version-locked archival submission package (manuscript, figures, supporting tables, staged scripts, result tables and QA records) has SHA256:
+Every other file in this directory is covered by `SHA256SUMS`, so there is one place
+to check rather than a hash per artefact that can go stale on its own:
 
-`1c9cf5a83b075fb3168104985166c175277b9825981169356798ed1d2fab5a3b`
+```bash
+shasum -a 256 -c SHA256SUMS
+```
 
 The repository metadata in this branch is prepared for the next versioned archival release (`3.0.0-rc1`).
