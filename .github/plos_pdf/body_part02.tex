@@ -1,0 +1,100 @@
+A comparison \textbf{cannot be answered with these data} when the quantity has no meaning for it: no collection stratum holds both a case and a control, so the collection-preserving permutation cannot be formed. These are dropped from the main ordering and reported separately.
+
+A discrepancy between a tuned and a frozen classifier is deliberately \textbf{not} used as a feasibility rule. Comparing two different algorithms across a cut-point would not establish that a comparison is unanswerable, and a tuned model outperforming a fixed one is not the same kind of problem as a design that separates the labels exactly. The frozen pipeline is the inferential statistic everywhere, because it is what both permutation nulls are built from. The tuned AUC sits beside it as a description. Their difference is released as a column, so a reader can judge pipeline sensitivity directly instead of through a threshold.
+
+A comparison is \textbf{underpowered} when the quantity is well defined but unstable: fewer than 40 donors, or a minority class below 15. These stay in the ordering, flagged. Deleting them would hide the instability a reader needs to see. The gates themselves are deterministic - they depend on donor counts and stratum structure, not on the seed - but what an underpowered comparison then reports is not: Section 4.4 gives one whose permutation p crosses 0.05 in three seeds out of five.
+
+\section{Results}\label{results}
+
+Sections 3 to 6 report results. Section 3 establishes how the checks behave on data with a known generating mechanism. Section 4 applies them to nine case-control comparisons. Section 5 asks whether a classifier actually uses the structure the checks detect. Section 6 states what each check can and cannot support.
+
+\section{3. How the checks behave in simulation}\label{how-the-checks-behave-in-simulation}
+
+A simulation with one binary design variable, an additive design effect and constant noise would not show whether these checks behave when those choices are relaxed. We therefore crossed seven data-generating regimes with seven levels of design-diagnosis association and two outcome types, binary and continuous, each predicted and scored on its own scale: 19,600 simulated cohorts of 200 donors and 100 features (Figure 2). Nothing in the simulation is fitted to the real cohorts.
+
+\subsection{3.1. The null behaves}\label{the-null-behaves}
+
+When design carries no information about the diagnosis, the checks must not fire. They do not. The fraction of runs with p(V\_D) ≤ 0.05 is 0.025 to 0.065 across the seven regimes, which brackets the nominal 0.05 (Figure 2A). It rises at ρ = 0.25 and reaches one by ρ = 0.50 in every regime. This is the property the cross-fitted estimator and the per-cohort null were introduced to obtain; an in-sample estimator judged against an in-sample null does not have it.
+
+\subsection{3.2. Adjusting and restricting give different answers, in every regime}\label{adjusting-and-restricting-give-different-answers-in-every-regime}
+
+Two ways of handling design are in common use. Residualisation regresses the data on the design variables and analyses what is left. Restriction compares only donors collected under matching conditions. In the additive linear regime the two agree when design carries no diagnosis information and separate as it does (Figure 2B). At ρ = 0 the unadjusted, residualised, restricted and external AUCs are 0.806, 0.806, 0.788 and 0.817. At ρ = 0.98 they are 0.882, 0.536, 0.701 and 0.889. Residualisation has removed 0.35 AUC and restriction 0.18, on data where the biological effect never changed. At ρ = 1 restriction is not merely worse. It is undefined, because no stratum holds both labels.
+
+The gap between the two opens in \textbf{every} regime (Figure 2C), so it is not an artefact of the linear setting.
+
+The continuous-outcome arm is a genuine test of outcome type here, not a relabelling. Its cohorts are generated with a continuous latent outcome, predicted with ridge regression, and scored by concordance over pairs, which equals AUC when the outcome is binary and so puts both arms on one scale. The ordering survives: restriction beats residualisation at rho = 0.98 in all seven regimes for both outcome types. The magnitude does not. With a binary outcome the gap is 0.094 to 0.200; with a continuous one it is 0.013 to 0.038. So the qualitative conclusion does not depend on outcome type, and the quantitative one does - a simulation run only on continuous outcomes would have understated the problem by roughly a factor of five.
+
+\subsection{3.3. Two results we did not expect}\label{two-results-we-did-not-expect}
+
+\textbf{What a rare diagnosis does, and what it does not.} Two things travel together in an imbalanced cohort and are easy to confuse. One is prevalence itself. The other is that a collection boundary drawn at the middle of a population no longer lines up with a diagnosis drawn from its top fifth, so the design cannot separate the labels even when the two are perfectly linked in the latent model. We separate them with two arms. In \texttt{imbalanced}, both thresholds sit at the 80th percentile, so prevalence is the only thing that changed. In \texttt{imbalanced\_offset}, the diagnosis sits at the 80th percentile while the collection boundary stays at the median. The result is that prevalence alone changes nothing. With thresholds matched, the imbalanced arm tracks the balanced one almost exactly: design-only AUC still reaches 1.000 at rho = 1 and V\_D still falls to 0.000. It is the offset arm that blunts the checks, with design-only AUC saturating at 0.880 and V\_D flooring at 0.728. The reassurance a rare diagnosis appears to give is therefore not about how rare it is. It is about whether the collection boundaries line up with the diagnosis, and a cohort can have that problem at any case rate.
+
+Two of our own comparisons have minority classes of 10 and 11 donors, so this matters for reading them.
+
+\textbf{An external cohort collected the same way will confirm a design-driven model.} In the base regime the external AUC does not fall as confounding rises. It \emph{rises}, from 0.817 at ρ = 0 to 0.904 at ρ = 1, tracking the internal AUC almost exactly (Figure 2D). Only when the target is collected under a different design mechanism does the external estimate come apart, flattening at 0.816-0.829 across the whole range while the internal estimate climbs to 0.899.
+
+The practical reading is uncomfortable. External validation checks design confounding only to the extent that the second cohort's collection process is genuinely independent of the first. Being a different dataset does not establish that. Two cohorts assembled by similar consortia, on similar platforms, through similar recruitment routes, can agree with each other and both be wrong. This sharpens Check 5 in Section 6 and is, in our reading, the most consequential thing the simulation adds.
+
+\subsection{3.4. What the collection-preserving test does not protect against}\label{what-the-collection-preserving-test-does-not-protect-against}
+
+The collection-preserving permutation conditions on collection strata. The recorded metadata also holds sample-quality and demographic columns, which it does not condition on. If one of those is associated with the diagnosis \emph{inside} a stratum, and also drives expression, then a classifier can beat the restricted null with no disease effect present anywhere. This is the test's main failure mode and it deserves a number rather than a caveat.
+
+We simulated it directly. Cohorts of 200 donors are assigned to eight collection sites. A sample-quality variable predicts the diagnosis within each site, at a strength we vary. Expression depends on the site and on that variable, and on nothing else - there is no disease effect in the generating model at all. We then run both permutation tests exactly as they are run on the real cohorts (Figure S1, Table S1).
+
+With no association at all between the quality variable and the diagnosis, both tests are calibrated: the collection-preserving permutation rejects in 6.7\% of 300 runs (95\% CI 4.4 to 10.1) and the free permutation in 7.7\% (5.2 to 11.2), against a nominal 5\%. As the within-site association strengthens, both rise together and neither is more protective than the other. At a mean within-stratum correlation of 0.29 the collection-preserving test rejects in 15.7\% of runs and the free test in 17.3\%; at 0.61 both reject in 89.3\%. The classifier's own AUC rises from 0.501 to 0.650 over the same range, and there is no disease effect anywhere in the generating model.
+
+The reading is that a significant collection-preserving result is evidence against the collection strata alone, and is not evidence of a disease-specific signal. Where a sample-quality or demographic block is itself associated with the diagnosis - which Table 1 reports for every comparison - that possibility has to stay open.
+
+\subsection{3.5. Residualisation loss without any confounding}\label{residualisation-loss-without-any-confounding}
+
+Residualisation loss is often read as a measure of how contaminated a cohort was. It is not, and the size of the effect that has nothing to do with contamination can be measured. We generated cohorts in which the design is independent of the diagnosis by construction, with a real biological effect calibrated so the unadjusted AUC matches the CMV cohort's 0.845, and residualised on design matrices of increasing width. A second condition reuses the exact level sizes of the real CMV batch-by-pool crossing, which is far more ragged than equal blocks: 46 levels for 108 donors, 17 of them holding one person.
+
+Loss appears without any confounding, it is large, and it is not monotone in width. At one to 32 design columns residualisation costs nothing - the mean loss is negative, between -0.065 and 0.001, because removing a little variance leaves the biological direction intact. Loss then peaks in the middle of the range, at 0.222 for 48 columns and 0.229 for 64, before falling again to 0.124 at 80 columns and 0.045 at 92, the width closest to the CMV cohort's 89. Run-to-run spread is wide throughout: the central 95\% of runs at 92 columns spans -0.048 to 0.143. The ragged CMV-shaped layout, which realises 45 columns from the observed pool sizes, costs 0.091 on average (-0.024 to 0.228) - twice what balanced blocks of similar width cost, which is the effect we expected, but still well short of the 0.284 seen in the real cohort (Figure S2). We therefore report width and raggedness as a partial explanation and no more; Section 8 returns to the gap.
+
+\section{4. Nine case-control comparisons}\label{nine-case-control-comparisons}
+
+\subsection{4.1. Datasets, and what the recorded metadata contains}\label{datasets-and-what-the-recorded-metadata-contains}
+
+We assembled five public datasets {[}2,39-42{]} through the CELLxGENE Discover curation API and reduced each to one row per donor: log1p CPM pseudobulk expression, plus variables built from schema-guaranteed observation fields (\texttt{donor\_id}, \texttt{disease}, \texttt{sex}, \texttt{development\_stage}, \texttt{assay}, \texttt{tissue}) and cohort-specific collection variables recovered from the distributed object.
+
+\textbf{These three groups are not the same kind of thing, and we do not treat them as one.}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Collection} (site, sub-study, sequencing chemistry, assay, batch, pool) is study design in the strict sense: it describes how the material was gathered and processed, and nothing about it is caused by the disease.
+\item
+  \textbf{Demographic} (age, sex, ethnicity) is case mix. An imbalance here is a property of who was recruited, so it is a design fact; but age and sex are also genuine risk factors for most of these diagnoses, so an association with the label can be aetiological rather than procedural. The two readings cannot be separated from the data.
+\item
+  \textbf{Sample quality} (cells per donor, mean UMI, genes per cell, mitochondrial fraction) is measured downstream of everything. It reflects the assay, but it can also reflect the disease, through cell composition, treatment or the state of the sample at collection. Section 4.1's mediator result shows exactly how much damage that can do.
+\end{itemize}
+
+Because of this, \textbf{collection is the primary definition} wherever a result is read as a statement about study design, and the other two groups are reported beside it as prespecified sensitivity analyses. The union of all three is what we call the \emph{recorded metadata}, and every claim about the union is worded as such. Section 4.2 gives the headline count under both definitions, because they differ.
+
+Covariates that are consequences of the disease are excluded from all three groups by an explicit list: severity, outcome, comorbidity, medication, symptom timing, diagnosis fields, stage, grade, WHO score. These are the C node of Figure 1.
+
+The exact raw columns and expanded design columns entering every group, for every comparison, are generated directly from the model-matrix construction code and released as Table S2. A machine check confirms that the released inventory reproduces the width of every model matrix actually fitted (34 of 34 blocks) and that no diagnosis label or label proxy appears in any of them.
+
+This exclusion is not a formality, and we quantified what it is worth. In a simulation where design and diagnosis are completely unrelated, admitting a single disease-caused covariate to the design variables raises the design-only AUC from 0.488 to 0.793. It also flags the cohort as significantly affected in \textbf{100\% of runs}, against 5.5\% without it (Supplementary Figure S3, Supplementary Table S3). Residualising on the enlarged set then removes 0.12 AUC from a cohort in which nothing was confounded at all. A single mediator admitted by accident is enough to manufacture the entire finding.
+
+Nine case-control comparisons were formed (Table 1): lupus versus healthy in GSE174188 (CD4 subset and all cells), COVID-19 versus healthy in three independent cohorts, influenza versus healthy and sepsis versus COVID-19 in COMBAT, and CMV-positive versus CMV-negative in the HIHA cohort. The five cohorts hold 809 distinct donors (261, 196, 120, 124 and 108). Comparisons drawn from the same cohort share donors, so the per-comparison counts in Table 1 do not sum to a donor total.
+
+\begin{landscape}
+\small
+\textbf{Table 1. The nine comparisons, ordered by how well the recorded metadata predicts the diagnosis.} Generated from the screen output. Every comparison was run at five random seeds; each value is the range over those five, and a single value means all five agreed to the printed precision. ``Minority'' is the smaller of the two label groups. ``Recorded'' is all three variable groups together; ``Collection'' is the collection block alone, which is the study design in the strict sense, and n/a means the comparison records no collection variable that varies. Column counts are one-hot expanded columns, not source variables. AUCs are cross-fitted, and ``Diagnosis AUC'' is the frozen prespecified pipeline - the one both permutation tests are built from. Each p is one-sided against a permutation null built from that comparison's own design matrix. The two floors, 0.0050 and 0.0010, are 1/201 and 1/1001: the design-only AUC and V\_D nulls use 200 permutations, the complete-pipeline tests 1,000. A dash means the collection-preserving permutation is undefined because no stratum holds both labels. Verdicts are read from the screen's own gates: \textbf{not estimable} when no collection stratum holds both labels or the metadata separates the labels exactly, \textbf{underpowered} when the minority group has fewer than 15 donors. The tuned nested-CV diagnosis AUC, the in-sample V\_D and its null, and the individual per-seed values are in Tables S4 and S8.
+
+\scriptsize
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0566}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0566}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0566}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0566}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0755}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0566}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0566}}
