@@ -1,0 +1,99 @@
+\begin{center}
+{\LARGE\bfseries Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons\par}
+\vspace{0.75em}
+{\small\bfseries Short title: Study metadata and single-cell patient classification\par}
+\vspace{1em}
+{\normalsize Hongyu Ying$^{1}$, Dandan Yun$^{1}$ and Dan Liu$^{1,*}$\par}
+\vspace{0.4em}
+{\small $^{1}$Department of Rheumatology and Immunology, Shanghai Pudong Hospital, Fudan University Pudong Medical Center, Shanghai 201399, China\par}
+{\small $^{*}$Correspondence: Dan Liu; danliu600@126.com\par}
+\end{center}
+\vspace{1em}
+
+\section{Abstract}\label{abstract}
+
+Patient-level classifiers turn thousands of single cells into one score per donor, and routinely report cross-validated AUC above 0.95. That number cannot be read as a claim about disease if the variables recorded about how a donor was recruited, processed and sequenced also predict whether that donor is a case. We measure how far that is true. For each comparison we ask how well the recorded metadata alone predicts the diagnosis, and we judge the answer against a permutation null built from that comparison's own design matrix. We then run two permutation tests of the classifier itself. One shuffles the diagnosis labels freely. The other shuffles only within strata that share a collection configuration, so the link between diagnosis and collection survives while disease-specific structure does not. Where a quantity is undefined rather than small, we say so. We applied the checks to nine case-control comparisons from five public datasets (809 donors), spanning lupus, COVID-19, influenza, cytomegalovirus infection and a sepsis-versus-COVID-19 contrast. Recorded metadata alone predicts the diagnosis at cross-validated AUC 0.470 to 1.000, significantly so in eight of the nine; using collection variables alone, in four of the seven that record any. The exception is a cytomegalovirus cohort chosen in advance as a negative control: its metadata is at chance in all five seeds while its diagnosis classifier reaches AUC around 0.91. At the other extreme, a 21-donor influenza comparison has metadata that separates the labels exactly, leaving the restricted permutation nothing to shuffle. Between these ends the checks localise the problem. Two COVID-19 cohorts with similar overall metadata predictability, both around 0.8, are affected through different variables: sample quality in one, recruiting hospital in the other. None of these checks, alone or together, shows that a classifier's accuracy is biological.
+
+\textbf{Keywords:} patient-level classification; single-cell RNA sequencing; study metadata; confounding; permutation tests; external validation; systemic lupus erythematosus; COVID-19
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Author summary}\label{author-summary}
+
+Single-cell sequencing of a blood sample can be turned into a diagnostic score for one patient, and published scores often separate patients from healthy donors almost perfectly. Before trusting such a score, a clinician needs to know whether it reads the disease or reads the study. In most public datasets, patients and healthy donors were not recruited the same way. They may come from different hospitals, different years, or different laboratory runs, and a model can score well simply by recognising where a sample came from.
+
+We measured how large this problem is across nine patient-versus-control comparisons from five public datasets, covering lupus, COVID-19, influenza and cytomegalovirus infection. For each one we asked how well the recorded study details alone predict who is a patient. In eight of the nine, they predict it well. The exception is a cohort we chose in advance as the case that should come out clean, and it does.
+
+We also show that the usual way of testing these models can miss the problem, because it destroys the very pattern it should be examining. Shuffling patient labels only within the same collection configuration asks a complementary question, and on one comparison the two tests disagree.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{1. Introduction}\label{introduction}
+
+A clinician reading a single-cell paper is asked to believe a specific claim: that a blood sample, sequenced cell by cell and summarised into one number per patient, separates disease from health at an AUC of 0.95 or better. The relevant question is not whether the number is real. It is whether the number would survive a move to another hospital.
+
+A growing family of methods competes to produce that one number per patient: pseudobulk aggregation, phenotype-oriented summaries, prototype networks, sparse gene panels, multicellular factor models, graph representations, and methods that first identify the disease-relevant cell population {[}6-11,32-35{]}. Frozen single-cell foundation models offer a convenient route - encode each cell once, average, train a small classifier on donors - though benchmarks report that such embeddings can retain batch structure and can lose to simple expression baselines {[}13,14{]}. Our concern is not which of these wins. It is that the comparison between them is made on cohorts where the winner may be decided by something other than biology.
+
+That question is hard to answer in public data because cases and controls are usually not collected the same way. They may be recruited from different clinics, sequenced in different years, run on different chemistries, or processed in different batches. When that happens, a model can reach a high accuracy by learning the collection process. Batch-label confounding has been known to bias cross-validation for a decade {[}16{]}, and a fully confounded single-cell design is not identifiable {[}17{]}. Adjusting for technical covariates does not fix it: regression removes the part of the data that design can predict, whether that part is technical, biological, or both {[}18,19{]}. Work in predictive modelling has shown the same thing from three directions - adjustment must be done inside training folds, confound regression can leak information to nonlinear learners, and residual confounding survives apparently successful correction {[}27-29{]}. Benchmark-side work raises the matching concern about how the datasets themselves are built {[}12,15{]}.
+
+None of this is in dispute. What has been missing is a number. How strongly does the recorded metadata predict the diagnosis in a given cohort? Which recorded variables carry that prediction? How does the answer compare with what the same variables would produce by chance? And when is the question answerable at all? Without those numbers, ``this cohort is confounded'' is an opinion, and ``we adjusted for batch'' cannot be checked.
+
+A word on ``recorded metadata'', because the distinction runs through the whole paper. The released tables mix three kinds of variable. Collection facts are study design in the strict sense. Demographics are case mix, and may also be genuine risk factors. Sample-quality summaries sit downstream of the assay, but can sit downstream of the disease too. Lumping them together and calling the result ``study design'' would overstate what a positive result means. We keep them apart, treat collection as primary, and report the headline count under both definitions.
+
+This paper supplies the numbers for nine case-control comparisons drawn from five public datasets, and reports what they show. Our claims are deliberately narrow. We do \textbf{not} claim a general identifiability theorem for patient-level classification. The quantity we report is a linear association measure with stated blind spots. We do not claim that a cohort passing these checks yields biologically valid predictions, nor that one failing them yields none.
+
+We claim three things. First, that the association between recorded metadata and diagnosis is graded and measurable, and varies across routinely reused cohorts by more than half the usable AUC scale. Second, that it can be traced to an interpretable group of variables, which matters because different groups call for different remedies and carry different interpretations. Third, that the permutation test normally used to validate these pipelines answers a different question from the one at issue; we give a comparison where the two answers differ, and we measure what the replacement test does and does not protect against.
+
+These checks are complementary, not a standard. Each measures one thing, and we state the scope of every quantity where it is defined. Section 8 records what the approach cannot see.
+
+\section{2. Approach: what is being measured}\label{approach-what-is-being-measured}
+
+\subsection{2.1. The setting}\label{the-setting}
+
+Figure 1 sets out the situation in the notation of graphical causal models {[}36,37{]}. A recruitment process \textbf{R} assigns each donor a place in the recorded design \textbf{D} - site, batch, calendar period, chemistry, sample-quality profile - and is also associated with the diagnosis \textbf{Y}, because cases and controls are usually found through different routes. The measured cells \textbf{X} are affected by \textbf{D} through technical effects and by \textbf{Y} through biological ones. A classifier maps X to a prediction Ŷ.
+
+Two further nodes matter in practice.
+
+\textbf{C} stands for covariates that are consequences of the disease: severity, WHO score, comorbidity, medication, time since symptom onset. These sit on the path Y → C → X. They are not collection variables. Treating them as design variables converts ``the disease is predictable'' into ``the design is predictable'', and Section 4.1 quantifies how badly.
+
+\textbf{U} stands for collection structure that was never recorded. Nothing in this paper can see U. That is a limit of the data rather than of the method, and Section 8 says so.
+
+The graph was specified before the analysis and is released in machine-checkable \texttt{dagitty} syntax {[}38{]}.
+
+One thing the arrow between D and Y is not. We draw the association as induced by R rather than as a directed edge. Both directions occur in practice. A patient may be recruited at a referral centre because they are a patient, and a centre's case mix may determine which diagnoses appear in a batch. These checks measure the association. They do not tell you which way it runs.
+
+\subsection{2.2. Residual label variance}\label{residual-label-variance}
+
+Let \emph{y} be the centred diagnosis vector and \textbf{D} the recorded design matrix. Write
+
+V\_D = 1 − R²(y \textasciitilde{} D).
+
+This is the share of case-control variation that the recorded design variables cannot explain in a linear model. It is a residual variance, not a Shannon or Fisher information: it is linear, and it depends on how D is coded. We report it with three things it needs in order to be readable.
+
+\textbf{First, cross-fitting.} An in-sample R² inflates with the ratio of design columns to donors, so we compute V\_D out-of-fold using five-fold cross-fitting. The correction is not cosmetic. Our CMV cohort has 89 design columns for 108 donors, so its in-sample R² is inflated to 0.532 and its in-sample V\_D falls to 0.468, which would rank it the third-most affected of our nine comparisons. Its own permutation null sits at 0.496. The number was never below chance.
+
+\textbf{Second, the design matrix's own null.} We shuffle the diagnosis 200 times and push each shuffled label through the same five folds, so the null is built from the same cross-fitted statistic as the observed value. This gives a one-sided p-value, p(V\_D), for that specific design matrix at that specific donor count. A raw V\_D cannot be compared across cohorts; its position inside its own null can. Observed statistic and null statistic are the same quantity by construction. The in-sample pair is released alongside, with its own null, and p(V\_D) refers throughout to the cross-fitted pair.
+
+\textbf{Third, a classifier, and the test we actually rely on.} We report the cross-validated AUC of a classifier using only the columns of D, fitted with penalised logistic regression and with a random forest. We call this the \textbf{design-only AUC}; the name refers to the design \emph{matrix}, and which columns are in that matrix is stated every time - all recorded metadata, or the collection block alone.
+
+This quantity, not V\_D, carries the significance test. The reason is a limitation of V\_D that only became visible once its null was matched to it. V\_D is an \emph{unpenalised} linear R², and cross-fitting an unpenalised fit loses power as the design matrix gets wider. The Ren COVID-19 comparison shows this. Its 26 one-hot columns on 182 donors leave the cross-fitted V\_D at its ceiling, because the linear model explains nothing out of fold. A penalised logistic model on the very same matrix reaches AUC 0.82, and its own permutation null puts that at p = 0.005. Reporting only p(V\_D) there would say ``no association'' about a comparison in which the recorded metadata plainly predicts the diagnosis.
+
+So the primary test is a permutation null for the cross-fitted design-only AUC, with one frozen pipeline on both sides. V\_D and p(V\_D) are reported alongside as a linear-variance summary, and where the two disagree we say so.
+
+\textbf{What this does and does not cover.} V\_D looks at one arrow in Figure 1, the one between D and Y. Confounding of a classifier also requires that D affects X and that the classifier uses that part of X. A high design-only AUC is therefore necessary but not sufficient evidence that a reported diagnosis AUC is design-driven. A low one does not rule out confounding through unrecorded structure. Every use of V\_D below is subject to this.
+
+\subsection{2.3. Two permutation tests that ask different questions}\label{two-permutation-tests-that-ask-different-questions}
+
+The usual complete-pipeline permutation test shuffles the diagnosis and repeats the whole analysis. It is a sound test of leakage, overfitting and pipeline implementation, and we keep it for that. But shuffling the diagnosis destroys the design-diagnosis association along with the biology. A significant result is therefore consistent with either explanation. It cannot test whether a classifier is exploiting the collection process, which is the question here.
+
+We therefore add a \textbf{collection-preserving permutation}: diagnoses are shuffled only \emph{within} strata that share a collection configuration - batch, pool, site and, where it varies, sequencing chemistry. This is the restricted permutation scheme used elsewhere in the confounding literature {[}25,30{]}. It holds the association between the diagnosis and those collection variables at its observed value while destroying disease-specific molecular structure.
+
+\textbf{What it preserves, and what it does not.} The strata are built from collection variables only. The recorded metadata also contains sample-quality and demographic columns, and those are \emph{not} conditioned on. So a significant result means the classifier scored above what these collection strata can explain. It does not mean the classifier beat everything recorded, and it is not evidence of a ``design-independent component''. If a sample-quality variable is still associated with the diagnosis inside a stratum, and drives expression, a classifier can pass this test with no disease effect present at all. We measured how often that happens (Section 3.4, Figure S1) rather than assuming it does not. Conversely, a non-significant result is a failure to reject under this restriction, not a demonstration that the accuracy is entirely collection-driven.
+
+Conditioning on the full metadata instead would require a conditional randomisation scheme for a matrix containing continuous columns, which is a different and harder problem; we state the limit rather than overreach past it.
+
+The two tests are not defined on the same data. The collection-preserving test needs at least one stratum containing both a case and a control. If every stratum has only one kind of donor, the shuffle is the identity, no null distribution exists, and the test returns nothing at all. This is not a large p-value or a small one. There is no number. Section 4.4 reports a comparison where exactly this happens.
+
+\subsection{2.4. Three verdicts, not two}\label{three-verdicts-not-two}
+
+We separate two failure modes that are easy to run together and that call for different responses.
