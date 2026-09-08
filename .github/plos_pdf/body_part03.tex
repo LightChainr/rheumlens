@@ -1,0 +1,100 @@
+  >{\raggedright\arraybackslash}p{(\columnwidth - 28\tabcolsep) * \real{0.0566}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Comparison
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Donors
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Minority
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Recorded: cols
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AUC
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+V\_D
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p(V\_D)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Collection: cols
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AUC
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Diagnosis AUC
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p free
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p coll.-pres.
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Verdict
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Influenza · COMBAT & 21 & 10 & 7 & 1.000 & 0.0050 & 0.000 & 0.0050 & 1 & 1.000 & 0.0050 & 0.273-0.582 & 0.2987-0.9660 & --- & \textbf{not estimable} \\
+Sepsis vs COVID-19 · COMBAT & 111 & 11 & 7 & 0.972-0.992 & 0.0050 & 0.178-0.203 & 0.0050 & 1 & 0.984-0.984 & 0.0050 & 0.653-0.731 & 0.0240-0.1069 & 0.4506-0.9381 & \textbf{underpowered} \\
+SLE · GSE174188 (CD4) & 261 & 99 & 12 & 0.903-0.904 & 0.0050 & 0.540-0.558 & 0.0050 & 3 & 0.759-0.768 & 0.0050 & 0.935-0.963 & 0.0010 & 0.0010 & estimable \\
+COVID-19 · COMBAT & 110 & 10 & 7 & 0.840-0.862 & 0.0050-0.0100 & 0.906-1.000 & 0.0050-1.0000 & 1 & 0.503-0.516 & 0.7413-0.8657 & 0.996-0.999 & 0.0010 & 0.0010 & \textbf{underpowered} \\
+SLE · GSE174188 (all cells) & 261 & 99 & 9 & 0.847-0.851 & 0.0050 & 0.645-0.661 & 0.0050 & n/a & n/a & n/a & 0.972-0.987 & 0.0010 & 0.0010 & estimable \\
+COVID-19 · Ren & 182 & 25 & 26 & 0.805-0.832 & 0.0050 & 0.847-1.000 & 0.0050-1.0000 & 19 & 0.733-0.750 & 0.0050 & 0.961-0.982 & 0.0010 & 0.0010 & estimable \\
+COVID-19 · Stephenson & 115 & 29 & 8 & 0.795-0.806 & 0.0050 & 0.628-0.722 & 0.0050 & 2 & 0.549-0.565 & 0.0149-0.2338 & 0.909-0.939 & 0.0010 & 0.0010 & estimable \\
+COVID-19 · Ren (10x 5' v2) & 161 & 25 & 7 & 0.688-0.743 & 0.0050-0.0149 & 0.920-0.964 & 0.0050-0.0149 & n/a & n/a & n/a & 0.921-0.964 & 0.0010 & 0.0010 & estimable \\
+CMV · HIHA & 108 & 45 & 89 & 0.470-0.501 & 0.3582-0.8657 & 1.000 & 1.0000 & 80 & 0.444-0.464 & 0.5224-0.9403 & 0.854-0.911 & 0.0010 & 0.0010 & estimable \\
+\end{longtable}
+\normalsize
+\end{landscape}
+
+
+\subsection{4.2. A negative control chosen in advance}\label{a-negative-control-chosen-in-advance}
+
+We chose the CMV cohort before computing anything, on its recorded structure alone. Its 108 donors were assayed on one chemistry and one suspension type, and the CMV status of a donor is a serological result rather than a recruitment criterion, so we expected the collection labels to be close to independent of who is positive. If these checks measure what they claim to measure, this cohort has to come out at the bottom.
+
+The structure needs stating precisely, because the phrase ``single-centre cohort'' invites the wrong picture. This cohort is \textbf{not} one batch: the released metadata records 36 batch identifiers and 46 pool identifiers, and their crossing gives 46 strata, 17 of them holding a single donor. Neither is it donor-paired in any sense this analysis uses - each donor contributes one row with one label, and no within-donor contrast is formed anywhere in the paper. What makes it a negative control is not a simple design but a weak association between the collection labels and the diagnosis, which is exactly the quantity being screened.
+
+It comes out at the bottom. Across five random seeds the design-only AUC for the full recorded set is 0.470 to 0.501, straddling chance, with permutation p 0.358 to 0.866 - not significant in any seed. The collection block alone gives 0.444 to 0.464, p 0.522 to 0.940, and sample quality 0.484 to 0.529, p 0.478 to 0.716. The same 108 donors support a diagnosis classifier at AUC 0.896 to 0.915, with both permutation tests at their 1/1001 resolution floor in every seed. That is the prediction, and it holds.
+
+One qualification we report rather than bury. The demographic block alone reaches design-only AUC 0.611 to 0.625, and its permutation p ranges from 0.005 to 0.075 across the five seeds - significant in some seeds and not others, and not surviving correction across four blocks and nine comparisons. Sex and ethnicity are established correlates of cytomegalovirus seroprevalence in their own right, so an association there is as easily aetiology as recruitment. This is exactly the case the three-way split in Section 4.1 is for: it is a reason to read that block as case mix, and a reason not to let it stand for study design.
+
+This is the falsifiable prediction in the paper, and it is why the CMV cohort is here. A method that flagged this cohort would be measuring donor count or design-matrix width rather than design-diagnosis association. Read without its own null, the in-sample V\_D of 0.468 looks like a strong association - 89 columns fit 108 donors closely whatever the labels are. Against the matched null it is 0.468 versus a null mean of 0.496, p = 0.284 to 0.353: no association at all. This is the concrete case for building each statistic's null from the same design matrix rather than comparing it to a fixed reference.
+
+\subsection{4.3. A graded problem, not a binary defect}\label{a-graded-problem-not-a-binary-defect}
+
+Ordered by the AUC from all recorded metadata, the nine comparisons run from 0.470 to 1.000 (Figure 3A, Table 1), with no gap that would justify a threshold. Positions are stable across seeds; the widest five-seed spread is 0.055. Eight of the nine have a significant association with the recorded metadata; the CMV negative control is the ninth.
+
+Two comparisons show why the design-only AUC rather than V\_D carries the test (Section 2.2). In COVID-19 Ren (26 design columns, 182 donors) and COVID-19 COMBAT (7 columns, 110 donors) the cross-fitted V\_D is unstable across seeds, running from 0.847 to its ceiling of 1.000 in Ren and 0.906 to 1.000 in COMBAT. When it reaches the ceiling the matched null reaches it too, so p(V\_D) is 1.000; in the other seeds the same comparison gives p(V\_D) = 0.005. The design-only AUC on the very same matrices is stable by contrast, 0.805-0.832 and 0.840-0.862, significant in every seed (p = 0.005 and 0.005-0.010). Counting by p(V\_D) alone would give six of nine rather than eight; we report both counts and use the better-powered one.
+
+Under the primary, collection-only definition the count is smaller, and we give it rather than leave the union to stand for study design. Seven of the nine comparisons record any collection variable at all; in four of those seven the collection block alone predicts the diagnosis significantly, and two of those four are the comparisons that are not estimable or underpowered. Among comparisons that are both estimable and record collection variables, two of four are significant: lupus in GSE174188 CD4 (0.759-0.768) and COVID-19 in Ren (0.733-0.750). This difference is the point of separating the groups: much of what the union detects is carried by sample quality and case mix, which are not experimental design and which carry their own interpretations (Section 4.1).
+
+Grouping the design variables shows that similar overall strength can come from different parts of the collection process (Figure 3B). The clearest case is a pair of COVID-19 cohorts of similar size and almost identical design-only AUC (Figure 3C):
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Stephenson} (n = 115, recorded-metadata AUC 0.795-0.806). Sample-quality variables alone reach 0.808-0.853 (p = 0.005 in every seed), while collection variables reach only 0.549-0.565 and are not significant in every seed (p = 0.015-0.234). The metadata-diagnosis association is carried mainly by sample quality.
+\item
+  \textbf{Ren} (n = 182, recorded-metadata AUC 0.805-0.832). The mirror image: collection variables reach 0.733-0.750 (p = 0.005 in every seed), while sample quality reaches only 0.617-0.632 and is not significant (p = 0.050-0.154). The association is carried mainly by recruiting hospital and sub-study.
+\end{itemize}
+
+A single number would call these two cohorts equally affected and would recommend the same fix. They need different ones. Harmonised preprocessing may help the first, but it would not address the site and sub-study imbalance in the second. This is also the direct answer to the objection that V\_D depends on how the design matrix is coded. The objection is correct. The response is to report the grouping, not to hunt for a coding-free number.
+
+The Ren cohort also shows how an incomplete set of design variables misleads. Our first pass recorded only sequencing chemistry as collection metadata, giving a collection AUC of 0.553 - apparently untroubled by site. Recovering the recorded hospital (12 centres, five of them case-only) and sub-study identifier (six source studies) raised that group to 0.750 and the full set from 0.758 to 0.818. The problem was there and invisible. These checks are only as good as the metadata they are given, and a reassuring result computed on thin metadata is weak evidence.
+
+\subsection{4.4. Where the two tests disagree, and where neither is defined}\label{where-the-two-tests-disagree-and-where-neither-is-defined}
+
+\textbf{No number at all.} The COMBAT influenza comparison has 21 donors and design variables that separate the labels exactly (design-only AUC 1.000, V\_D 0.000). Every stratum holds one kind of donor (Figure S4), so the collection-preserving permutation has nothing to shuffle and returns nothing. The free permutation, on the same comparison, returns p = 0.299 to 0.966 across five seeds. Reported alone, that reads as a cohort with no detectable signal. The truth is that this comparison cannot separate the recorded metadata from the disease even in principle. We report it outside the main ordering.
+
+\textbf{Underpowered, and disagreeing.} The COMBAT sepsis-versus-COVID-19 comparison (n = 111, minority class 11) is the case the collection-preserving test was added for. Its design variables predict the diagnosis almost perfectly, at 0.972 to 0.992 across seeds. The free permutation gives p = 0.024 to 0.107, significant at 0.05 in three of five seeds. The collection-preserving permutation gives p = 0.451 to 0.938, significant in none (Figure 3D). Under the conventional test this comparison would be reported as a validated classifier. Under the test that holds design fixed, its accuracy is entirely consistent with the collection process.
+
+The frozen pipeline also scores 0.15 to 0.24 AUC below the tuned one here, the largest gap among the eight comparisons that return a number at all. That is not a feasibility failure. The frozen pipeline is the inferential statistic, and it is what both permutation tests are built from. We report the gap anyway: with 11 donors in the minority class, a reader should be able to see how much of the headline accuracy depends on model selection.
+
+\subsection{4.5. What this ordering does not show}\label{what-this-ordering-does-not-show}
+
+The ordering says how well recorded metadata predicts the diagnosis. It does not show that any particular published classifier is design-driven, because it does not test whether the classifier uses the design-related part of X - the D → X → Ŷ path in Figure 1. Sections 5.2 to 5.4 test that path directly in the two lupus cohorts, and reach a more equivocal answer than the ordering alone would suggest.
+
+\section{5. Does the classifier actually use it? Two lupus cohorts}\label{does-the-classifier-actually-use-it-two-lupus-cohorts}
+
+The ordering measures the D-Y arrow. This section follows the D → X → Ŷ path in the two lupus cohorts for which we hold complete donor design metadata, using frozen Geneformer {[}4{]} embeddings and two expression pseudobulk representations under one fold-contained pipeline. GSE285773 {[}3{]} serves as the independent transfer source. Figure 4A shows how cases and controls are distributed across the recorded design in both cohorts; Figure 4B shows how well the design alone predicts the diagnosis.
