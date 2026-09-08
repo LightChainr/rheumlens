@@ -19,8 +19,13 @@ blocks <- read.delim("data/design_screen_all_blocks.tsv", check.names = FALSE)
 spec   <- read.delim("data/FINAL_confounding_spectrum.tsv", check.names = FALSE)
 coll   <- read.delim("data/collection_block.tsv", check.names = FALSE)
 seed   <- read.delim("data/seed_stability_all.tsv", check.names = FALSE)
-names(seed)[names(seed) == "design_auc_linear"] <- "design_auc"
-spec$design_auc <- spec$design_auc_linear
+# Frozen pipeline throughout: it is the statistic every p-value here was
+# computed against, and the one Table 1 prints. Plotting the tuned nested-CV
+# AUC instead put two different numbers under one name - for COMBAT influenza
+# the diagnosis classifier read 0.996 here and 0.475 in Table 1.
+names(seed)[names(seed) == "design_auc_frozen"] <- "design_auc"
+spec$design_auc     <- spec$design_auc_frozen
+spec$disease_auc    <- spec$observed_frozen_auc
 
 lab <- c(CMV_HIHA                 = "CMV · HIHA",
          COVID_REN_ASSAY_10x_5_v2 = "COVID-19 · Ren (one assay)",
@@ -63,8 +68,8 @@ rng <- seed |> group_by(cohort) |>
 # EVERY join must happen before the factor call: a left_join on a factor key
 # coerces it back to character and the row order silently reverts.
 A <- left_join(A, rng, by = "cohort")
-A <- left_join(A, coll[c("cohort","design_auc_linear")] |>
-                 rename(collection_auc = design_auc_linear), by = "cohort")
+A <- left_join(A, coll[c("cohort","design_auc_frozen")] |>
+                 rename(collection_auc = design_auc_frozen), by = "cohort")
 A$cohort <- factor(A$cohort, levels = ylev)
 stopifnot(!any(is.na(A$cohort)), is.factor(A$cohort))
 # Verdict comes from the screen's own gate columns, not from a hand-kept list.
@@ -99,19 +104,19 @@ pA <- ggplot(A, aes(y = cohort)) +
 grid <- expand.grid(cohort = ylev,
                     block  = c("quality","demographic","collection","all"),
                     stringsAsFactors = FALSE)
-B <- left_join(grid, blocks[c("cohort","block","design_auc_linear","p_design_auc")],
+B <- left_join(grid, blocks[c("cohort","block","design_auc_frozen","p_design_auc")],
                by = c("cohort","block"))
 B$cohort <- factor(B$cohort, levels = ylev)
 B$block  <- factor(B$block, levels = c("quality","demographic","collection","all"))
 B$sig  <- !is.na(B$p_design_auc) & B$p_design_auc <= .05
-B$txt  <- ifelse(is.na(B$design_auc_linear), "n/a",
-                 sprintf("%.2f", B$design_auc_linear))
+B$txt  <- ifelse(is.na(B$design_auc_frozen), "n/a",
+                 sprintf("%.2f", B$design_auc_frozen))
 
 pB <- ggplot(B, aes(x = block, y = cohort)) +
-  geom_tile(aes(fill = design_auc_linear), colour = "white", linewidth = 1.1) +
+  geom_tile(aes(fill = design_auc_frozen), colour = "white", linewidth = 1.1) +
   geom_tile(data = subset(B, sig), fill = NA, colour = "grey15", linewidth = .45) +
   geom_text(aes(label = txt,
-                colour = !is.na(design_auc_linear) & design_auc_linear > .78),
+                colour = !is.na(design_auc_frozen) & design_auc_frozen > .78),
             size = 2.05, show.legend = FALSE) +
   scale_colour_manual(values = c(`TRUE` = "white", `FALSE` = "grey20")) +
   scale_fill_gradient(low = "#F4F1EA", high = "#8C3B26", limits = c(.3, 1),
@@ -129,9 +134,9 @@ pB <- ggplot(B, aes(x = block, y = cohort)) +
 
 # ---------------- Panel C ----------------------------------------------------
 Cd <- subset(B, cohort %in% c("COVID_STEPHENSON","COVID_REN") &
-                !is.na(design_auc_linear))
+                !is.na(design_auc_frozen))
 Cd$cohort <- droplevels(Cd$cohort)
-pC <- ggplot(Cd, aes(x = block, y = design_auc_linear,
+pC <- ggplot(Cd, aes(x = block, y = design_auc_frozen,
                      group = cohort, colour = cohort)) +
   geom_hline(yintercept = .5, linetype = "22", colour = "grey65", linewidth = .3) +
   geom_line(linewidth = .6) +

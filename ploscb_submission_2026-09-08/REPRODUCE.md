@@ -55,9 +55,12 @@ Expected output is `24/24 assertions found verbatim in the manuscript` and
 `all structural checks passed`. A number that drifted between the analysis and
 the manuscript fails a check rather than surviving as a sentence nobody re-read.
 
-To rebuild the tables and figures as well, rather than only check them, run
-`02_SOURCE/analysis_scripts/build_all.sh` from the analysis workspace. It expects
-that workspace's directory layout, not this package's, and it needs R.
+`verify.sh` checks the released files against the manuscript. It is not a full
+rebuild: it does not redraw the figures or regenerate the supporting tables. That is
+`02_SOURCE/analysis_scripts/build_all.sh`, which needs R and the analysis workspace's
+directory layout rather than this package's, because the scripts staged here keep
+their workspace-relative paths. Reproducing the figures from scratch therefore means
+reconstructing that workspace, not running one command in this directory.
 
 ### Tier 2 — re-run the analyses themselves
 
@@ -74,9 +77,13 @@ python3 02_SOURCE/cohort_scripts/validate_cohort.py --all
 Then:
 
 ```bash
-# the nine-comparison screen, once per seed
+# the nine-comparison screen, once per seed, each into its own directory.
+# --seed on its own now implies results/screen/seed_<seed>/; name --out anyway,
+# because without it older copies of the script wrote every seed to the same
+# design_screen.tsv and four of the five runs were silently overwritten.
 for s in 20260907 20260908 20260909 20260910 20260911; do
-  python3 02_SOURCE/analysis_scripts/run_design_screen.py --all --seed "$s"
+  python3 02_SOURCE/analysis_scripts/run_design_screen.py \
+      --all --seed "$s" --out "results/screen/seed_$s"
 done
 
 python3 02_SOURCE/analysis_scripts/run_extended_simulation.py  # 19,600 cohorts

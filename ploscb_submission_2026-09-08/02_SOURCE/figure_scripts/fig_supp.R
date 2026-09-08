@@ -104,9 +104,10 @@ p_lv   <- c("p, design-only AUC","p, V_D","p, free permutation",
             "p, collection-preserving")
 long <- sd |>
   select(cohort, seed,
-         `design-only AUC`          = design_auc_linear,
+         # frozen pipeline, matching Table 1 and the p-values plotted below
+         `design-only AUC`          = design_auc_frozen,
          `V_D`                      = I_D_cv,
-         `diagnosis AUC`            = disease_auc,
+         `diagnosis AUC`            = observed_frozen_auc,
          `p, design-only AUC`       = p_design_auc,
          `p, V_D`                   = p_I_D,
          `p, free permutation`      = p_standard,

@@ -32,8 +32,8 @@ advance as a negative control: its metadata is at chance in all five seeds while
 diagnosis classifier reaches AUC around 0.91. At the other extreme, a 21-donor influenza
 comparison has metadata that separates the labels exactly, leaving the restricted
 permutation nothing to shuffle. Between these ends the checks localise the
-problem. Two COVID-19 cohorts with similar overall metadata predictability, both around
-0.8, are affected through different variables: sample quality in one, recruiting hospital
+problem. Two COVID-19 cohorts with similar overall metadata predictability, both in the
+mid-0.8s, are affected through different variables: sample quality in one, recruiting hospital
 in the other. None of these checks, alone or together, shows that a classifier's accuracy
 is biological.
 
@@ -463,14 +463,14 @@ donors, so the per-comparison counts in Table 1 do not sum to a donor total.
 | Comparison | Donors | Minority | Recorded: cols | AUC | p | V_D | p(V_D) | Collection: cols | AUC | p | Diagnosis AUC | p free | p coll.-pres. | Verdict |
 |---|---:|---:|---:|---:|---|---:|---|---:|---:|---|---:|---|---|---|
 | Influenza · COMBAT | 21 | 10 | 7 | 1.000 | 0.0050 | 0.000 | 0.0050 | 1 | 1.000 | 0.0050 | 0.273-0.582 | 0.2987-0.9660 | — | **not estimable** |
-| Sepsis vs COVID-19 · COMBAT | 111 | 11 | 7 | 0.972-0.992 | 0.0050 | 0.178-0.203 | 0.0050 | 1 | 0.984-0.984 | 0.0050 | 0.653-0.731 | 0.0240-0.1069 | 0.4506-0.9381 | **underpowered** |
-| SLE · GSE174188 (CD4) | 261 | 99 | 12 | 0.903-0.904 | 0.0050 | 0.540-0.558 | 0.0050 | 3 | 0.759-0.768 | 0.0050 | 0.935-0.963 | 0.0010 | 0.0010 | estimable |
-| COVID-19 · COMBAT | 110 | 10 | 7 | 0.840-0.862 | 0.0050-0.0100 | 0.906-1.000 | 0.0050-1.0000 | 1 | 0.503-0.516 | 0.7413-0.8657 | 0.996-0.999 | 0.0010 | 0.0010 | **underpowered** |
-| SLE · GSE174188 (all cells) | 261 | 99 | 9 | 0.847-0.851 | 0.0050 | 0.645-0.661 | 0.0050 | n/a | n/a | n/a | 0.972-0.987 | 0.0010 | 0.0010 | estimable |
-| COVID-19 · Ren | 182 | 25 | 26 | 0.805-0.832 | 0.0050 | 0.847-1.000 | 0.0050-1.0000 | 19 | 0.733-0.750 | 0.0050 | 0.961-0.982 | 0.0010 | 0.0010 | estimable |
-| COVID-19 · Stephenson | 115 | 29 | 8 | 0.795-0.806 | 0.0050 | 0.628-0.722 | 0.0050 | 2 | 0.549-0.565 | 0.0149-0.2338 | 0.909-0.939 | 0.0010 | 0.0010 | estimable |
-| COVID-19 · Ren (10x 5' v2) | 161 | 25 | 7 | 0.688-0.743 | 0.0050-0.0149 | 0.920-0.964 | 0.0050-0.0149 | n/a | n/a | n/a | 0.921-0.964 | 0.0010 | 0.0010 | estimable |
-| CMV · HIHA | 108 | 45 | 89 | 0.470-0.501 | 0.3582-0.8657 | 1.000 | 1.0000 | 80 | 0.444-0.464 | 0.5224-0.9403 | 0.854-0.911 | 0.0010 | 0.0010 | estimable |
+| Sepsis vs COVID-19 · COMBAT | 111 | 11 | 7 | 0.996-0.998 | 0.0050 | 0.178-0.203 | 0.0050 | 1 | 0.982-0.985 | 0.0050 | 0.653-0.731 | 0.0240-0.1069 | 0.4506-0.9381 | **underpowered** |
+| SLE · GSE174188 (CD4) | 261 | 99 | 12 | 0.872-0.889 | 0.0050 | 0.540-0.558 | 0.0050 | 3 | 0.762-0.774 | 0.0050 | 0.935-0.963 | 0.0010 | 0.0010 | estimable |
+| COVID-19 · COMBAT | 110 | 10 | 7 | 0.862-0.884 | 0.0050-0.0100 | 0.906-1.000 | 0.0050-1.0000 | 1 | 0.500-0.504 | 0.7413-0.8657 | 0.996-0.999 | 0.0010 | 0.0010 | **underpowered** |
+| COVID-19 · Stephenson | 115 | 29 | 8 | 0.845-0.882 | 0.0050 | 0.628-0.722 | 0.0050 | 2 | 0.501-0.594 | 0.0149-0.2338 | 0.909-0.939 | 0.0010 | 0.0010 | estimable |
+| COVID-19 · Ren | 182 | 25 | 26 | 0.812-0.854 | 0.0050 | 0.847-1.000 | 0.0050-1.0000 | 19 | 0.729-0.768 | 0.0050 | 0.961-0.982 | 0.0010 | 0.0010 | estimable |
+| SLE · GSE174188 (all cells) | 261 | 99 | 9 | 0.819-0.832 | 0.0050 | 0.645-0.661 | 0.0050 | n/a | n/a | n/a | 0.972-0.987 | 0.0010 | 0.0010† | estimable |
+| COVID-19 · Ren (10x 5' v2) | 161 | 25 | 7 | 0.712-0.729 | 0.0050-0.0149 | 0.920-0.964 | 0.0050-0.0149 | n/a | n/a | n/a | 0.921-0.964 | 0.0010 | 0.0010† | estimable |
+| CMV · HIHA | 108 | 45 | 89 | 0.409-0.522 | 0.3582-0.8657 | 1.000 | 1.0000 | 80 | 0.365-0.489 | 0.5224-0.9403 | 0.854-0.911 | 0.0010 | 0.0010 | estimable |
 
 **Table 1. The nine comparisons, ordered by how well the recorded metadata predicts the
 diagnosis.** Generated from the screen output. Every comparison was run at five random
@@ -479,12 +479,18 @@ to the printed precision. "Minority" is the smaller of the two label groups. "Re
 is all three variable groups together; "Collection" is the collection block alone, which
 is the study design in the strict sense, and n/a means the comparison records no
 collection variable that varies. Column counts are one-hot expanded columns, not source
-variables. AUCs are cross-fitted, and "Diagnosis AUC" is the frozen prespecified pipeline
-- the one both permutation tests are built from. Each p is one-sided against a
+variables. Every AUC here is cross-fitted under the frozen prespecified pipeline, which
+is the statistic each p-value beside it was computed against and the one both
+permutation tests are built from; the tuned nested-CV AUCs are a description rather than
+an inferential quantity and are in Table S4. Each p is one-sided against a
 permutation null built from that comparison's own design matrix. The two floors, 0.0050
 and 0.0010, are 1/201 and 1/1001: the design-only AUC and V_D nulls use 200 permutations,
 the complete-pipeline tests 1,000. A dash means the collection-preserving permutation is
-undefined because no stratum holds both labels. Verdicts are read from the screen's own
+undefined because no stratum holds both labels. A dagger marks the two comparisons that
+record no collection variable at all, where the permutation falls back to tertiles of log
+cells per donor: for those two it is a sample-quality-preserving permutation, not a
+collection-preserving one, and they are the same two rows that show n/a in the
+collection columns. Verdicts are read from the screen's own
 gates: **not estimable** when no collection stratum holds both labels or the metadata
 separates the labels exactly, **underpowered** when the minority group has fewer than 15
 donors. The tuned nested-CV diagnosis AUC, the in-sample V_D and its null, and the
@@ -508,14 +514,14 @@ weak association between the collection labels and the diagnosis, which is exact
 quantity being screened.
 
 It comes out at the bottom. Across five random seeds the design-only AUC for the full
-recorded set is 0.470 to 0.501, straddling chance, with permutation p 0.358 to 0.866 -
-not significant in any seed. The collection block alone gives 0.444 to 0.464, p 0.522 to
-0.940, and sample quality 0.484 to 0.529, p 0.478 to 0.716. The same 108 donors support a
-diagnosis classifier at AUC 0.896 to 0.915, with both permutation tests at their
+recorded set is 0.409 to 0.522, straddling chance, with permutation p 0.358 to 0.866 -
+not significant in any seed. The collection block alone gives 0.365 to 0.489, p 0.522 to
+0.940, and sample quality 0.453 to 0.507, p 0.478 to 0.716. The same 108 donors support a
+diagnosis classifier at AUC 0.854 to 0.911, with both permutation tests at their
 1/1001 resolution floor in every seed. That is the prediction, and it holds.
 
 One qualification we report rather than bury. The demographic block alone reaches
-design-only AUC 0.611 to 0.625, and its permutation p ranges from 0.005 to 0.075 across
+design-only AUC 0.598 to 0.648, and its permutation p ranges from 0.005 to 0.075 across
 the five seeds - significant in some seeds and not others, and not surviving correction
 across four blocks and nine comparisons. Sex and ethnicity are established correlates of
 cytomegalovirus seroprevalence in their own right, so an association there is as easily
@@ -545,27 +551,27 @@ Two comparisons show why the design-only AUC rather than V_D carries the test
 0.847 to its ceiling of 1.000 in Ren and 0.906 to 1.000 in COMBAT. When it reaches the
 ceiling the matched null reaches it too, so p(V_D) is 1.000; in the other seeds the same
 comparison gives p(V_D) = 0.005. The design-only AUC on the very same matrices is stable
-by contrast, 0.805-0.832 and 0.840-0.862, significant in every seed (p = 0.005 and
+by contrast, 0.812-0.854 and 0.862-0.884, significant in every seed (p = 0.005 and
 0.005-0.010). Counting by p(V_D) alone would give six of nine rather than eight; we
 report both counts and use the better-powered one.
 
 Under the primary, collection-only definition the count is smaller, and we give it
-rather than leave the union to stand for study design. Seven of the nine comparisons record any collection variable at all; in four of those seven the collection block alone predicts the diagnosis significantly, and two of those four are the comparisons that are not estimable or underpowered. Among comparisons that are both estimable and record collection variables, two of four are significant: lupus in GSE174188 CD4 (0.759-0.768) and COVID-19 in Ren (0.733-0.750). This
+rather than leave the union to stand for study design. Seven of the nine comparisons record any collection variable at all; in four of those seven the collection block alone predicts the diagnosis significantly, and two of those four are the comparisons that are not estimable or underpowered. Among comparisons that are both estimable and record collection variables, two of four are significant: lupus in GSE174188 CD4 (0.762-0.774) and COVID-19 in Ren (0.729-0.768). Two comparisons record no collection variable that varies - lupus in GSE174188 all cells, and the single-assay Ren subset - so their restricted permutation conditions on tertiles of log cells per donor instead. For those two the test is sample-quality-preserving, and Table 1 marks them rather than reporting them as collection-preserving. This
 difference is the point of separating the groups: much of what the union detects is
 carried by sample quality and case mix, which are not experimental design and which
 carry their own interpretations (Section 4.1).
 
 Grouping the design variables shows that similar overall strength can come from
 different parts of the collection process (Figure 3B). The clearest case is a pair of
-COVID-19 cohorts of similar size and almost identical design-only AUC (Figure 3C):
+COVID-19 cohorts of similar size and closely comparable design-only AUC (Figure 3C):
 
-- **Stephenson** (n = 115, recorded-metadata AUC 0.795-0.806). Sample-quality variables
-  alone reach 0.808-0.853 (p = 0.005 in every seed), while collection variables reach
-  only 0.549-0.565 and are not significant in every seed (p = 0.015-0.234). The
+- **Stephenson** (n = 115, recorded-metadata AUC 0.845-0.882). Sample-quality variables
+  alone reach 0.865-0.884 (p = 0.005 in every seed), while collection variables reach
+  only 0.501-0.594 and are not significant in every seed (p = 0.015-0.234). The
   metadata-diagnosis association is carried mainly by sample quality.
-- **Ren** (n = 182, recorded-metadata AUC 0.805-0.832). The mirror image: collection
-  variables reach 0.733-0.750 (p = 0.005 in every seed), while sample quality reaches
-  only 0.617-0.632 and is not significant (p = 0.050-0.154). The association is carried
+- **Ren** (n = 182, recorded-metadata AUC 0.812-0.854). The mirror image: collection
+  variables reach 0.729-0.768 (p = 0.005 in every seed), while sample quality reaches
+  only 0.590-0.632 and is not significant (p = 0.050-0.154). The association is carried
   mainly by recruiting hospital and sub-study.
 
 A single number would call these two cohorts equally affected and would recommend the
@@ -594,7 +600,7 @@ ordering.
 
 **Underpowered, and disagreeing.** The COMBAT sepsis-versus-COVID-19 comparison
 (n = 111, minority class 11) is the case the collection-preserving test was added for. Its design
-variables predict the diagnosis almost perfectly, at 0.972 to 0.992 across seeds. The
+variables predict the diagnosis almost perfectly, at 0.996 to 0.998 across seeds. The
 free permutation gives p = 0.024 to 0.107, significant at 0.05 in three of five seeds.
 The collection-preserving permutation gives p = 0.451 to 0.938, significant in none
 (Figure 3D). Under the conventional test this comparison would be reported as a
@@ -804,14 +810,14 @@ which reads as "no signal" and is the wrong description.
 **CMV HIHA (n = 108) reaches Route A.** The collection-preserving permutation is defined
 - 46 strata from batch and pool, 21 of them containing both labels - and both permutation
 tests reject at the 1/1001 floor. At Q3 the association with the recorded metadata is
-weak (design-only AUC 0.483 under the walkthrough's pipeline, 0.470 to 0.501 in the main
+weak (design-only AUC 0.483 under the walkthrough's pipeline, 0.409 to 0.522 in the main
 screen, not significant against its own permutation null in any seed), so the comparison
 takes the adjustment route without reaching the restriction questions. It is the only one
 of our nine comparisons that does.
 
 **COVID-19 Ren (n = 182) reaches Route B2.** Both permutation tests are beaten. The
 association with the recorded metadata is strong: design-only AUC 0.840 under the
-walkthrough's fixed-penalty pipeline and 0.805 to 0.832 under the main one, both far
+walkthrough's fixed-penalty pipeline and 0.812 to 0.854 under the main one, both far
 above chance.
 Mixed strata exist, so Q4 passes and the comparison reaches the
 residualisation-versus-restriction question. Residualising the 26-column design

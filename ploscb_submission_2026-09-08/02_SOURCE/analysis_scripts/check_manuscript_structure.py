@@ -207,6 +207,52 @@ if m:
     check(len(m.group(1)) <= 70,
           f"short title is {len(m.group(1))} characters (PLOS limit 70)")
 
+# ---- the printed AUC must be the AUC its p-value tests ------------------------
+# Table 1 used to print design_auc_linear, the tuned nested-CV model, beside
+# p_design_auc, which is computed against design_auc_frozen. The p-value was
+# right and the number next to it was a different model - up to 0.057 AUC apart -
+# so the table invited the reader to read the p as a test of what they could see.
+t1_src = (ROOT / "tools" / "build_table1.py").read_text()
+check("design_auc_linear" not in t1_src,
+      "Table 1 prints the frozen AUC, the statistic its p-value tests")
+
+# Same trap in the figures: plotting the tuned AUC while Table 1 printed the
+# frozen one put two numbers under one name. For COMBAT influenza the diagnosis
+# classifier read 0.996 in Figure 3A and 0.475 in Table 1.
+INFERENTIAL_FIGS = ["fig_spectrum.R", "fig_supp.R"]
+for name in INFERENTIAL_FIGS:
+    src = (ROOT / "figures" / "src" / name).read_text()
+    stale = ["design_auc_linear"] if "design_auc_linear" in src else []
+    # a script may use `disease_auc` as a local name, but only if it assigned the
+    # frozen column to it first
+    if re.search(r"\bdisease_auc\b", src) and "observed_frozen_auc" not in src:
+        stale.append("disease_auc")
+    check(not stale, f"{name} plots the frozen pipeline, not the tuned one: {stale}")
+
+# ---- the table in the text is the generated one ------------------------------
+gen = (ROOT / "manuscript" / "table1.md").read_text().strip()
+i = S.index("| Comparison | Donors |")
+check(S[i:S.index(chr(10) * 2, i)].strip() == gen,
+      "the Table 1 in the manuscript is the generated one, not a hand-kept copy")
+
+# ---- a restricted permutation is named for what it conditioned on ------------
+# Where a comparison records no collection variable the screen falls back to
+# tertiles of log cells per donor, which is sample quality. Reporting that column
+# as collection-preserving for those rows would misname the test.
+import csv
+s4 = ROOT / "supplementary" / "Table_S4_full_screen.tsv"
+if s4.exists():
+    rows = list(csv.DictReader(s4.open(), delimiter="\t"))
+    fallback = {r["cohort"] for r in rows
+                if r.get("variable_group") == "all"
+                and not r.get("strata_definition", "").startswith("batch__")}
+    marked = gen.count("\u2020")
+    check(marked == len(fallback),
+          f"Table 1 marks all {len(fallback)} sample-quality-preserving rows "
+          f"(found {marked} daggers)")
+    check("dagger" in S,
+          "the Table 1 caption explains the dagger")
+
 # ---- cover letter ------------------------------------------------------------
 cl = ROOT / "submission" / "01_UPLOAD" / "Cover_Letter.md"
 if cl.exists():

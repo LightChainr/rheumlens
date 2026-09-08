@@ -14,7 +14,7 @@ HERE=$PWD
 PYTHON="${PYTHON:-python3}"
 
 T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
-mkdir -p "$T"/{manuscript,figures/out,supplementary,tools,results/screen,sim/results} \
+mkdir -p "$T"/{manuscript,figures/out,figures/src,supplementary,tools,results/screen,sim/results} \
          "$T"/walkthrough/results "$T"/submission/01_UPLOAD \
          "$T"/submission/02_SOURCE/analysis_scripts
 
@@ -24,6 +24,8 @@ cp "$HERE"/01_UPLOAD/Main_Figures/*       "$T/figures/out/"
 cp "$HERE"/01_UPLOAD/Supporting_Figures/* "$T/figures/out/"
 cp "$HERE"/01_UPLOAD/Supporting_Tables/*.tsv  "$T/supplementary/"
 cp "$HERE"/02_SOURCE/analysis_scripts/*.py    "$T/tools/"
+# the checker reads the figure sources, not only the rendered SVGs
+cp "$HERE"/02_SOURCE/figure_scripts/*.R       "$T/figures/src/"
 cp "$HERE/02_SOURCE/analysis_scripts/run_design_screen.py" \
    "$T/submission/02_SOURCE/analysis_scripts/"
 cp -R "$HERE"/02_SOURCE/per_seed/seed_*       "$T/results/screen/"
@@ -39,6 +41,11 @@ cp "$HERE/02_SOURCE/result_tables/decision_tree_walkthrough.tsv" \
 ( cd "$T/figures/out"
   for f in Fig[1-8]_*;  do mv "$f" "Fig_${f#Fig?_}"; done
   for f in FigS[1-7]_*; do n=${f#Fig}; mv "$f" "Fig_${n%%_*}_${n#*_}"; done )
+
+# Regenerate Table 1 from the released per-seed outputs, so the check below
+# compares the table in the manuscript against one rebuilt from the data rather
+# than against a copy shipped beside it.
+SCREEN_DIR="$T/results/screen" "$PYTHON" "$T/tools/build_table1.py" --no-splice >/dev/null
 
 echo "== numbers =="
 "$PYTHON" "$T/tools/check_manuscript_numbers.py"

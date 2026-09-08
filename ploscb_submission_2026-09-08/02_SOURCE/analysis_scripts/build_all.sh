@@ -33,6 +33,10 @@ for f in figures/src/*.R; do
 done
 
 echo
+echo "== PLOS TIFFs =="
+"$PYTHON" tools/build_tiffs.py | tail -3
+
+echo
 echo "== manuscript HTML =="
 "$PYTHON" tools/build_html.py
 

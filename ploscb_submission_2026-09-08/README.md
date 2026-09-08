@@ -25,6 +25,8 @@ generated with XeLaTeX on 2026-09-08 and committed at `01_UPLOAD/Manuscript.pdf`
 
 SHA256: `3ddddf09e2016386b5a0ccd01c87c2d9ff6d3f3de67e9f71de3435b3d6498eae`
 
+**This PDF is out of date.** It was built before the corrections in the commit that paired every printed AUC with the p-value that tests it, marked the two sample-quality-preserving permutations, and updated the affected numbers in the text. Rebuild it from `01_UPLOAD/Manuscript.md` before submitting, and update this hash and `SHA256SUMS` in the same commit.
+
 Every other file in this directory is covered by `SHA256SUMS`, so there is one place
 to check rather than a hash per artefact that can go stale on its own:
 

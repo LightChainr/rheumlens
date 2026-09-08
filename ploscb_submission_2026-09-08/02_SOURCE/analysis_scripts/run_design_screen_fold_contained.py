@@ -52,6 +52,7 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.model_selection import KFold, StratifiedKFold
 from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
 REPO = Path(__file__).resolve().parents[2]
 INPUTS = REPO / "inputs"
@@ -221,8 +222,17 @@ def design_auc_permutation_p(D: np.ndarray, y: np.ndarray, observed: float,
 
 def cross_fitted_auc(X: np.ndarray, y: np.ndarray, kind: str,
                      n_repeat: int = N_REPEAT,
-                     fixed_C: float | None = None) -> float:
+                     fixed_C: float | None = None,
+                     n_top_var: int | None = None,
+                     n_pc: int | None = None) -> float:
     """Cross-fitted out-of-fold AUC.
+
+    n_top_var and n_pc put the two unsupervised representation steps - the
+    top-variance gene filter and the PCA - inside the training fold. They used to
+    be fitted once on all donors before cross-fitting. Neither looks at the label,
+    so neither could leak it, but both saw the held-out donors' expression, which
+    makes the resulting AUC transductive rather than out-of-fold and makes
+    "complete-pipeline permutation" an overstatement of what the null refits.
 
     fixed_C skips the inner C search. The permutation null uses it because a
     nested search costs ~135 logistic fits per permutation, which makes 1000
@@ -243,7 +253,18 @@ def cross_fitted_auc(X: np.ndarray, y: np.ndarray, kind: str,
                 oof[te] = m.predict_proba(X[te])[:, 1]
                 continue
 
-            sc = StandardScaler().fit(X[tr])
+            Xtr, Xte = X[tr], X[te]
+            if n_top_var is not None and n_top_var < Xtr.shape[1]:
+                keep = np.argsort(Xtr.var(axis=0))[::-1][:n_top_var]
+                Xtr, Xte = Xtr[:, keep], Xte[:, keep]
+            if n_pc is not None:
+                pre = StandardScaler().fit(Xtr)
+                pca = PCA(n_components=min(n_pc, Xtr.shape[1], len(tr) - 2),
+                          random_state=SEED).fit(pre.transform(Xtr))
+                Xtr, Xte = (pca.transform(pre.transform(Xtr)),
+                            pca.transform(pre.transform(Xte)))
+
+            sc = StandardScaler().fit(Xtr)
             if fixed_C is not None:
                 best = fixed_C
             else:
@@ -251,20 +272,20 @@ def cross_fitted_auc(X: np.ndarray, y: np.ndarray, kind: str,
                 inner = StratifiedKFold(3, shuffle=True, random_state=SEED)
                 for C in CS:
                     s_ = []
-                    for itr, ite in inner.split(X[tr], y[tr]):
+                    for itr, ite in inner.split(Xtr, y[tr]):
                         mm = LogisticRegression(C=C, solver="liblinear",
                                                 class_weight="balanced",
                                                 max_iter=5000)
-                        mm.fit(sc.transform(X[tr][itr]), y[tr][itr])
+                        mm.fit(sc.transform(Xtr[itr]), y[tr][itr])
                         s_.append(roc_auc_score(
                             y[tr][ite],
-                            mm.predict_proba(sc.transform(X[tr][ite]))[:, 1]))
+                            mm.predict_proba(sc.transform(Xtr[ite]))[:, 1]))
                     if np.mean(s_) > best_auc:
                         best_auc, best = float(np.mean(s_)), C
             m = LogisticRegression(C=best, solver="liblinear",
                                    class_weight="balanced", max_iter=5000)
-            m.fit(sc.transform(X[tr]), y[tr])
-            oof[te] = m.predict_proba(sc.transform(X[te]))[:, 1]
+            m.fit(sc.transform(Xtr), y[tr])
+            oof[te] = m.predict_proba(sc.transform(Xte))[:, 1]
         aucs.append(roc_auc_score(y, oof))
     return float(np.mean(aucs))
 
@@ -300,6 +321,7 @@ def collection_strata(cov: pd.DataFrame) -> tuple[np.ndarray, str]:
     return pd.factorize(key)[0], " x ".join(cats)
 
 
+N_TOP_VAR = 4000    # top-variance genes, selected within the training fold
 PERM_C = 1.0        # frozen regularisation for the permutation pipeline
 PERM_PCS = 50       # frozen dimensionality for the permutation pipeline
 
@@ -309,19 +331,24 @@ def permutation_pvalues(X: np.ndarray, y: np.ndarray, strata: np.ndarray,
     """Free and collection-preserving permutation p-values.
 
     Both nulls and the observed statistic they are compared against run the
-    identical frozen pipeline: PCA to PERM_PCS components, logistic regression
-    at PERM_C, single cross-fitting repeat.
-    """
-    from sklearn.decomposition import PCA
+    identical pipeline, refitted from the raw matrix on every permutation: the
+    top-variance gene filter, the standardiser and the PCA to PERM_PCS components
+    are all fitted inside the training fold, then logistic regression at PERM_C,
+    single cross-fitting repeat.
 
+    Fitting the filter and the PCA once on all donors, as an earlier version did,
+    made both the observed statistic and the null transductive. Neither step sees
+    the label, so the comparison stayed like-for-like and the p-value was still a
+    valid test of that fixed representation - but it was not the complete-pipeline
+    test the manuscript described, because the representation was never refitted.
+    """
     n_pc = int(min(PERM_PCS, X.shape[1], len(y) - 2))
-    Xp = PCA(n_components=n_pc, random_state=SEED).fit_transform(
-        StandardScaler().fit_transform(X))
 
     def frozen_auc(yy: np.ndarray) -> float:
         if len(np.unique(yy)) < 2:
             return 0.5
-        return cross_fitted_auc(Xp, yy, "linear", n_repeat=1, fixed_C=PERM_C)
+        return cross_fitted_auc(X, yy, "linear", n_repeat=1, fixed_C=PERM_C,
+                                n_top_var=N_TOP_VAR, n_pc=PERM_PCS)
 
     observed = frozen_auc(y)
     rng = np.random.default_rng(SEED)
@@ -364,13 +391,13 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
     cov, pb = cov.loc[donors], pb.loc[donors]
     y = cov["y_true"].to_numpy(dtype=int)
 
-    # top-variance genes keep the donor-level problem well conditioned
+    # The top-variance filter keeps the donor-level problem well conditioned. It
+    # is selected inside each training fold: ranking genes on all donors first is
+    # unsupervised, but it still uses the held-out donors' expression.
     Xp = pb.to_numpy(dtype=np.float64)
-    var = Xp.var(axis=0)
-    Xp = Xp[:, np.argsort(var)[::-1][:4000]]
 
     print(f"[{cohort}] donors={len(y)} cases={int(y.sum())} controls={int((y==0).sum())}")
-    disease_auc = cross_fitted_auc(Xp, y, "linear")
+    disease_auc = cross_fitted_auc(Xp, y, "linear", n_top_var=N_TOP_VAR)
     print(f"  disease AUC (pseudobulk) = {disease_auc:.3f}")
 
     strata, strata_def = collection_strata(cov)
