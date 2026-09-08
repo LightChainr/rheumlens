@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "Please cite the archived release and associated manuscript when using these identifiability assets."
-title: "Design-label identifiability in patient-level single-cell classifiers"
+message: "Please cite the archived release and associated manuscript when using these study-metadata audit assets."
+title: "Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons"
 authors:
   - family-names: "Ying"
     given-names: "Hongyu"
@@ -13,23 +13,21 @@ authors:
     affiliation: "Department of Rheumatology and Immunology, Shanghai Pudong Hospital, Fudan University Pudong Medical Center"
 repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
-version: "2.0.0-rc3"
-doi: "10.5281/zenodo.21618824"
-date-released: "2026-07-27"
+version: "3.0.0-rc1"
+date-released: "2026-09-08"
 keywords:
   - "single-cell RNA sequencing"
   - "patient-level classification"
+  - "study metadata"
   - "study design"
-  - "identifiability"
-  - "batch confounding"
-  - "residualisation"
+  - "confounding"
+  - "permutation tests"
   - "external validation"
-  - "Geneformer"
-  - "pseudobulk"
   - "systemic lupus erythematosus"
+  - "COVID-19"
 preferred-citation:
   type: article
-  title: "When study design predicts disease: an identifiability limit for patient-level single-cell classifiers"
+  title: "Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons"
   authors:
     - family-names: "Ying"
       given-names: "Hongyu"
@@ -38,4 +36,4 @@ preferred-citation:
     - family-names: "Liu"
       given-names: "Dan"
   year: 2026
-  journal: "Manuscript in preparation"
+  journal: "PLOS Computational Biology (submitted)"

@@ -1,7 +1,7 @@
 {
-  "title": "Design-label identifiability in patient-level single-cell classifiers",
+  "title": "Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons",
   "upload_type": "software",
-  "description": "Code, restored donor metadata, 11,200 simulation replicates, complete-pipeline null distributions, locked predictions, source tables, figures and manuscript assets for a study of design-label identifiability in patient-level single-cell classifiers. The release defines a design-adjusted label-information fraction and evaluates frozen Geneformer donor means, expression pseudobulk and CD4-subtype composition using design-only prediction, permutation nulls, representation-to-design recovery, linear and nonlinear fold-contained residualisation, matched overlap restriction, internal negative controls, strict source-only transfer, learned pooling and confound-leakage sensitivity experiments.",
+  "description": "Code, cohort metadata, design-variable inventories, donor-level analyses, per-seed outputs, simulation summaries, figures and manuscript assets for a PLOS Computational Biology submission auditing study-metadata and diagnosis association in patient-level single-cell classification. The current study screens nine case-control comparisons from five public datasets (809 donors), uses design-only prediction and cohort-specific permutation nulls, compares free and collection-preserving complete-pipeline permutations, evaluates downstream representation and classifier dependence in lupus cohorts, and reports explicit limitations on biological attribution and unrecorded structure. The simulation study contains seven regimes, seven design-diagnosis association levels, two outcome types and 19,600 simulated cohorts.",
   "creators": [
     {
       "name": "Ying, Hongyu",
@@ -17,19 +17,19 @@
     }
   ],
   "license": "MIT",
-  "version": "2.0.0-rc3",
-  "publication_date": "2026-07-27",
+  "version": "3.0.0-rc1",
+  "publication_date": "2026-09-08",
   "keywords": [
     "single-cell RNA sequencing",
     "patient-level classification",
+    "study metadata",
     "study design",
-    "identifiability",
-    "batch confounding",
-    "residualisation",
+    "confounding",
+    "permutation tests",
     "external validation",
-    "Geneformer",
-    "pseudobulk",
-    "systemic lupus erythematosus"
+    "systemic lupus erythematosus",
+    "COVID-19",
+    "pseudobulk"
   ],
   "related_identifiers": [
     {

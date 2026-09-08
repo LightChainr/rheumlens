@@ -1,19 +1,23 @@
-# Claim boundary
+# Claim boundary for the current manuscript
 
-Allowed claims:
+## Claims supported by the current analyses
 
-- Frozen mean-pooled Geneformer embeddings and expression pseudobulk contain donor-level SLE discrimination in the evaluated cohorts.
-- Strict reciprocal source-only CD4 transfer supports a pseudobulk advantage in the evaluated directions.
-- Within-cohort method ordering is sensitive to feature scaling and regularization, while all retained representations discriminate strongly.
-- Geneformer discrimination is associated with an interferon-related expression axis, but this is an attribution sensitivity rather than causal mediation.
-- Cell-budget, source-donor, pooling, fusion, and calibration analyses define the evaluated operating range of the representations.
+- Recorded study metadata can predict diagnosis strongly in public patient-level single-cell case-control comparisons.
+- The strength and interpretation of that association depend on which variable group carries it: collection, demographics/case mix, or sample-quality summaries.
+- A free complete-pipeline label permutation and a collection-preserving permutation answer different questions and can disagree on real data.
+- A collection-preserving permutation can be undefined when no collection stratum contains both labels.
+- Representation-level predictability of batch or processing wave does not, by itself, show that a downstream disease classifier uses that information.
+- Residualisation and restriction are non-equivalent adjustments; their disagreement does not bound a biological effect.
+- External validation has stronger relevance to transport when the target cohort is acquired through a genuinely different collection mechanism.
+- Pseudobulk outperforms the evaluated frozen Geneformer donor means in the strict source-only lupus transfer directions reported in the manuscript.
 
-Disallowed claims:
+## Claims not supported
 
-- Clinical deployment readiness.
-- Direct interpretation of external prediction scores as calibrated individual risk.
-- Causal disease mechanism discovery.
-- Foundation-model superiority over expression baselines.
-- General inferiority of fine-tuned foundation models or learned patient-level pooling.
-- Generalization to untested platforms or future clinical cohorts.
-- Absence of unmeasured confounding.
+- A general identifiability theorem or formal identifiability boundary for patient-level single-cell classification.
+- A required, necessary, sufficient, or complete validity standard.
+- Proof that a classifier is biologically driven merely because it passes the reported checks.
+- Absence of unmeasured collection, institutional, treatment, demographic, or technical structure.
+- Causal attribution of an AUC loss after residualisation to technical contamination.
+- Clinical calibration, deployment readiness, or patient-level risk interpretation.
+- General superiority or inferiority of foundation models, pseudobulk, residualisation methods, or learned pooling outside the evaluated settings.
+- Generalization to non-blood tissues or acquisition settings not studied here.

@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.0.0-rc1 - 2026-09-08
+
+### Added
+
+- A nine-comparison, five-dataset public screen (809 donors) spanning lupus, COVID-19, influenza, cytomegalovirus infection, and sepsis-versus-COVID-19.
+- Cohort-specific permutation nulls for design-only AUC and cross-fitted residual label variance.
+- Free and collection-preserving complete-pipeline permutations, including an explicit undefined state when no collection stratum contains both labels.
+- Seven simulation regimes across seven design-diagnosis association levels and two outcome types (19,600 simulated cohorts).
+- A prespecified CMV negative control, variable-group localization, and decision-tree walkthroughs tied to the same collection strata used by the restricted permutation.
+
+### Changed
+
+- Removed the identifiability-boundary framing and recast the reported quantities as scoped association and validation checks.
+- Reframed the five checks as complementary diagnostics rather than a required validity standard.
+- Separated collection variables from demographics/case mix and sample-quality summaries throughout the manuscript.
+- Expanded the empirical scope beyond SLE while keeping the detailed lupus representation/use, residualisation/restriction, and source-only transfer analyses.
+- Updated repository, citation, Zenodo and claim-boundary metadata to the PLOS Computational Biology resubmission framing.
+
+### Submission snapshot
+
+- Prepared the 2026-09-08 PLOS Computational Biology submission snapshot under `ploscb_submission_2026-09-08/`.
+- Generated a 72-page, double-spaced, continuously line-numbered submission PDF with eight main figures embedded.
+
 ## 2.0.0-rc3 - 2026-07-27
 
 ### Added
