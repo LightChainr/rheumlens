@@ -59,23 +59,33 @@ def main() -> None:
             tif = DEST / f"{plos_name(num)}.tif"
             subprocess.run(["rsvg-convert", "-d", str(DPI), "-p", str(DPI),
                             "-f", "png", "-o", str(png), str(svg)], check=True)
-            subprocess.run(["magick", str(png), "-compress", "lzw",
+            # rsvg writes RGBA, and every figure came out TrueColorAlpha with
+            # real transparency - Fig1 had fully transparent regions, which a
+            # viewer is free to composite onto black. PLOS wants no alpha
+            # channel, so flatten onto white and strip it.
+            subprocess.run(["magick", str(png),
+                            "-background", "white", "-alpha", "remove",
+                            "-alpha", "off", "-colorspace", "sRGB",
+                            "-compress", "lzw",
                             "-density", str(DPI), "-units", "PixelsPerInch",
                             str(tif)], check=True)
 
-            w, h, comp = subprocess.run(
-                ["magick", "identify", "-format", "%w %h %C", str(tif)],
-                capture_output=True, text=True, check=True).stdout.split()
+            w, h, comp, alpha, cs, depth = subprocess.run(
+                ["magick", "identify", "-format", "%w %h %C %A %[colorspace] %z",
+                 str(tif)], capture_output=True, text=True, check=True).stdout.split()
             w, h, mb = int(w), int(h), tif.stat().st_size / 1048576
             ok = (W_MIN <= w <= W_MAX and H_MIN <= h <= H_MAX
-                  and mb <= MB_MAX and comp == "LZW")
+                  and mb <= MB_MAX and comp == "LZW"
+                  and alpha in ("False", "Undefined") and cs == "sRGB"
+                  and depth == "8")
             print(f"{'OK  ' if ok else 'FAIL'} Figure {num:<3} {tif.name:<12} "
-                  f"{w}x{h}  {mb:.2f} MB  {comp}")
+                  f"{w}x{h}  {mb:.2f} MB  {comp}  alpha={alpha}  {cs} {depth}-bit")
             if not ok:
                 bad.append(tif.name)
 
     if bad:
-        sys.exit(f"outside PLOS figure limits: {', '.join(bad)}")
+        sys.exit(f"outside PLOS figure limits (size, compression, colour mode "
+                 f"or a leftover alpha channel): {', '.join(bad)}")
     print(f"\nall {len(FIGS)} figures within PLOS limits -> {DEST}")
 
 
