@@ -81,10 +81,21 @@ Then:
 # --seed on its own now implies results/screen/seed_<seed>/; name --out anyway,
 # because without it older copies of the script wrote every seed to the same
 # design_screen.tsv and four of the five runs were silently overwritten.
+# --workers parallelises the permutation stage only. Every permuted label is
+# drawn first, in the order the single-process version drew it, so the output is
+# byte-identical to --workers 1; only the wall time changes.
 for s in 20260907 20260908 20260909 20260910 20260911; do
-  python3 02_SOURCE/analysis_scripts/run_design_screen.py \
-      --all --seed "$s" --out "results/screen/seed_$s"
+  OMP_NUM_THREADS=1 python3 02_SOURCE/analysis_scripts/run_design_screen.py \
+      --all --seed "$s" --workers 14 --out "results/screen/seed_$s"
 done
+
+# A (cohort, seed) job is independent of every other, so the sweep also splits
+# across machines. Run the 45 jobs wherever, one directory each, then join them
+# without re-running anything - --merge-from applies the same spectrum and
+# degeneracy code a single-process run applies, so a merged sweep cannot drift
+# from an unsplit one:
+#   python3 run_design_screen.py --merge-from out/seed_$s/*/design_screen.tsv \
+#       --seed "$s" --out "results/screen/seed_$s"
 
 python3 02_SOURCE/analysis_scripts/run_extended_simulation.py  # 19,600 cohorts
 python3 02_SOURCE/analysis_scripts/run_calibration.py          # type-I calibration
@@ -117,9 +128,24 @@ retired names, and exporting a table whose header still carries one fails the bu
 
 ## Environment
 
-Python 3.11 with numpy, pandas, scikit-learn, scipy, pyarrow and joblib; R 4.6
-with ggplot2, patchwork, svglite and ragg. Figure TIFFs additionally need
-`rsvg-convert` and ImageMagick (`02_SOURCE/analysis_scripts/build_tiffs.py`).
+The screen runs in the pinned analysis environment, `environment-analysis-lock.yml`
+(conda-forge: Python 3.13.7, numpy 2.4.6, scipy 1.18.0, scikit-learn 1.9.0,
+pandas 3.0.3, pyarrow 21.0.0, joblib 1.5.3):
+
+```bash
+micromamba create -y -p ./env -f environment-analysis-lock.yml
+```
+
+That environment is not merely declared, it is checked. Before the released
+screen was regenerated, the *previous* version of `run_design_screen.py` was run
+inside it on a linux-aarch64 container and reproduced the previously released
+`design_screen.tsv` byte for byte. Every difference between the old and the new
+result tables is therefore attributable to the code change described in
+Section 9.6 of the manuscript, not to the machine it ran on.
+
+Downstream rebuilding needs R 4.6 with ggplot2, patchwork, svglite and ragg.
+Figure TIFFs additionally need `rsvg-convert` and ImageMagick
+(`02_SOURCE/analysis_scripts/build_tiffs.py`).
 
 ## Integrity
 

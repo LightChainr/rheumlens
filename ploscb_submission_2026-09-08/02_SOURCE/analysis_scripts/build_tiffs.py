@@ -25,7 +25,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 from build_html import FIGS, OUTDIR  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-DEST = ROOT / "submission" / "01_UPLOAD" / "TIFF_300dpi"
+# A durable workspace directory, NOT inside submission/: build_submission.py
+# wipes that tree on every run, so TIFFs rendered straight into it vanished
+# whenever the package was rebuilt after them. The packager copies from here.
+DEST = ROOT / "figures" / "tiff"
 DPI = 300
 # PLOS limits, in pixels.
 W_MIN, W_MAX, H_MIN, H_MAX = 789, 2250, 300, 2625

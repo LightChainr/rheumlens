@@ -88,11 +88,11 @@ pA <- ggplot(A, aes(y = cohort)) +
              colour = "white", stroke = .5) +
   geom_point(aes(x = collection_auc), shape = 124, size = 2.4, colour = "grey20",
              na.rm = TRUE) +
-  geom_text(aes(x = 0.445, label = verdict), hjust = 0, size = 1.95,
+  geom_text(aes(x = 0.335, label = verdict), hjust = 0, size = 1.95,
             colour = "grey35", fontface = "italic", na.rm = TRUE) +
   scale_y_discrete(labels = lab) +
-  scale_x_continuous(breaks = seq(.5, 1, .1), expand = c(0, 0)) +
-  coord_cartesian(xlim = c(.43, 1.0), clip = "off") +
+  scale_x_continuous(breaks = seq(.4, 1, .1), expand = c(0, 0)) +
+  coord_cartesian(xlim = c(.325, 1.0), clip = "off") +
   scale_fill_manual(values = pal, name = NULL) +
   guides(fill = guide_legend(nrow = 2)) +
   labs(x = "cross-fitted AUC", y = NULL, title = "A   How strongly recorded metadata predicts the diagnosis",

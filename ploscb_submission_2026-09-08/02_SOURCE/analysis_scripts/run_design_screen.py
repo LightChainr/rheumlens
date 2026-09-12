@@ -52,6 +52,8 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.model_selection import KFold, StratifiedKFold
 from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from joblib import Parallel, delayed
 
 REPO = Path(__file__).resolve().parents[2]
 INPUTS = REPO / "inputs"
@@ -62,6 +64,7 @@ N_SPLITS = 5
 N_REPEAT = 5
 N_PERM = 1000
 CS = np.logspace(-4, 4, 9)
+WORKERS = 1        # permutation-stage processes; see permutation_pvalues
 
 
 def design_matrix(cov: pd.DataFrame) -> dict[str, np.ndarray]:
@@ -221,8 +224,17 @@ def design_auc_permutation_p(D: np.ndarray, y: np.ndarray, observed: float,
 
 def cross_fitted_auc(X: np.ndarray, y: np.ndarray, kind: str,
                      n_repeat: int = N_REPEAT,
-                     fixed_C: float | None = None) -> float:
+                     fixed_C: float | None = None,
+                     n_top_var: int | None = None,
+                     n_pc: int | None = None) -> float:
     """Cross-fitted out-of-fold AUC.
+
+    n_top_var and n_pc put the two unsupervised representation steps - the
+    top-variance gene filter and the PCA - inside the training fold. They used to
+    be fitted once on all donors before cross-fitting. Neither looks at the label,
+    so neither could leak it, but both saw the held-out donors' expression, which
+    makes the resulting AUC transductive rather than out-of-fold and makes
+    "complete-pipeline permutation" an overstatement of what the null refits.
 
     fixed_C skips the inner C search. The permutation null uses it because a
     nested search costs ~135 logistic fits per permutation, which makes 1000
@@ -243,7 +255,18 @@ def cross_fitted_auc(X: np.ndarray, y: np.ndarray, kind: str,
                 oof[te] = m.predict_proba(X[te])[:, 1]
                 continue
 
-            sc = StandardScaler().fit(X[tr])
+            Xtr, Xte = X[tr], X[te]
+            if n_top_var is not None and n_top_var < Xtr.shape[1]:
+                keep = np.argsort(Xtr.var(axis=0))[::-1][:n_top_var]
+                Xtr, Xte = Xtr[:, keep], Xte[:, keep]
+            if n_pc is not None:
+                pre = StandardScaler().fit(Xtr)
+                pca = PCA(n_components=min(n_pc, Xtr.shape[1], len(tr) - 2),
+                          random_state=SEED).fit(pre.transform(Xtr))
+                Xtr, Xte = (pca.transform(pre.transform(Xtr)),
+                            pca.transform(pre.transform(Xte)))
+
+            sc = StandardScaler().fit(Xtr)
             if fixed_C is not None:
                 best = fixed_C
             else:
@@ -251,20 +274,20 @@ def cross_fitted_auc(X: np.ndarray, y: np.ndarray, kind: str,
                 inner = StratifiedKFold(3, shuffle=True, random_state=SEED)
                 for C in CS:
                     s_ = []
-                    for itr, ite in inner.split(X[tr], y[tr]):
+                    for itr, ite in inner.split(Xtr, y[tr]):
                         mm = LogisticRegression(C=C, solver="liblinear",
                                                 class_weight="balanced",
                                                 max_iter=5000)
-                        mm.fit(sc.transform(X[tr][itr]), y[tr][itr])
+                        mm.fit(sc.transform(Xtr[itr]), y[tr][itr])
                         s_.append(roc_auc_score(
                             y[tr][ite],
-                            mm.predict_proba(sc.transform(X[tr][ite]))[:, 1]))
+                            mm.predict_proba(sc.transform(Xtr[ite]))[:, 1]))
                     if np.mean(s_) > best_auc:
                         best_auc, best = float(np.mean(s_)), C
             m = LogisticRegression(C=best, solver="liblinear",
                                    class_weight="balanced", max_iter=5000)
-            m.fit(sc.transform(X[tr]), y[tr])
-            oof[te] = m.predict_proba(sc.transform(X[te]))[:, 1]
+            m.fit(sc.transform(Xtr), y[tr])
+            oof[te] = m.predict_proba(sc.transform(Xte))[:, 1]
         aucs.append(roc_auc_score(y, oof))
     return float(np.mean(aucs))
 
@@ -300,8 +323,18 @@ def collection_strata(cov: pd.DataFrame) -> tuple[np.ndarray, str]:
     return pd.factorize(key)[0], " x ".join(cats)
 
 
+N_TOP_VAR = 4000    # top-variance genes, selected within the training fold
 PERM_C = 1.0        # frozen regularisation for the permutation pipeline
 PERM_PCS = 50       # frozen dimensionality for the permutation pipeline
+
+
+def _frozen_auc_worker(X: np.ndarray, yy: np.ndarray,
+                       n_top_var: int = N_TOP_VAR) -> float:
+    """Module-level twin of the frozen_auc closure, so loky can pickle it."""
+    if len(np.unique(yy)) < 2:
+        return 0.5
+    return cross_fitted_auc(X, yy, "linear", n_repeat=1, fixed_C=PERM_C,
+                            n_top_var=n_top_var, n_pc=PERM_PCS)
 
 
 def permutation_pvalues(X: np.ndarray, y: np.ndarray, strata: np.ndarray,
@@ -309,26 +342,36 @@ def permutation_pvalues(X: np.ndarray, y: np.ndarray, strata: np.ndarray,
     """Free and collection-preserving permutation p-values.
 
     Both nulls and the observed statistic they are compared against run the
-    identical frozen pipeline: PCA to PERM_PCS components, logistic regression
-    at PERM_C, single cross-fitting repeat.
-    """
-    from sklearn.decomposition import PCA
+    identical pipeline, refitted from the raw matrix on every permutation: the
+    top-variance gene filter, the standardiser and the PCA to PERM_PCS components
+    are all fitted inside the training fold, then logistic regression at PERM_C,
+    single cross-fitting repeat.
 
+    Fitting the filter and the PCA once on all donors, as an earlier version did,
+    made both the observed statistic and the null transductive. Neither step sees
+    the label, so the comparison stayed like-for-like and the p-value was still a
+    valid test of that fixed representation - but it was not the complete-pipeline
+    test the manuscript described, because the representation was never refitted.
+    """
     n_pc = int(min(PERM_PCS, X.shape[1], len(y) - 2))
-    Xp = PCA(n_components=n_pc, random_state=SEED).fit_transform(
-        StandardScaler().fit_transform(X))
 
     def frozen_auc(yy: np.ndarray) -> float:
         if len(np.unique(yy)) < 2:
             return 0.5
-        return cross_fitted_auc(Xp, yy, "linear", n_repeat=1, fixed_C=PERM_C)
+        return cross_fitted_auc(X, yy, "linear", n_repeat=1, fixed_C=PERM_C,
+                                n_top_var=N_TOP_VAR, n_pc=PERM_PCS)
 
-    observed = frozen_auc(y)
+    # Draw every permuted label first, in exactly the order the sequential
+    # version drew them: one free permutation, then one draw per usable stratum,
+    # repeated n_perm times. frozen_auc consumes no randomness of its own (each
+    # fold split is keyed to SEED), so pulling the draws out of the loop leaves
+    # the RNG stream untouched and the result is identical to WORKERS=1. Only
+    # then is the expensive part - refitting the whole representation once per
+    # permutation - handed to a process pool.
     rng = np.random.default_rng(SEED)
-
-    std_hits = dpn_hits = usable = 0
+    free, restricted = [], []
     for _ in range(n_perm):
-        std_hits += frozen_auc(rng.permutation(y)) >= observed
+        free.append(rng.permutation(y))
 
         yp, moved = y.copy(), False
         for s_ in np.unique(strata):
@@ -337,8 +380,19 @@ def permutation_pvalues(X: np.ndarray, y: np.ndarray, strata: np.ndarray,
                 yp[idx] = rng.permutation(y[idx])
                 moved = True
         if moved:
-            usable += 1
-            dpn_hits += frozen_auc(yp) >= observed
+            restricted.append(yp)
+    usable = len(restricted)
+
+    todo = [y] + free + restricted
+    if WORKERS > 1:
+        aucs = Parallel(n_jobs=WORKERS, backend="loky", batch_size=4)(
+            delayed(_frozen_auc_worker)(X, yy, n_top_var=N_TOP_VAR) for yy in todo)
+    else:
+        aucs = [frozen_auc(yy) for yy in todo]
+
+    observed = aucs[0]
+    std_hits = sum(a >= observed for a in aucs[1:1 + n_perm])
+    dpn_hits = sum(a >= observed for a in aucs[1 + n_perm:])
 
     return {
         "observed_frozen_auc": float(observed),
@@ -364,13 +418,13 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
     cov, pb = cov.loc[donors], pb.loc[donors]
     y = cov["y_true"].to_numpy(dtype=int)
 
-    # top-variance genes keep the donor-level problem well conditioned
+    # The top-variance filter keeps the donor-level problem well conditioned. It
+    # is selected inside each training fold: ranking genes on all donors first is
+    # unsupervised, but it still uses the held-out donors' expression.
     Xp = pb.to_numpy(dtype=np.float64)
-    var = Xp.var(axis=0)
-    Xp = Xp[:, np.argsort(var)[::-1][:4000]]
 
     print(f"[{cohort}] donors={len(y)} cases={int(y.sum())} controls={int((y==0).sum())}")
-    disease_auc = cross_fitted_auc(Xp, y, "linear")
+    disease_auc = cross_fitted_auc(Xp, y, "linear", n_top_var=N_TOP_VAR)
     print(f"  disease AUC (pseudobulk) = {disease_auc:.3f}")
 
     strata, strata_def = collection_strata(cov)
@@ -461,6 +515,47 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
     return rows
 
 
+def write_outputs(df: pd.DataFrame, out: Path, cohorts: list[str],
+                  n_perm: int) -> None:
+    """Spectrum, degeneracy gate and config. Shared by a direct run and by
+    --merge-from, so a merged sweep cannot drift from a single-process one."""
+    out.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out / "design_screen.tsv", sep="\t", index=False)
+
+    # Sort by cross-fitted design AUC, not by raw I_D: the raw value is not
+    # comparable across cohorts with different design-feature counts.
+    allb = df[df.block == "all"]
+    if "degenerate" in allb.columns and allb["degenerate"].any():
+        bad = allb[allb["degenerate"]]
+        bad.to_csv(out / "degenerate_contrasts.tsv", sep="\t", index=False)
+        print("\n!! excluded from the spectrum as NOT ESTIMABLE:")
+        for _, r in bad.iterrows():
+            print(f"   {r['cohort']}: {r['degenerate_reason']}")
+        allb = allb[~allb["degenerate"]]
+    if "underpowered" in allb.columns and allb["underpowered"].any():
+        print("\n!! kept but UNDERPOWERED - report a seed range, not a single p:")
+        for _, r in allb[allb["underpowered"]].iterrows():
+            print(f"   {r['cohort']}: {r['underpowered_reason']}")
+
+    spectrum = (allb
+                .sort_values("design_auc_linear")
+                [["cohort", "n_donor", "n_design_feature",
+                  "design_auc_linear", "design_auc_rf",
+                  "I_D", "I_D_cv", "I_D_null_mean", "p_I_D_insample",
+                  "I_D_cv_null_mean", "p_I_D", "design_auc_frozen", "p_design_auc",
+                  "disease_auc", "p_standard", "p_collection_preserving"]])
+    spectrum.to_csv(out / "confounding_spectrum.tsv", sep="\t", index=False)
+    (out / "screen_config.json").write_text(json.dumps(
+        {"seed": SEED, "n_splits": N_SPLITS, "n_repeat": N_REPEAT,
+         "n_perm": n_perm, "cohorts": cohorts,
+         "i_d_estimator": "in-sample + cross-fitted + permutation null",
+         "spectrum_sorted_by": "design_auc_linear"}, indent=2))
+
+    print("\n=== design-confounding spectrum (block = all) ===")
+    print(spectrum.to_string(index=False))
+    print(f"\nwrote {out}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--cohorts", nargs="*")
@@ -470,9 +565,16 @@ def main() -> None:
                     help="override the global seed (for seed-stability checks)")
     ap.add_argument("--out", default=None,
                     help="override the output directory")
+    ap.add_argument("--workers", type=int, default=1,
+                    help="processes for the permutation stage; results are "
+                         "identical to --workers 1, only the wall time differs")
+    ap.add_argument("--merge-from", nargs="*", default=None,
+                    help="concatenate per-cohort design_screen.tsv fragments and "
+                         "write the spectrum, instead of running the screen")
     args = ap.parse_args()
 
-    global SEED, OUT
+    global SEED, OUT, WORKERS
+    WORKERS = args.workers
     if args.seed is not None:
         SEED = args.seed
     if args.out:
@@ -483,6 +585,16 @@ def main() -> None:
         # seed ranges could not be reproduced from the documented commands. Give
         # each seed its own directory unless the caller names one.
         OUT = OUT.parent / "screen" / f"seed_{SEED}"
+
+    if args.merge_from:
+        frames = [pd.read_csv(f, sep="\t") for f in sorted(args.merge_from)]
+        df = pd.concat(frames, ignore_index=True)
+        order = sorted(df.cohort.unique())
+        df = (df.assign(_o=df.cohort.map({c: k for k, c in enumerate(order)}))
+                .sort_values(["_o"], kind="stable").drop(columns="_o")
+                .reset_index(drop=True))
+        write_outputs(df, OUT, order, args.n_perm)
+        return
 
     if args.all:
         cohorts = sorted(p.name for p in (INPUTS / "donor_level").iterdir()
@@ -500,41 +612,7 @@ def main() -> None:
     if not rows:
         raise SystemExit("no cohort produced results")
 
-    df = pd.DataFrame(rows)
-    df.to_csv(OUT / "design_screen.tsv", sep="\t", index=False)
-
-    # Sort by cross-fitted design AUC, not by raw I_D: the raw value is not
-    # comparable across cohorts with different design-feature counts.
-    allb = df[df.block == "all"]
-    if "degenerate" in allb.columns and allb["degenerate"].any():
-        bad = allb[allb["degenerate"]]
-        bad.to_csv(OUT / "degenerate_contrasts.tsv", sep="\t", index=False)
-        print("\n!! excluded from the spectrum as NOT ESTIMABLE:")
-        for _, r in bad.iterrows():
-            print(f"   {r['cohort']}: {r['degenerate_reason']}")
-        allb = allb[~allb["degenerate"]]
-    if "underpowered" in allb.columns and allb["underpowered"].any():
-        print("\n!! kept but UNDERPOWERED - report a seed range, not a single p:")
-        for _, r in allb[allb["underpowered"]].iterrows():
-            print(f"   {r['cohort']}: {r['underpowered_reason']}")
-
-    spectrum = (allb
-                .sort_values("design_auc_linear")
-                [["cohort", "n_donor", "n_design_feature",
-                  "design_auc_linear", "design_auc_rf",
-                  "I_D", "I_D_cv", "I_D_null_mean", "p_I_D_insample",
-                  "I_D_cv_null_mean", "p_I_D", "design_auc_frozen", "p_design_auc",
-                  "disease_auc", "p_standard", "p_collection_preserving"]])
-    spectrum.to_csv(OUT / "confounding_spectrum.tsv", sep="\t", index=False)
-    (OUT / "screen_config.json").write_text(json.dumps(
-        {"seed": SEED, "n_splits": N_SPLITS, "n_repeat": N_REPEAT,
-         "n_perm": args.n_perm, "cohorts": cohorts,
-         "i_d_estimator": "in-sample + cross-fitted + permutation null",
-         "spectrum_sorted_by": "design_auc_linear"}, indent=2))
-
-    print("\n=== design-confounding spectrum (block = all) ===")
-    print(spectrum.to_string(index=False))
-    print(f"\nwrote {OUT}")
+    write_outputs(pd.DataFrame(rows), OUT, cohorts, args.n_perm)
 
 
 if __name__ == "__main__":

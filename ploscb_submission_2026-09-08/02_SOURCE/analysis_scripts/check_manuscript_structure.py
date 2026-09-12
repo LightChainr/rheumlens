@@ -207,6 +207,36 @@ if m:
     check(len(m.group(1)) <= 70,
           f"short title is {len(m.group(1))} characters (PLOS limit 70)")
 
+# ---- the permutation pipeline must be refitted inside the fold ----------------
+# The screen used to fit the top-variance gene filter and the PCA once on all
+# donors, then cross-fit only the logistic regression on that fixed
+# representation. Neither step reads the label, so nothing leaked - but the
+# held-out donors' expression shaped the representation, which makes the AUC
+# transductive and makes Section 9.6's "refitted on every permutation" false.
+# Guard the shape of the code, not a number, because the number it produces
+# looks perfectly reasonable when it is wrong.
+# The analysis workspace keeps the screen in the sibling repo checkout; the
+# released package stages it beside the other analysis scripts. Check whichever
+# copy is present so this runs both from the workspace and from verify.sh.
+CANDIDATES = [ROOT.parent / "20_repo_restructure_20260907" / "scripts" /
+              "cohorts" / "run_design_screen.py",
+              ROOT / "02_SOURCE" / "analysis_scripts" / "run_design_screen.py",
+              ROOT / "tools" / "run_design_screen.py"]
+screen_src = next((c for c in CANDIDATES if c.exists()), None)
+if screen_src is not None:
+    src = screen_src.read_text()
+    perm = src[src.index("def permutation_pvalues("):]
+    perm = perm[:perm.index("\ndef ", 1)] if "\ndef " in perm[1:] else perm
+    check("fit_transform" not in perm,
+          "the permutation pipeline fits no representation outside the fold")
+    fold = src[src.index("def cross_fitted_auc("):]
+    fold = fold[:fold.index("\ndef ", 1)]
+    check("n_top_var" in fold and "n_pc" in fold and "PCA(" in fold,
+          "the gene filter and the PCA are fitted inside the training fold")
+else:
+    check(False, "the screen script is present in one of "
+                 + ", ".join(str(c.relative_to(ROOT.parent)) for c in CANDIDATES))
+
 # ---- the printed AUC must be the AUC its p-value tests ------------------------
 # Table 1 used to print design_auc_linear, the tuned nested-CV model, beside
 # p_design_auc, which is computed against design_auc_frozen. The p-value was

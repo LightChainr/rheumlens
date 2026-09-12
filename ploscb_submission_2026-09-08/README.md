@@ -18,14 +18,50 @@ This snapshot corresponds to the manuscript prepared for a new PLOS Computationa
 
 The manuscript no longer claims an identifiability theorem and does not present the checks as a required validity standard; they are complementary diagnostics with stated scope.
 
+## The screen was re-run fold-contained
+
+The permutation pipeline used to fit its top-variance gene filter and its PCA
+once on all donors and then cross-fit only the classifier. Neither step reads the
+diagnosis, so no label leaked and the observed statistic and its null were always
+computed on identical terms - but both saw the held-out donors' expression, so
+the reported AUC was transductive rather than out-of-fold, and "the whole
+pipeline is refitted on every permutation" overstated what the code did.
+
+Both steps are now inside the training fold, and all 45 (comparison x seed) runs
+were regenerated. What this did and did not move:
+
+- **unchanged, bit for bit:** every design-only quantity - `I_D`, `I_D_cv`,
+  `design_auc_linear`, `design_auc_rf`, `design_auc_frozen`, `p_design_auc`,
+  `n_strata`, `strata_definition` - because they never used that representation.
+  The headline counts are the same: recorded metadata significant in 8 of 9,
+  collection variables alone in 4 of the 7 that record any, and the CMV negative
+  control still at chance. The degenerate and underpowered verdicts are the same
+  comparisons as before.
+- **changed:** the diagnosis-classifier AUC and the two permutation p-values.
+  The free permutation now rejects at the 1/1001 floor in all nine comparisons.
+  The collection-preserving permutation still fails to reject on exactly one,
+  sepsis-versus-COVID-19 in COMBAT (p = 0.057 to 0.614 across seeds).
+- **resolved:** the frozen and the tuned classifier used to disagree by up to
+  0.518 AUC on the smallest comparison. They now agree to within 0.066 everywhere.
+
+Before the re-run, the *previous* version of the script was run in the pinned
+environment on the build container and reproduced the previously released
+`design_screen.tsv` byte for byte, so the differences above are attributable to
+the code change and not to the machine.
+
 ## Submission PDF
 
-A line-numbered, double-spaced, 72-page PDF with the eight main figures embedded,
-generated with XeLaTeX on 2026-09-08 and committed at `01_UPLOAD/Manuscript.pdf`.
+A line-numbered, double-spaced, 60-page PDF with all 15 figures embedded at
+315-436 ppi, committed at `01_UPLOAD/Manuscript.pdf`.
 
-SHA256: `3ddddf09e2016386b5a0ccd01c87c2d9ff6d3f3de67e9f71de3435b3d6498eae`
+SHA256: `461e61d70807dce0c3535c63331a69ed21fba5ca4e216648a8da60c7ac7a51a4`
 
-**This PDF is out of date.** It was built before the corrections in the commit that paired every printed AUC with the p-value that tests it, marked the two sample-quality-preserving permutations, and updated the affected numbers in the text. Rebuild it from `01_UPLOAD/Manuscript.md` before submitting, and update this hash and `SHA256SUMS` in the same commit.
+It is built from `01_UPLOAD/Manuscript.md` by
+`02_SOURCE/analysis_scripts/build_pdf.py`, which takes its figure map from
+`build_html.py` so the PDF, the HTML and the TIFFs cannot disagree about which
+file is Figure 3. The previous PDF was assembled from a hand-maintained LaTeX
+copy of the body that had already drifted from the markdown, and that copy has
+been removed.
 
 Every other file in this directory is covered by `SHA256SUMS`, so there is one place
 to check rather than a hash per artefact that can go stale on its own:

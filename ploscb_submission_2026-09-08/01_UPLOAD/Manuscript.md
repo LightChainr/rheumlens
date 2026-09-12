@@ -462,15 +462,15 @@ donors, so the per-comparison counts in Table 1 do not sum to a donor total.
 
 | Comparison | Donors | Minority | Recorded: cols | AUC | p | V_D | p(V_D) | Collection: cols | AUC | p | Diagnosis AUC | p free | p coll.-pres. | Verdict |
 |---|---:|---:|---:|---:|---|---:|---|---:|---:|---|---:|---|---|---|
-| Influenza · COMBAT | 21 | 10 | 7 | 1.000 | 0.0050 | 0.000 | 0.0050 | 1 | 1.000 | 0.0050 | 0.273-0.582 | 0.2987-0.9660 | — | **not estimable** |
-| Sepsis vs COVID-19 · COMBAT | 111 | 11 | 7 | 0.996-0.998 | 0.0050 | 0.178-0.203 | 0.0050 | 1 | 0.982-0.985 | 0.0050 | 0.653-0.731 | 0.0240-0.1069 | 0.4506-0.9381 | **underpowered** |
-| SLE · GSE174188 (CD4) | 261 | 99 | 12 | 0.872-0.889 | 0.0050 | 0.540-0.558 | 0.0050 | 3 | 0.762-0.774 | 0.0050 | 0.935-0.963 | 0.0010 | 0.0010 | estimable |
-| COVID-19 · COMBAT | 110 | 10 | 7 | 0.862-0.884 | 0.0050-0.0100 | 0.906-1.000 | 0.0050-1.0000 | 1 | 0.500-0.504 | 0.7413-0.8657 | 0.996-0.999 | 0.0010 | 0.0010 | **underpowered** |
-| COVID-19 · Stephenson | 115 | 29 | 8 | 0.845-0.882 | 0.0050 | 0.628-0.722 | 0.0050 | 2 | 0.501-0.594 | 0.0149-0.2338 | 0.909-0.939 | 0.0010 | 0.0010 | estimable |
-| COVID-19 · Ren | 182 | 25 | 26 | 0.812-0.854 | 0.0050 | 0.847-1.000 | 0.0050-1.0000 | 19 | 0.729-0.768 | 0.0050 | 0.961-0.982 | 0.0010 | 0.0010 | estimable |
-| SLE · GSE174188 (all cells) | 261 | 99 | 9 | 0.819-0.832 | 0.0050 | 0.645-0.661 | 0.0050 | n/a | n/a | n/a | 0.972-0.987 | 0.0010 | 0.0010† | estimable |
-| COVID-19 · Ren (10x 5' v2) | 161 | 25 | 7 | 0.712-0.729 | 0.0050-0.0149 | 0.920-0.964 | 0.0050-0.0149 | n/a | n/a | n/a | 0.921-0.964 | 0.0010 | 0.0010† | estimable |
-| CMV · HIHA | 108 | 45 | 89 | 0.409-0.522 | 0.3582-0.8657 | 1.000 | 1.0000 | 80 | 0.365-0.489 | 0.5224-0.9403 | 0.854-0.911 | 0.0010 | 0.0010 | estimable |
+| Influenza · COMBAT | 21 | 10 | 7 | 1.000 | 0.0050 | 0.000 | 0.0050 | 1 | 1.000 | 0.0050 | 0.982-1.000 | 0.0010 | — | **not estimable** |
+| Sepsis vs COVID-19 · COMBAT | 111 | 11 | 7 | 0.996-0.998 | 0.0050 | 0.178-0.203 | 0.0050 | 1 | 0.982-0.985 | 0.0050 | 0.894-0.962 | 0.0010 | 0.0569-0.6144 | **underpowered** |
+| SLE · GSE174188 (CD4) | 261 | 99 | 12 | 0.872-0.889 | 0.0050 | 0.540-0.558 | 0.0050 | 3 | 0.762-0.774 | 0.0050 | 0.978-0.985 | 0.0010 | 0.0010 | estimable |
+| COVID-19 · COMBAT | 110 | 10 | 7 | 0.862-0.884 | 0.0050-0.0100 | 0.906-1.000 | 0.0050-1.0000 | 1 | 0.500-0.504 | 0.7413-0.8657 | 1.000 | 0.0010 | 0.0010 | **underpowered** |
+| COVID-19 · Stephenson | 115 | 29 | 8 | 0.845-0.882 | 0.0050 | 0.628-0.722 | 0.0050 | 2 | 0.501-0.594 | 0.0149-0.2338 | 0.972-0.996 | 0.0010 | 0.0010 | estimable |
+| COVID-19 · Ren | 182 | 25 | 26 | 0.812-0.854 | 0.0050 | 0.847-1.000 | 0.0050-1.0000 | 19 | 0.729-0.768 | 0.0050 | 0.964-0.982 | 0.0010 | 0.0010 | estimable |
+| SLE · GSE174188 (all cells) | 261 | 99 | 9 | 0.819-0.832 | 0.0050 | 0.645-0.661 | 0.0050 | n/a | n/a | n/a | 0.992-0.995 | 0.0010 | 0.0010† | estimable |
+| COVID-19 · Ren (10x 5' v2) | 161 | 25 | 7 | 0.712-0.729 | 0.0050-0.0149 | 0.920-0.964 | 0.0050-0.0149 | n/a | n/a | n/a | 0.954-0.977 | 0.0010 | 0.0010† | estimable |
+| CMV · HIHA | 108 | 45 | 89 | 0.409-0.522 | 0.3582-0.8657 | 1.000 | 1.0000 | 80 | 0.365-0.489 | 0.5224-0.9403 | 0.894-0.933 | 0.0010 | 0.0010 | estimable |
 
 **Table 1. The nine comparisons, ordered by how well the recorded metadata predicts the
 diagnosis.** Generated from the screen output. Every comparison was run at five random
@@ -517,7 +517,7 @@ It comes out at the bottom. Across five random seeds the design-only AUC for the
 recorded set is 0.409 to 0.522, straddling chance, with permutation p 0.358 to 0.866 -
 not significant in any seed. The collection block alone gives 0.365 to 0.489, p 0.522 to
 0.940, and sample quality 0.453 to 0.507, p 0.478 to 0.716. The same 108 donors support a
-diagnosis classifier at AUC 0.854 to 0.911, with both permutation tests at their
+diagnosis classifier at AUC 0.894 to 0.933, with both permutation tests at their
 1/1001 resolution floor in every seed. That is the prediction, and it holds.
 
 One qualification we report rather than bury. The demographic block alone reaches
@@ -593,21 +593,22 @@ computed on thin metadata is weak evidence.
 **No number at all.** The COMBAT influenza comparison has 21 donors and design
 variables that separate the labels exactly (design-only AUC 1.000, V_D 0.000). Every stratum holds one kind of donor (Figure S4), so the collection-preserving
 permutation has nothing to shuffle and returns nothing. The free permutation, on the same
-comparison, returns p = 0.299 to 0.966 across five seeds. Reported alone, that reads as a
-cohort with no detectable signal. The truth is that this comparison cannot separate the
-recorded metadata from the disease even in principle. We report it outside the main
-ordering.
+comparison, rejects at the 1/1001 floor in all five seeds, behind a diagnosis AUC of
+0.982 to 1.000. Reported alone, that reads as a comfortably validated classifier. The
+truth is that this comparison cannot separate the recorded metadata from the disease even
+in principle, and the only test that could have said so is the one that is undefined
+here. We report it outside the main ordering.
 
 **Underpowered, and disagreeing.** The COMBAT sepsis-versus-COVID-19 comparison
 (n = 111, minority class 11) is the case the collection-preserving test was added for. Its design
 variables predict the diagnosis almost perfectly, at 0.996 to 0.998 across seeds. The
-free permutation gives p = 0.024 to 0.107, significant at 0.05 in three of five seeds.
-The collection-preserving permutation gives p = 0.451 to 0.938, significant in none
+free permutation rejects at the 1/1001 floor in every seed.
+The collection-preserving permutation gives p = 0.057 to 0.614, significant in none
 (Figure 3D). Under the conventional test this comparison would be reported as a
 validated classifier. Under the test that holds design fixed, its accuracy is entirely
 consistent with the collection process.
 
-The frozen pipeline also scores 0.15 to 0.24 AUC below the tuned one here, the largest
+The frozen pipeline scores 0.011 to 0.066 AUC above the tuned one here, the largest
 gap among the eight comparisons that return a number at all. That is not a feasibility failure. The frozen pipeline
 is the inferential statistic, and it is what both permutation tests are built from. We
 report the gap anyway: with 11 donors in the minority class, a reader should be able to
@@ -800,12 +801,11 @@ institute, which gives two strata, *neither of which contains both a case and a
 control* (Figure S4). The collection-preserving permutation therefore has nothing to shuffle and is
 undefined.
 The comparison therefore cannot be answered with these data and no route in the tree is
-available. The frozen pipeline also scores far below the tuned one here - 0.27 to 0.58 against 0.98
-to 1.00 across seeds. That gap is reported but is not a gate anywhere in this paper, and
-it is not what stops the trace. The stopping condition is the absence of a stratum holding
-both labels. Note what the
-free permutation test alone would have said: p = 0.299 to 0.966 across the five seeds,
-which reads as "no signal" and is the wrong description.
+available. The frozen and the tuned pipeline agree closely here - 0.982 to 1.000 against
+0.964 to 1.000 across seeds - so nothing about the stop depends on which one is read. The
+stopping condition is the absence of a stratum holding both labels. Note what the
+free permutation test alone would have said: p = 0.0010 in every seed, which reads as a
+validated classifier and is the wrong description.
 
 **CMV HIHA (n = 108) reaches Route A.** The collection-preserving permutation is defined
 - 46 strata from batch and pool, 21 of them containing both labels - and both permutation
@@ -1068,10 +1068,26 @@ permutation null.
 ### 9.6. The two permutation tests
 
 Both permutation tests and the observed statistic they are compared against run one
-identical frozen pipeline: standardisation, PCA to 50 components (or fewer when donors
-are limiting), balanced logistic regression at fixed inverse regularisation 1.0, and a
-single cross-fitting repeat. Freezing is necessary: comparing a tuned observed statistic
-against an untuned null biases p-values downward.
+identical frozen pipeline, refitted from the raw donor-by-gene matrix on every
+permutation: within each training fold, the 4,000 highest-variance genes are selected on
+the training donors, a standardiser and a PCA to 50 components (or fewer when donors are
+limiting) are fitted on those donors and applied to the held-out ones, and a balanced
+logistic regression at fixed inverse regularisation 1.0 is fitted, with a single
+cross-fitting repeat. Every step that touches expression is therefore inside the fold, so
+the reported AUC is genuinely out-of-fold and the null refits the whole pipeline rather
+than reusing one representation. Freezing the regularisation is still necessary: comparing
+a tuned observed statistic against an untuned null biases p-values downward.
+
+An earlier version of this screen fitted the gene filter and the PCA once on all donors
+before cross-fitting. Neither step uses the diagnosis, so nothing about the label leaked
+and the observed statistic and its null were still computed on identical terms; but both
+saw the held-out donors' expression, which made the AUC transductive rather than
+out-of-fold and made "the whole pipeline is refitted" an overstatement. Moving the two
+steps inside the fold leaves every design-only quantity in Table 1 numerically unchanged -
+they never used that representation - and changes only the diagnosis AUC and the two
+permutation p-values. It also removes a discrepancy the earlier version created: the
+frozen and the tuned classifier now agree to within 0.066 AUC everywhere, against a
+largest disagreement of 0.518 before.
 
 The **free** test permutes the diagnosis vector without restriction. The
 **collection-preserving** test permutes it only within collection strata. A stratum is
