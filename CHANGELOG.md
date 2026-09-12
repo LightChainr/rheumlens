@@ -21,9 +21,10 @@
 ### Submission snapshot
 
 - Prepared the 2026-09-08 PLOS Computational Biology submission snapshot under `ploscb_submission_2026-09-08/`.
-- Generated a 72-page, double-spaced, continuously line-numbered submission PDF with eight main figures embedded.
+- Generated a double-spaced, continuously line-numbered submission PDF with the figures embedded. Rebuilt at 60 pages with all 15 figures after the fold-contained re-run; it is produced from the manuscript markdown by `build_pdf.py` rather than from a separate LaTeX copy of the body.
 - Committed the research object itself under `ploscb_submission_2026-09-08/`: manuscript source, cover letter, PDF, all 15 figures, Supporting Tables S1-S9, analysis and figure scripts, result tables, the five per-seed screen outputs, cohort registry, donor-level interface tables and QA records.
 - Added `REPRODUCE.md`, `SHA256SUMS` and `verify.sh`, which re-runs the 24 number checks and the structural checks against the released files alone.
+- Moved the screen's top-variance gene filter and PCA inside the cross-fitting fold and regenerated all 45 (comparison x seed) runs. Every design-only quantity is unchanged bit for bit; the diagnosis AUC and the two permutation p-values change, and the frozen and tuned classifiers now agree to within 0.066 AUC instead of 0.518.
 
 ## 2.0.0-rc3 - 2026-07-27
 

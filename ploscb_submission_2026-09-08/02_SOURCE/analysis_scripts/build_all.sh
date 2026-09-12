@@ -37,6 +37,16 @@ echo "== PLOS TIFFs =="
 "$PYTHON" tools/build_tiffs.py | tail -3
 
 echo
+echo "== submission PDF =="
+# tectonic is self-contained and fetches what it needs; skip rather than fail if
+# no engine is installed, since everything else here runs without one.
+if command -v "${PDF_ENGINE:-tectonic}" >/dev/null 2>&1; then
+  "$PYTHON" tools/build_pdf.py --engine "${PDF_ENGINE:-tectonic}" | tail -2
+else
+  echo "skipped: ${PDF_ENGINE:-tectonic} not installed"
+fi
+
+echo
 echo "== manuscript HTML =="
 "$PYTHON" tools/build_html.py
 

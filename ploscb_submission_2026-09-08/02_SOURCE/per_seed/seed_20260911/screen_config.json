@@ -1,0 +1,19 @@
+{
+  "seed": 20260911,
+  "n_splits": 5,
+  "n_repeat": 5,
+  "n_perm": 1000,
+  "cohorts": [
+    "CMV_HIHA",
+    "COMBAT_COVID",
+    "COMBAT_CROSS",
+    "COMBAT_INFLUENZA",
+    "COVID_REN",
+    "COVID_REN_ASSAY_10x_5_v2",
+    "COVID_STEPHENSON",
+    "SLE_GSE174188_ALLCELL",
+    "SLE_GSE174188_CD4"
+  ],
+  "i_d_estimator": "in-sample + cross-fitted + permutation null",
+  "spectrum_sorted_by": "design_auc_linear"
+}

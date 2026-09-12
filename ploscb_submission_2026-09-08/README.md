@@ -54,7 +54,7 @@ the code change and not to the machine.
 A line-numbered, double-spaced, 60-page PDF with all 15 figures embedded at
 315-436 ppi, committed at `01_UPLOAD/Manuscript.pdf`.
 
-SHA256: `461e61d70807dce0c3535c63331a69ed21fba5ca4e216648a8da60c7ac7a51a4`
+SHA256: `e75e5c03173160b911ccc4ee8337a453918227b5a623a792b2f853183b6295d3`
 
 It is built from `01_UPLOAD/Manuscript.md` by
 `02_SOURCE/analysis_scripts/build_pdf.py`, which takes its figure map from
