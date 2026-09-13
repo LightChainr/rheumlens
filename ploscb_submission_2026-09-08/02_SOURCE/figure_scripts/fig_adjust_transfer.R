@@ -39,8 +39,8 @@ p7a <- ggplot(rs, aes(mean, adj, colour=representation)) +
   scale_colour_manual(values=rpal, name=NULL) +
   scale_x_continuous(limits=c(.38,1)) +
   scale_y_discrete(limits=rev) +
-  labs(x="AUC for diagnosis", y=NULL,
-       title="A   How much the answer changes depends on how you remove the metadata",
+  labs(x="disease AUC", y=NULL,
+       title="A   The adjusted AUC depends on the adjustment method",
        subtitle="GSE135779. The same cohort scores 0.94 or 0.52 depending only on which adjustment is chosen") +
   base + theme(legend.position="bottom")
 
@@ -54,9 +54,9 @@ p7b <- ggplot(pw, aes(auc_mean, grp, colour=representation)) +
   geom_point(size=1.9, position=position_dodge(width=.5)) +
   scale_colour_manual(values=rpal, guide="none") +
   scale_x_continuous(limits=c(.82,1)) +
-  labs(x="AUC for diagnosis", y=NULL,
+  labs(x="disease AUC", y=NULL,
        title="B   Restricting to one processing wave costs much less",
-       subtitle="GSE174188 CD4. The signal survives inside a single wave,\nso it is not only the wave being read") +
+       subtitle="GSE174188 CD4. The separation largely persists\nwithin a single wave") +
   base
 
 # Read the CMV numbers from the walkthrough output rather than hardcoding them:
@@ -80,10 +80,10 @@ p7c <- ggplot(nc, aes(step, auc)) +
            hjust=0, size=2.4, colour="grey25") +
   scale_y_continuous(limits=c(.45,.95)) +
   scale_x_discrete(expand=expansion(add=.55)) +
-  labs(x=NULL, y="AUC for diagnosis",
-       title="C   The same adjustment breaks an unconfounded cohort",
-       subtitle=sprintf(paste0("CMV: design-only AUC is %.3f, so there is nothing to remove.\n",
-                               "%d design columns for %d donors take the diagnosis with them."),
+  labs(x=NULL, y="disease AUC",
+       title="C   Residualisation costs AUC without detected association",
+       subtitle=sprintf(paste0("CMV: metadata-only AUC %.3f, no association detected.\n",
+                               "%d metadata columns for %d donors."),
                         cmv$design_only_auc, cmv$n_design_col, cmv$n_donor)) +
   base
 F7 <- (p7a / (p7b | p7c + plot_layout(widths=c(1,1)))) + plot_layout(heights=c(1,.82))
@@ -105,11 +105,10 @@ p8a <- ggplot(dt, aes(target_auc, src, colour=representation)) +
   scale_colour_manual(values=rpal, name=NULL) +
   scale_x_continuous(limits=c(.55,1.02)) + scale_y_discrete(limits=rev) +
   labs(x="AUC in GSE285773 (26 donors), trained on GSE174188", y=NULL,
-       title="Training inside one wave does not improve transfer to a new cohort",
-       subtitle="the wave-4 model is no better than a random subset of the same size, and worse than using all donors. Bars are DeLong intervals, except for the random subset, where they are the 2.5th-97.5th percentiles over 20 draws") +
+       title=NULL, subtitle=NULL) +
   base + theme(legend.position="bottom")
 
-F8 <- p8a + labs(title="Training inside one wave does not improve transfer to a new cohort")
+F8 <- p8a
 ggsave("figures/out/Fig_transfer.svg", F8, width=180, height=76, units="mm", device=svglite::svglite)
 ragg::agg_png("figures/out/Fig_transfer.png", width=180, height=76, units="mm", res=400)
 print(F8); invisible(dev.off())
@@ -128,7 +127,7 @@ s4a <- ggplot(cs, aes(auc_mean, v, colour=a)) +
   geom_point(size=1.9, position=position_dodge(width=.5)) +
   scale_colour_manual(values=c(`no adjustment`="#3C6E9F", `wave removed`="#C4633E"), name=NULL) +
   scale_x_continuous(limits=c(.45,1)) +
-  labs(x="AUC for diagnosis", y=NULL,
+  labs(x="disease AUC", y=NULL,
        title="A   Cell-type proportions alone separate cases from controls",
        subtitle="GSE174188. Removing the processing wave costs about 0.20 AUC in every encoding") +
   base + theme(legend.position="bottom")
@@ -145,7 +144,7 @@ s4b <- ggplot(cr, aes(roc_auc, v, colour=ct)) +
   facet_wrap(~st, nrow=1) +
   scale_colour_manual(values=c(`observed stratum`="#C4633E",
                                `size- and label-matched random`="#3C6E9F"), name=NULL) +
-  labs(x="AUC for diagnosis", y=NULL,
+  labs(x="disease AUC", y=NULL,
        title="B   Inside one wave the composition signal is still there",
        subtitle="20 repeated splits per box. Restricting to a wave costs 0.03-0.04 AUC on average — far less than the 0.20 that removing the wave costs in panel A") +
   base + theme(legend.position="bottom")

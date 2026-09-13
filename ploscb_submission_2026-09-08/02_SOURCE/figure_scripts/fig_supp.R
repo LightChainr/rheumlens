@@ -20,31 +20,30 @@ base <- theme_classic(base_size=8) +
 # ---------------- S1: admitting a disease-caused covariate --------------------
 m <- read.delim("sim/results/mediator_arm_summary.tsv")
 m$admitted <- factor(m$admitted, levels=c("False","True"),
-                     labels=c("design variables only",
+                     labels=c("metadata variables only",
                               "plus one disease-caused covariate"))
 if (all(is.na(m$admitted))) {                     # R may read TRUE/FALSE as logical
   m <- read.delim("sim/results/mediator_arm_summary.tsv")
   m$admitted <- factor(ifelse(as.logical(m$admitted),
                               "plus one disease-caused covariate",
-                              "design variables only"),
-                       levels=c("design variables only",
+                              "metadata variables only"),
+                       levels=c("metadata variables only",
                                 "plus one disease-caused covariate"))
 }
 long <- m |>
-  select(rho, admitted, `design-only AUC`=design_auc, `V_D (cross-fitted)`=I_D_cv,
+  select(rho, admitted, `metadata-only AUC`=design_auc, `V_D (cross-fitted)`=I_D_cv,
          `runs flagged significant`=sig, `AUC after residualisation`=residualised_auc) |>
   pivot_longer(-c(rho, admitted))
-long$name <- factor(long$name, levels=c("design-only AUC","V_D (cross-fitted)",
+long$name <- factor(long$name, levels=c("metadata-only AUC","V_D (cross-fitted)",
                                         "runs flagged significant","AUC after residualisation"))
-pal2 <- c("design variables only"="#3C6E9F",
+pal2 <- c("metadata variables only"="#3C6E9F",
           "plus one disease-caused covariate"="#C4633E")
 S1 <- ggplot(long, aes(rho, value, colour=admitted)) +
   geom_line(linewidth=.6) + geom_point(size=1.4) +
   facet_wrap(~name, nrow=1, scales="free_y") +
   scale_colour_manual(values=pal2, name=NULL) +
-  labs(x="true design-diagnosis association ρ", y=NULL,
-       title="Figure S3  One disease-caused covariate is enough to manufacture the finding",
-       subtitle="At ρ = 0 design and diagnosis are unrelated by construction. Admitting a severity variable flags the cohort in 100% of runs.") +
+  labs(x="true metadata-phenotype association ρ", y=NULL,
+       title=NULL, subtitle=NULL) +
   base + theme(legend.position="bottom",
                strip.background=element_blank(),
                strip.text=element_text(size=6.8, face="bold"))
@@ -73,8 +72,7 @@ S2 <- ggplot(sl, aes(factor(stratum), n, fill=class)) +
   scale_fill_manual(values=c(cases="#C4633E", controls="#3C6E9F"), name=NULL) +
   scale_x_discrete(labels=NULL, breaks=NULL) +
   labs(x="collection stratum (ordered by size; identity not meaningful)", y="donors",
-       title="Figure S4  Design composition of every cohort",
-       subtitle="Bars are donors per collection stratum. A triangle marks a stratum holding both cases and controls — only those can be permuted within, or restricted to.") +
+       title=NULL, subtitle=NULL) +
   base + theme(legend.position="bottom", strip.background=element_blank(),
                strip.text=element_text(size=6.6, face="bold"),
                axis.ticks.x=element_blank())
@@ -99,19 +97,19 @@ lab <- c(CMV_HIHA                 = "CMV · HIHA",
 stopifnot(all(sd$cohort %in% names(lab)))
 sd$cohort <- factor(unname(lab[sd$cohort]), levels = unname(lab))
 
-auc_lv <- c("design-only AUC","V_D","diagnosis AUC")
-p_lv   <- c("p, design-only AUC","p, V_D","p, free permutation",
-            "p, collection-preserving")
+auc_lv <- c("metadata-only AUC","V_D","expression AUC")
+p_lv   <- c("p, metadata-only AUC","p, V_D","p, free permutation",
+            "p, collection-stratified")
 long <- sd |>
   select(cohort, seed,
          # frozen pipeline, matching Table 1 and the p-values plotted below
-         `design-only AUC`          = design_auc_frozen,
+         `metadata-only AUC`        = design_auc_frozen,
          `V_D`                      = I_D_cv,
-         `diagnosis AUC`            = observed_frozen_auc,
-         `p, design-only AUC`       = p_design_auc,
+         `expression AUC`           = observed_frozen_auc,
+         `p, metadata-only AUC`     = p_design_auc,
          `p, V_D`                   = p_I_D,
          `p, free permutation`      = p_standard,
-         `p, collection-preserving` = p_collection_preserving) |>
+         `p, collection-stratified` = p_collection_preserving) |>
   pivot_longer(-c(cohort, seed))
 
 panel <- function(d, lv, logy) {
@@ -141,13 +139,7 @@ S3 <- (panel(filter(long, name %in% auc_lv), auc_lv, FALSE) +
   plot_layout(guides="collect", heights=c(1,1)) &
   theme(legend.position="bottom", legend.text=element_text(size=5.8),
         legend.key.height=grid::unit(3,"mm"))
-S3 <- S3 + plot_annotation(
-  title="Figure S7  Seed stability, nine comparisons x five seeds",
-  subtitle=paste("Every per-seed value is released rather than summarised.",
-                 "Dashed line marks 0.05; the axis floor 0.005 is the smallest",
-                 "value 200 permutations can return."),
-  theme=theme(plot.title=element_text(size=8.5,face="bold"),
-              plot.subtitle=element_text(size=6.4,colour="grey35")))
+# figure title and notes live in the legend
 ggsave("figures/out/Fig_S7_seeds.svg", S3, width=180, height=118, units="mm",
        device=svglite::svglite)
 ragg::agg_png("figures/out/Fig_S7_seeds.png", width=180, height=118, units="mm", res=400)

@@ -137,7 +137,7 @@
 <text x='238.78' y='161.64' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>0.6</text>
 <text x='360.35' y='161.64' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>0.8</text>
 <text x='481.93' y='161.64' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>1.0</text>
-<text x='293.49' y='170.39' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='60.45px' lengthAdjust='spacingAndGlyphs'>AUC for diagnosis</text>
+<text x='293.49' y='170.39' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='43.38px' lengthAdjust='spacingAndGlyphs'>disease AUC</text>
 <rect x='209.78' y='179.93' width='167.42' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <rect x='209.78' y='179.93' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <line x1='210.38' y1='182.92' x2='215.16' y2='182.92' style='stroke-width: 0.85; stroke: #7B6BA8; stroke-linecap: butt;' />
@@ -152,7 +152,7 @@
 <text x='267.75' y='185.21' style='font-size: 6.40px; font-family: "Arial";' textLength='48.28px' lengthAdjust='spacingAndGlyphs'>HVG pseudobulk</text>
 <text x='329.98' y='185.21' style='font-size: 6.40px; font-family: "Arial";' textLength='47.22px' lengthAdjust='spacingAndGlyphs'>PCA pseudobulk</text>
 <text x='9.46' y='22.39' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='272.61px' lengthAdjust='spacingAndGlyphs'>GSE135779. The same cohort scores 0.94 or 0.52 depending only on which adjustment is chosen</text>
-<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='295.44px' lengthAdjust='spacingAndGlyphs'>A   How much the answer changes depends on how you remove the metadata</text>
+<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='218.20px' lengthAdjust='spacingAndGlyphs'>A   The adjusted AUC depends on the adjustment method</text>
 </g>
 <defs>
   <clipPath id='cpODYuMjF8NTAwLjc3fDIxOC45MnwzMjEuOTQ='>
@@ -226,9 +226,9 @@
 <text x='172.71' y='330.25' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.90</text>
 <text x='221.31' y='330.25' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.95</text>
 <text x='269.91' y='330.25' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>1.00</text>
-<text x='182.43' y='346.12' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='60.45px' lengthAdjust='spacingAndGlyphs'>AUC for diagnosis</text>
-<text x='9.46' y='206.81' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='165.86px' lengthAdjust='spacingAndGlyphs'>GSE174188 CD4. The signal survives inside a single wave,</text>
-<text x='9.46' y='213.61' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='100.14px' lengthAdjust='spacingAndGlyphs'>so it is not only the wave being read</text>
+<text x='182.43' y='346.12' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='43.38px' lengthAdjust='spacingAndGlyphs'>disease AUC</text>
+<text x='9.46' y='206.81' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='137.81px' lengthAdjust='spacingAndGlyphs'>GSE174188 CD4. The separation largely persists</text>
+<text x='9.46' y='213.61' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='56.03px' lengthAdjust='spacingAndGlyphs'>within a single wave</text>
 <text x='9.46' y='199.61' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='211.70px' lengthAdjust='spacingAndGlyphs'>B   Restricting to one processing wave costs much less</text>
 </g>
 <defs>
@@ -291,10 +291,10 @@
 <text x='333.00' y='337.38' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='32.28px' lengthAdjust='spacingAndGlyphs'>adjustment</text>
 <text x='377.88' y='330.25' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='29.72px' lengthAdjust='spacingAndGlyphs'>after ridge</text>
 <text x='377.88' y='337.38' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='26.42px' lengthAdjust='spacingAndGlyphs'>residuals</text>
-<text transform='translate(292.00,270.43) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='60.45px' lengthAdjust='spacingAndGlyphs'>AUC for diagnosis</text>
-<text x='286.63' y='206.81' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='174.47px' lengthAdjust='spacingAndGlyphs'>CMV: design-only AUC is 0.512, so there is nothing to remove.</text>
-<text x='286.63' y='213.61' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='177.86px' lengthAdjust='spacingAndGlyphs'>89 design columns for 108 donors take the diagnosis with them.</text>
-<text x='286.63' y='199.61' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='218.81px' lengthAdjust='spacingAndGlyphs'>C   The same adjustment breaks an unconfounded cohort</text>
+<text transform='translate(292.00,270.43) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='43.38px' lengthAdjust='spacingAndGlyphs'>disease AUC</text>
+<text x='286.63' y='206.81' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='160.81px' lengthAdjust='spacingAndGlyphs'>CMV: metadata-only AUC 0.512, no association detected.</text>
+<text x='286.63' y='213.61' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='104.31px' lengthAdjust='spacingAndGlyphs'>89 metadata columns for 108 donors.</text>
+<text x='286.63' y='199.61' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='226.09px' lengthAdjust='spacingAndGlyphs'>C   Residualisation costs AUC without detected association</text>
 </g>
 </g>
 </svg>

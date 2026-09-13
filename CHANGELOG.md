@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.0.0 - 2026-09-13
+
+Submission release; the manuscript's Data and code availability statement cites this version.
+
+### Changed
+
+- Figures: stand-alone titles and embedded figure numbers removed (the journal typesets captions); labels use the manuscript's terms (metadata-only AUC, phenotype label, collection-stratified permutation). The decision-tree figure matches the text: Q0 has a single feasibility criterion, Q3 reads the metadata-only AUC against its own null, Route A no longer implies adjustment, and restriction feasibility (at least five donors per class and 40 in total) sends the COVID-19 Ren comparison to Route C.
+- Hyperparameter table (Table S10) is now written by the generator in every build; a stale hand-kept copy no longer overwrites it. Its "used for" column cites the final section, figure and table numbers.
+- Supplementary table notes (Tables S2, S5, S9) and figure/table legends reworded without internal variable or script names.
+- Methods: software and reproducibility section rewritten for readers; generative-AI statement names the tools used (Claude Code with Claude Opus 5; Codex with GPT 6 Astra).
+- Journal upload set added: Manuscript.docx with line numbers, figures as TIFF, one workbook per supporting table with readable column headers; it is a formatting step and changes no result.
+
 ## 3.0.0-rc2 - 2026-09-13
 
 ### Fixed

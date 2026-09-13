@@ -42,9 +42,9 @@ pA <- ggplot(A, aes(rho, p_sig, colour=arm)) +
   geom_line(linewidth=.55) + geom_point(size=1.2) +
   scale_colour_manual(values=apal, labels=armlab, name=NULL) +
   scale_y_continuous(limits=c(0,1.02), breaks=c(0,.25,.5,.75,1)) +
-  labs(x="design-label association ρ", y="fraction of runs with p(V_D) ≤ 0.05",
-       title="A   The screen's null calibrates",
-       subtitle="at ρ = 0 the false-positive rate sits at the nominal level in every regime") +
+  labs(x="metadata-phenotype association ρ", y="fraction of runs with p(V_D) ≤ 0.05",
+       title="A   Calibration of the metadata-association test",
+       subtitle="at ρ = 0 the rejection rate is near the nominal level in every regime") +
   base_t + theme(legend.position="none")
 
 # B: residualisation and restriction diverge
@@ -59,7 +59,7 @@ pB <- ggplot(B, aes(rho, value, colour=name)) +
   scale_colour_manual(values=c(unadjusted="#2F3A45", external="#3C6E9F",
                                restricted="#4E8C6E", residualised="#C4633E"), name=NULL) +
   scale_y_continuous(limits=c(.3,.95)) +
-  labs(x="design-label association ρ", y="AUC",
+  labs(x="metadata-phenotype association ρ", y="AUC",
        title="B   Residualisation and restriction separate",
        subtitle="additive linear regime; restriction is undefined at ρ = 1 (no mixed stratum)") +
   base_t + theme(legend.position=c(.16,.28), legend.background=element_blank())
@@ -72,7 +72,7 @@ pC <- ggplot(C, aes(rho, gap, colour=arm)) +
   geom_line(linewidth=.55) + geom_point(size=1.2, na.rm=TRUE) +
   scale_colour_manual(values=apal, labels=armlab, name=NULL) +
   guides(colour=guide_legend(nrow=3)) +
-  labs(x="design-label association ρ", y="restricted AUC − residualised AUC",
+  labs(x="metadata-phenotype association ρ", y="restricted AUC − residualised AUC",
        title="C   The gap is not an artefact of the linear regime",
        subtitle="it opens in every generative model tested.\nRestriction is undefined at ρ = 1 except under imbalance") +
   base_t + theme(legend.position="bottom")
@@ -84,7 +84,7 @@ D <- filter(agg, label_type=="binary", arm %in% c("base","mechanism_shift")) %>%
 pD <- ggplot(D, aes(rho, value, colour=arm, linetype=name)) +
   geom_line(linewidth=.6) + geom_point(size=1.2) +
   scale_colour_manual(values=apal[c("base","mechanism_shift")],
-                      labels=c(base="target shares the design mechanism",
+                      labels=c(base="target shares the collection mechanism",
                                mechanism_shift="target acquired differently"), name=NULL) +
   scale_linetype_manual(values=c(internal="solid", external="22"), name=NULL,
                         labels=c(internal="internal AUC", external="external AUC")) +
@@ -92,8 +92,8 @@ pD <- ggplot(D, aes(rho, value, colour=arm, linetype=name)) +
   guides(colour=guide_legend(nrow=2, order=1),
          linetype=guide_legend(nrow=2, order=2,
                                override.aes=list(colour="grey30"))) +
-  labs(x="design-label association ρ", y="AUC",
-       title="D   External validation can confirm a design-driven model",
+  labs(x="metadata-phenotype association ρ", y="AUC",
+       title="D   An external cohort collected the same way tracks confounding",
        subtitle="external AUC rises with confounding when the target\nshares the acquisition process") +
   base_t + theme(legend.position="bottom", legend.box="vertical",
                  legend.spacing.y=unit(0,"pt"))

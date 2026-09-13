@@ -16,8 +16,8 @@ nd <- data.frame(
   x    = c(0.00, 1.20, 1.20, 2.75, 2.00, 2.00, 3.85),
   y    = c(1.35, 2.20, 0.50, 1.35, 0.30, 2.55, 1.35),
   lab  = c("R", "D", "Y", "X", "C", "U", "Ŷ"),
-  role = c("recruitment","recorded design","disease label","measured cells",
-           "label-derived covariate","unrecorded design","classifier output"),
+  role = c("recruitment","recorded metadata","phenotype label","measured cells",
+           "label-derived covariate","unrecorded structure","classifier output"),
   kind = c("process","design","label","data","trap","hidden","data"),
   # +1 puts the role label above the node, -1 below
   side = c(-1, 1, -1, -1, -1, 1, -1))
@@ -62,7 +62,7 @@ p <- ggplot() +
                "technical effect  D → X",
                "biological effect  Y → X",
                "mediation  Y → C → X",
-               "unrecorded design (outside the framework)",
+               "unrecorded structure (not measurable here)",
                "the fitted model")) +
   scale_fill_manual(values = npal, guide = "none") +
   coord_cartesian(xlim = c(-.50, 4.35), ylim = c(-.20, 3.10)) +
@@ -74,15 +74,14 @@ p <- ggplot() +
         plot.subtitle = element_text(size = 6.5, colour = "grey35",
                                      margin = margin(b = 2)),
         plot.margin = margin(4, 4, 2, 4)) +
-  labs(title = "Causal setting for patient-level single-cell classification",
-       subtitle = "D and Y are associated because one recruitment process assigns both.\nThe screen measures that association; it does not orient it.")
+  labs(title = NULL, subtitle = NULL)
 
 # annotation: the two things the screen can and cannot see
 p <- p +
   annotate("segment", x = 1.20, xend = 1.20, y = 1.94, yend = 0.76,
            linetype = "12", colour = "grey55", linewidth = .4) +
   annotate("text", x = 1.32, y = 1.35,
-           label = "the association the\nscreen quantifies",
+           label = "the association the\nmetadata-only AUC quantifies",
            size = 2.0, colour = "grey35", hjust = 0, lineheight = .95)
 
 ggsave("figures/out/Fig_dag.svg", p, width = 130, height = 92, units = "mm",

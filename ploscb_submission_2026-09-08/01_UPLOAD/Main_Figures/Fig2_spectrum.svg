@@ -134,7 +134,7 @@
 <text x='239.93' y='94.94' text-anchor='middle' style='font-size: 7.52px;fill: #333333; font-family: "Arial";' textLength='1.95px' lengthAdjust='spacingAndGlyphs'>|</text>
 <text x='116.85' y='78.73' style='font-size: 5.55px; font-style: italic;fill: #595959; font-family: "Arial";' textLength='35.39px' lengthAdjust='spacingAndGlyphs'>underpowered</text>
 <text x='116.85' y='62.48' style='font-size: 5.55px; font-style: italic;fill: #595959; font-family: "Arial";' textLength='35.39px' lengthAdjust='spacingAndGlyphs'>underpowered</text>
-<text x='116.85' y='46.24' style='font-size: 5.55px; font-style: italic;fill: #595959; font-family: "Arial";' textLength='49.91px' lengthAdjust='spacingAndGlyphs'>cannot be answered</text>
+<text x='116.85' y='46.24' style='font-size: 5.55px; font-style: italic;fill: #595959; font-family: "Arial";' textLength='32.98px' lengthAdjust='spacingAndGlyphs'>not estimable</text>
 <polyline points='114.05,183.97 114.05,34.51 ' style='stroke-width: 0.78; stroke-linecap: square;' />
 <text x='110.46' y='176.58' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='36.27px' lengthAdjust='spacingAndGlyphs'>CMV · HIHA</text>
 <text x='110.46' y='160.34' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='84.70px' lengthAdjust='spacingAndGlyphs'>COVID-19 · Ren (one assay)</text>
@@ -187,8 +187,8 @@
 <text x='193.65' y='227.20' style='font-size: 6.40px; font-family: "Arial";' textLength='58.61px' lengthAdjust='spacingAndGlyphs'>Sepsis vs COVID-19</text>
 <text x='267.32' y='216.13' style='font-size: 6.40px; font-family: "Arial";' textLength='12.08px' lengthAdjust='spacingAndGlyphs'>SLE</text>
 <text x='7.47' y='22.39' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='134.70px' lengthAdjust='spacingAndGlyphs'>filled = all recorded metadata   | = collection only</text>
-<text x='7.47' y='29.20' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='142.50px' lengthAdjust='spacingAndGlyphs'>open = full diagnosis classifier   bar = 5-seed range</text>
-<text x='7.47' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='223.84px' lengthAdjust='spacingAndGlyphs'>A   How strongly recorded metadata predicts the diagnosis</text>
+<text x='7.47' y='29.20' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='136.53px' lengthAdjust='spacingAndGlyphs'>open = expression classifier   bar = 5-seed range</text>
+<text x='7.47' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='197.19px' lengthAdjust='spacingAndGlyphs'>A   Recorded metadata predicts the phenotype label</text>
 </g>
 <defs>
   <clipPath id='cpMzA5LjQwfDQ5OC43OHwzNC41MXwxODMuOTc='>
@@ -301,7 +301,7 @@
 <text x='426.64' y='190.29' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='27.52px' lengthAdjust='spacingAndGlyphs'>collection</text>
 <text x='471.73' y='190.29' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='6.61px' lengthAdjust='spacingAndGlyphs'>all</text>
 <rect x='367.24' y='205.59' width='73.70' height='27.56' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<text x='367.24' y='211.18' style='font-size: 6.80px; font-family: "Arial";' textLength='35.91px' lengthAdjust='spacingAndGlyphs'>design AUC</text>
+<text x='367.24' y='211.18' style='font-size: 6.80px; font-family: "Arial";' textLength='58.95px' lengthAdjust='spacingAndGlyphs'>metadata-only AUC</text>
 <image width='73.70' height='7.37' x='367.24' y='215.88' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAkklEQVQ4jZ1SOQ6AMAwz//8pGxK7GRqgbpKGMqBaxUeI2c5jJ0gQAMj2gHY0PL6fcUkCCZcgINxF3c0zDKpOsMsaPETzchnhSJ9keQ2NNmDjZTieea6h7URwlF3NUfg83bgOB/x01OGo406r+/vul3VfZ/T/QuXrZ1/LynrV/PJOOsvniHb5++6Xh+9viS/f0s4Lppnj/fVyb+EAAAAASUVORK5CYII='/>
 <polyline points='377.86,222.05 377.86,223.25 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='409.34,222.05 409.34,223.25 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
@@ -314,7 +314,7 @@
 <text x='440.82' y='231.81' text-anchor='middle' style='font-size: 6.40px; font-family: "Arial";' textLength='8.88px' lengthAdjust='spacingAndGlyphs'>1.0</text>
 <text x='309.40' y='22.39' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='93.77px' lengthAdjust='spacingAndGlyphs'>dark outline: permutation p ≤ 0.05</text>
 <text x='309.40' y='29.20' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='79.62px' lengthAdjust='spacingAndGlyphs'>against that group's own null</text>
-<text x='309.40' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='148.97px' lengthAdjust='spacingAndGlyphs'>B   Which variables carry the diagnosis</text>
+<text x='309.40' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='175.19px' lengthAdjust='spacingAndGlyphs'>B   Which variable groups carry the prediction</text>
 </g>
 <defs>
   <clipPath id='cpMTE0LjA1fDQ5OC43OHwyNjYuMTZ8NDA4LjUx'>
@@ -389,7 +389,7 @@
 <text x='167.59' y='416.82' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='38.17px' lengthAdjust='spacingAndGlyphs'>demographic</text>
 <text x='201.06' y='416.82' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='27.52px' lengthAdjust='spacingAndGlyphs'>collection</text>
 <text x='234.53' y='416.82' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='6.61px' lengthAdjust='spacingAndGlyphs'>all</text>
-<text transform='translate(12.84,337.34) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='55.89px' lengthAdjust='spacingAndGlyphs'>design-only AUC</text>
+<text transform='translate(12.84,337.34) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='65.05px' lengthAdjust='spacingAndGlyphs'>metadata-only AUC</text>
 <rect x='117.33' y='277.27' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <line x1='117.92' y1='280.25' x2='122.71' y2='280.25' style='stroke-width: 1.28; stroke: #7A3B22; stroke-linecap: butt;' />
 <circle cx='120.32' cy='280.25' r='2.74' style='stroke-width: 0.99; stroke: #7A3B22; fill: #7A3B22;' />
@@ -526,13 +526,13 @@
 <text x='438.71' y='416.82' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.05</text>
 <text x='479.97' y='416.82' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>0.5</text>
 <text x='428.50' y='425.57' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='115.06px' lengthAdjust='spacingAndGlyphs'>permutation p (one point per seed)</text>
-<rect x='376.48' y='430.13' width='104.04' height='15.94' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<rect x='376.48' y='430.13' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<circle cx='379.47' cy='433.12' r='1.96' style='stroke-width: 0.52; stroke: #595959; stroke-opacity: 0.85; fill: #595959; fill-opacity: 0.85;' />
-<rect x='376.48' y='440.09' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<circle cx='379.47' cy='443.08' r='1.96' style='stroke-width: 0.52; stroke: #B4553C; stroke-opacity: 0.85; fill: #B4553C; fill-opacity: 0.85;' />
-<text x='386.44' y='435.41' style='font-size: 6.40px; font-family: "Arial";' textLength='46.50px' lengthAdjust='spacingAndGlyphs'>free permutation</text>
-<text x='386.44' y='445.37' style='font-size: 6.40px; font-family: "Arial";' textLength='94.08px' lengthAdjust='spacingAndGlyphs'>collection-preserving permutation</text>
+<rect x='379.31' y='430.13' width='98.38' height='15.94' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<rect x='379.31' y='430.13' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<circle cx='382.30' cy='433.12' r='1.96' style='stroke-width: 0.52; stroke: #595959; stroke-opacity: 0.85; fill: #595959; fill-opacity: 0.85;' />
+<rect x='379.31' y='440.09' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<circle cx='382.30' cy='443.08' r='1.96' style='stroke-width: 0.52; stroke: #B4553C; stroke-opacity: 0.85; fill: #B4553C; fill-opacity: 0.85;' />
+<text x='389.27' y='435.41' style='font-size: 6.40px; font-family: "Arial";' textLength='46.50px' lengthAdjust='spacingAndGlyphs'>free permutation</text>
+<text x='389.27' y='445.37' style='font-size: 6.40px; font-family: "Arial";' textLength='88.42px' lengthAdjust='spacingAndGlyphs'>collection-stratified permutation</text>
 <text x='260.58' y='254.05' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='162.44px' lengthAdjust='spacingAndGlyphs'>only the sepsis-vs-COVID-19 comparison separates them.</text>
 <text x='260.58' y='260.85' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='128.81px' lengthAdjust='spacingAndGlyphs'>0.001 is the floor of the 1,000-permutation test</text>
 <text x='260.58' y='246.85' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='171.66px' lengthAdjust='spacingAndGlyphs'>D   Where the two permutation tests disagree</text>

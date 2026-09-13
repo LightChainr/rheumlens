@@ -105,8 +105,8 @@ def main() -> None:
                  f"datasets published on or before {CUTOFF}.\n"
                  f"# {len(data)} datasets in the API response; "
                  f"{sum(v['n_datasets_eligible'] for v in rows.values())} datasets in "
-                 f"{len(df)} collections meet the dataset-level criteria of "
-                 f"audit/cellxgene_eligibility_audit.py. Performed after the analysis; "
+                 f"{len(df)} collections meet the dataset-level criteria described in Section 9.1. "
+                 f"Performed after the analysis; "
                  f"not used for selection.\n")
         df[cols].to_csv(fh, sep="\t", index=False)
     n_an = int(df.analysed_in_screen.sum())

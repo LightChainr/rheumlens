@@ -25,20 +25,20 @@ xd <- 0; xo <- 4.5
 nodes <- tribble(
   ~id,   ~x,  ~y,   ~w,  ~h,  ~kind,     ~lab,
   "S",   xd,  7.6,  BW,  .5,  "start",   "Donor-level classifier reports high internal AUC",
-  "Q0",  xd,  6.5,  BW,  BH,  "dec",     "Q0  Can this be answered with these data?\na collection stratum holds both labels, AND the recorded\nmetadata does not separate the labels exactly",
+  "Q0",  xd,  6.5,  BW,  BH,  "dec",     "Q0  Can the conditional question be asked with these donors?\nat least one collection stratum holds both labels",
   "Q1",  xd,  5.3,  BW,  BH,  "dec",     "Q1  Does the pipeline beat the free permutation?\nlabels permuted freely, whole pipeline refitted",
-  "Q2",  xd,  4.1,  BW,  BH,  "dec",     "Q2  Does it beat the collection-preserving permutation?\nlabels permuted within collection strata only",
-  "Q3",  xd,  2.9,  BW,  BH,  "dec",     "Q3  Is the metadata-diagnosis link weak?\ndesign-only AUC near chance and not beyond its own null",
-  "Q4",  xd,  1.7,  BW,  BH,  "dec",     "Q4  Is a collection stratum large enough to restrict to?",
+  "Q2",  xd,  4.1,  BW,  BH,  "dec",     "Q2  Does it beat the collection-stratified permutation?\nlabels permuted within collection strata only",
+  "Q3",  xd,  2.9,  BW,  BH,  "dec",     "Q3  Is metadata association undetected?\nmetadata-only AUC not beyond its own permutation null",
+  "Q4",  xd,  1.7,  BW,  BH,  "dec",     "Q4  Is restriction feasible?\na stratum with ≥5 donors per class and ≥40 in total",
   "Q5",  xd,  0.5,  BW,  BH,  "dec",     "Q5  Do restriction and residualisation agree?",
-  "E",   xd, -0.8,  BW,  .5,  "gate",    "EXIT GATE  ·  external target collected a different way",
-  "C0",  xo,  6.5,  OW,  OH,  "stop",    "CANNOT BE ANSWERED\nNo collection stratum holds both labels, or the metadata\nseparates them exactly. → no claim of any kind.",
-  "N1",  xo,  5.3,  OW,  OH,  "stop",    "NO SIGNAL\nThe observed AUC lies inside its own null.\n→ nothing to adjust or attribute.",
-  "C2",  xo,  4.1,  OW,  OH,  "stop",    "CONSISTENT WITH THE COLLECTION STRATA\nAccuracy does not exceed what the strata alone produce.\n→ separability only.",
-  "A",   xo,  2.9,  OW,  OH,  "route",   "ROUTE A · WEAK NUISANCE\nLittle to remove. Adjust only with its cost reported:\na wide design matrix takes accuracy away regardless.",
-  "C4",  xo,  1.7,  OW,  OH,  "stop",    "ROUTE C · REDESIGN\nNo stratum is large enough to restrict within. Escalate\nto a crossed-design cohort. → separability only.",
-  "B1",  xo,  0.85, OW,  .62, "route",   "ROUTE B1 · CONCORDANT\nThe choice of adjustment is not driving the conclusion.",
-  "B2",  xo,  0.05, OW,  .62, "route",   "ROUTE B2 · DISCORDANT\nReport both estimates. They are NOT bounds on a biological effect."
+  "E",   xd, -0.8,  BW,  .5,  "gate",    "TRANSPORT  ·  external cohort collected a different way",
+  "C0",  xo,  6.5,  OW,  OH,  "stop",    "NOT ESTIMABLE\nNo collection stratum holds both labels.\n→ needs donors collected under overlapping conditions.",
+  "N1",  xo,  5.3,  OW,  OH,  "stop",    "NO DETECTED ASSOCIATION\nThe observed AUC lies inside its own null.\n→ no discrimination to attribute.",
+  "C2",  xo,  4.1,  OW,  OH,  "stop",    "NO EVIDENCE BEYOND THE COLLECTION STRATA\nDiscrimination does not exceed what the strata retain;\nnot proof that it is collection-driven.",
+  "A",   xo,  2.9,  OW,  OH,  "route",   "ROUTE A · NO DETECTED METADATA ASSOCIATION\nThe unadjusted estimate stands; no adjustment is implied.\nUnrecorded structure remains possible.",
+  "C4",  xo,  1.7,  OW,  OH,  "stop",    "ROUTE C · RESTRICTION NOT FEASIBLE\nReport both adjusted estimates; claim no bound.\n→ needs donors under overlapping conditions.",
+  "B1",  xo,  0.85, OW,  .62, "route",   "ROUTE B1 · CONCORDANT\nThe choice of adjustment does not drive the conclusion.",
+  "B2",  xo,  0.05, OW,  .62, "route",   "ROUTE B2 · DISCORDANT\nReport both estimates; they are not bounds on a biological effect."
 )
 
 edges <- tribble(
@@ -72,7 +72,7 @@ traces <- bind_rows(
   tibble(cohort="COMBAT influenza",     step=c("S","Q0","C0")),
   tibble(cohort="CMV HIHA",             step=c("S","Q0","Q1","Q2","Q3","A")),
   tibble(cohort="COMBAT sepsis/COVID",  step=c("S","Q0","Q1","Q2","C2")),
-  tibble(cohort="COVID-19 Ren",         step=c("S","Q0","Q1","Q2","Q3","Q4","Q5","B2"))
+  tibble(cohort="COVID-19 Ren",         step=c("S","Q0","Q1","Q2","Q3","Q4","C4"))
 )
 tpal <- c("COMBAT influenza"="#7B6BA8", "CMV HIHA"="#4E8C6E",
           "COMBAT sepsis/COVID"="#B4913C", "COVID-19 Ren"="#C4633E")
@@ -111,8 +111,7 @@ p <- ggplot() +
         plot.title=element_text(size=8, face="bold"),
         plot.subtitle=element_text(size=6.4, colour="grey35", margin=margin(b=3)),
         plot.margin=margin(4,4,2,4)) +
-  labs(title="A decision tree for applying the checks",
-       subtitle="Feasibility first, then two permutation questions that are not the same question.\nWhere the two adjustments disagree the tree reports both and claims no bound. Four real comparisons traced.")
+  labs(title=NULL, subtitle=NULL)
 
 ggsave("figures/out/Fig_decision_tree.svg", p, width=180, height=126, units="mm",
        device=svglite::svglite)

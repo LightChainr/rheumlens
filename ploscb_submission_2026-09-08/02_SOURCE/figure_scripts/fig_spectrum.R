@@ -73,7 +73,7 @@ A <- left_join(A, coll[c("cohort","design_auc_frozen")] |>
 A$cohort <- factor(A$cohort, levels = ylev)
 stopifnot(!any(is.na(A$cohort)), is.factor(A$cohort))
 # Verdict comes from the screen's own gate columns, not from a hand-kept list.
-A$verdict <- ifelse(A$degenerate, "cannot be answered",
+A$verdict <- ifelse(A$degenerate, "not estimable",
              ifelse(A$underpowered, "underpowered", NA))
 
 pA <- ggplot(A, aes(y = cohort)) +
@@ -95,8 +95,8 @@ pA <- ggplot(A, aes(y = cohort)) +
   coord_cartesian(xlim = c(.325, 1.0), clip = "off") +
   scale_fill_manual(values = pal, name = NULL) +
   guides(fill = guide_legend(nrow = 2)) +
-  labs(x = "cross-fitted AUC", y = NULL, title = "A   How strongly recorded metadata predicts the diagnosis",
-       subtitle = "filled = all recorded metadata   | = collection only\nopen = full diagnosis classifier   bar = 5-seed range") +
+  labs(x = "cross-fitted AUC", y = NULL, title = "A   Recorded metadata predicts the phenotype label",
+       subtitle = "filled = all recorded metadata   | = collection only\nopen = expression classifier   bar = 5-seed range") +
   base + theme(legend.position = "bottom",
                plot.margin = margin(4, 6, 2, 2))
 
@@ -120,13 +120,13 @@ pB <- ggplot(B, aes(x = block, y = cohort)) +
             size = 2.05, show.legend = FALSE) +
   scale_colour_manual(values = c(`TRUE` = "white", `FALSE` = "grey20")) +
   scale_fill_gradient(low = "#F4F1EA", high = "#8C3B26", limits = c(.3, 1),
-                      na.value = "grey94", name = "design AUC",
+                      na.value = "grey94", name = "metadata-only AUC",
                       breaks = c(.4, .7, 1.0)) +
   scale_y_discrete(labels = NULL, breaks = NULL) +
   guides(fill = guide_colourbar(barwidth = unit(26, "mm"),
                                 barheight = unit(2.6, "mm"),
                                 title.position = "top")) +
-  labs(x = NULL, y = NULL, title = "B   Which variables carry the diagnosis",
+  labs(x = NULL, y = NULL, title = "B   Which variable groups carry the prediction",
        subtitle = "dark outline: permutation p ≤ 0.05\nagainst that group's own null") +
   base + theme(axis.line = element_blank(), axis.ticks = element_blank(),
                legend.position = "bottom",
@@ -146,7 +146,7 @@ pC <- ggplot(Cd, aes(x = block, y = design_auc_frozen,
                       labels = c(COVID_STEPHENSON = "Stephenson",
                                  COVID_REN = "Ren"), name = NULL) +
   scale_y_continuous(limits = c(.45, .90), breaks = seq(.5, .9, .1)) +
-  labs(x = NULL, y = "design-only AUC",
+  labs(x = NULL, y = "metadata-only AUC",
        title = "C   Same strength, different source",
        subtitle = "solid point: significant in every seed.\nStephenson is affected through sample quality, Ren through hospital") +
   base + theme(legend.position = c(.18, .88),
@@ -159,7 +159,7 @@ D <- seed |> select(cohort, seed, p_standard, p_collection_preserving) |>
                names_to = "test", values_to = "p")
 D$test <- factor(D$test, levels = c("p_standard","p_collection_preserving"),
                  labels = c("free permutation",
-                            "collection-preserving permutation"))
+                            "collection-stratified permutation"))
 D$cohort <- factor(D$cohort, levels = intersect(ylev, unique(D$cohort)))
 D$p <- pmax(D$p, 5e-4)
 

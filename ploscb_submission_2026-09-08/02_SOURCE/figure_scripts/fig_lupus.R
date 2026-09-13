@@ -51,7 +51,7 @@ p5a <- ggplot(comp, aes(level, n, fill=class)) +
              aes(level, y=off), inherit.aes=FALSE, shape=17, size=1.2, colour="#8C3B26") +
   facet_wrap(~panel, scales="free", nrow=1) +
   scale_fill_manual(values=c(case=CASE, control=CTRL), name=NULL) +
-  labs(x=NULL, y="donors", title="A   Cases and controls are not spread evenly over the design",
+  labs(x=NULL, y="donors", title="A   Cases and controls are not spread evenly over collection strata",
        subtitle="▲ marks a stratum containing only one kind of donor") +
   base + theme(legend.position="bottom")
 
@@ -74,8 +74,8 @@ p5b <- ggplot(cov, aes(block, auc_mean, colour=cohort, group=cohort)) +
   geom_line(linewidth=.5) + geom_point(size=2) +
   scale_colour_manual(values=c(GSE135779="#B4913C", `GSE174188 CD4`="#3C6E9F"), name=NULL) +
   scale_y_continuous(limits=c(.4,1)) +
-  labs(x=NULL, y="design-only AUC",
-       title="B   Recorded metadata alone predicts the diagnosis in both cohorts",
+  labs(x=NULL, y="metadata-only AUC",
+       title="B   Recorded metadata alone predicts disease status in both cohorts",
        subtitle="bars are 2.5th-97.5th percentiles over 20 repeated donor splits. GSE174188 has no recorded collection year (gap). In GSE135779 batch alone is at chance:\nthe label is spread across year, sample quality and demographics instead") +
   base + theme(axis.text.x=element_text(angle=20, hjust=1), legend.position=c(.16,.87),
                legend.background=element_blank())
@@ -105,7 +105,7 @@ p6a <- ggplot(m6l, aes(value, representation, colour=representation, shape=name)
   scale_colour_manual(values=rpal, guide="none") +
   scale_x_continuous(limits=c(.8,1.02)) +
   labs(x="cross-validated AUC", y=NULL,
-       title="A   The representations recognise the batch as well as the diagnosis",
+       title="A   The representations recognise batch as well as disease status",
        subtitle="one-versus-rest AUC for the most predictable recorded batch") +
   base + theme(legend.position="bottom")
 
@@ -119,7 +119,7 @@ p6b <- ggplot(data.frame(x=c(0.9930,0.4992),
   scale_x_continuous(limits=c(.42,1.04)) +
   labs(x="AUC", y=NULL,
        title="B   The batch is legible but uninformative",
-       subtitle="GSE135779: the batch is recovered almost perfectly,\nbut says nothing about the diagnosis") +
+       subtitle="GSE135779: the batch is recovered almost perfectly,\nbut does not predict disease status") +
   base
 
 delta <- s |> filter(cohort=="GSE135779", adjustment %in% c("unadjusted","residual_batch")) |>
@@ -135,8 +135,8 @@ p6c <- ggplot(delta, aes(d, representation, colour=representation)) +
   scale_colour_manual(values=rpal, guide="none") +
   scale_x_continuous(limits=c(-.03,.03)) +
   scale_y_discrete(limits=rev) +
-  labs(x="change in AUC for diagnosis after removing batch", y=NULL,
-       title="C   Removing it changes nothing",
+  labs(x="change in disease AUC after removing batch", y=NULL,
+       title="C   Removing batch changes disease AUC little",
        subtitle="all three shifts are smaller than 0.01\n") +
   base
 

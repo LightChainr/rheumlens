@@ -159,10 +159,10 @@
 <text x='145.55' y='163.49' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.50</text>
 <text x='194.88' y='163.49' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.75</text>
 <text x='244.21' y='163.49' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>1.00</text>
-<text x='145.55' y='172.24' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='86.42px' lengthAdjust='spacingAndGlyphs'>design-label association ρ</text>
+<text x='145.55' y='172.24' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='114.75px' lengthAdjust='spacingAndGlyphs'>metadata-phenotype association ρ</text>
 <text transform='translate(14.84,91.44) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='113.72px' lengthAdjust='spacingAndGlyphs'>fraction of runs with p(V_D) ≤ 0.05</text>
-<text x='9.46' y='22.39' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='194.94px' lengthAdjust='spacingAndGlyphs'>at ρ = 0 the false-positive rate sits at the nominal level in every regime</text>
-<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='116.80px' lengthAdjust='spacingAndGlyphs'>A   The screen's null calibrates</text>
+<text x='9.46' y='22.39' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='184.41px' lengthAdjust='spacingAndGlyphs'>at ρ = 0 the rejection rate is near the nominal level in every regime</text>
+<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='178.52px' lengthAdjust='spacingAndGlyphs'>A   Calibration of the metadata-association test</text>
 </g>
 <defs>
   <clipPath id='cpMjgzLjc0fDUwMC43N3wyNy43MHwxNTUuMTg='>
@@ -223,7 +223,7 @@
 <text x='392.26' y='163.49' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.50</text>
 <text x='441.58' y='163.49' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.75</text>
 <text x='490.91' y='163.49' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>1.00</text>
-<text x='392.26' y='172.24' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='86.42px' lengthAdjust='spacingAndGlyphs'>design-label association ρ</text>
+<text x='392.26' y='172.24' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='114.75px' lengthAdjust='spacingAndGlyphs'>metadata-phenotype association ρ</text>
 <text transform='translate(267.41,91.44) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='15.84px' lengthAdjust='spacingAndGlyphs'>AUC</text>
 <rect x='296.67' y='107.53' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <line x1='297.27' y1='110.52' x2='302.05' y2='110.52' style='stroke-width: 1.28; stroke: #2F3A45; stroke-linecap: butt;' />
@@ -361,7 +361,7 @@
 <text x='144.64' y='365.56' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.50</text>
 <text x='193.54' y='365.56' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.75</text>
 <text x='242.45' y='365.56' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>1.00</text>
-<text x='144.64' y='374.30' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='86.42px' lengthAdjust='spacingAndGlyphs'>design-label association ρ</text>
+<text x='144.64' y='374.30' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='114.75px' lengthAdjust='spacingAndGlyphs'>metadata-phenotype association ρ</text>
 <text transform='translate(14.84,282.04) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='114.45px' lengthAdjust='spacingAndGlyphs'>restricted AUC − residualised AUC</text>
 <rect x='1.25' y='386.84' width='286.78' height='25.90' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <rect x='1.25' y='386.84' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
@@ -459,17 +459,17 @@
 <text x='393.17' y='365.56' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.50</text>
 <text x='442.08' y='365.56' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.75</text>
 <text x='490.99' y='365.56' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>1.00</text>
-<text x='393.17' y='374.30' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='86.42px' lengthAdjust='spacingAndGlyphs'>design-label association ρ</text>
+<text x='393.17' y='374.30' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='114.75px' lengthAdjust='spacingAndGlyphs'>metadata-phenotype association ρ</text>
 <text transform='translate(265.58,282.04) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='15.84px' lengthAdjust='spacingAndGlyphs'>AUC</text>
-<rect x='337.43' y='383.85' width='111.49' height='15.94' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<rect x='337.43' y='383.85' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<line x1='338.02' y1='386.84' x2='342.81' y2='386.84' style='stroke-width: 1.28; stroke: #2F3A45; stroke-linecap: butt;' />
-<circle cx='340.42' cy='386.84' r='1.54' style='stroke-width: 0.52; stroke: #2F3A45; fill: #2F3A45;' />
-<rect x='337.43' y='393.81' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
-<line x1='338.02' y1='396.80' x2='342.81' y2='396.80' style='stroke-width: 1.28; stroke: #B4913C; stroke-linecap: butt;' />
-<circle cx='340.42' cy='396.80' r='1.54' style='stroke-width: 0.52; stroke: #B4913C; fill: #B4913C;' />
-<text x='347.39' y='389.10' style='font-size: 6.30px; font-family: "Arial";' textLength='101.53px' lengthAdjust='spacingAndGlyphs'>target shares the design mechanism</text>
-<text x='347.39' y='399.06' style='font-size: 6.30px; font-family: "Arial";' textLength='70.95px' lengthAdjust='spacingAndGlyphs'>target acquired differently</text>
+<rect x='333.57' y='383.85' width='119.21' height='15.94' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<rect x='333.57' y='383.85' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<line x1='334.17' y1='386.84' x2='338.95' y2='386.84' style='stroke-width: 1.28; stroke: #2F3A45; stroke-linecap: butt;' />
+<circle cx='336.56' cy='386.84' r='1.54' style='stroke-width: 0.52; stroke: #2F3A45; fill: #2F3A45;' />
+<rect x='333.57' y='393.81' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
+<line x1='334.17' y1='396.80' x2='338.95' y2='396.80' style='stroke-width: 1.28; stroke: #B4913C; stroke-linecap: butt;' />
+<circle cx='336.56' cy='396.80' r='1.54' style='stroke-width: 0.52; stroke: #B4913C; fill: #B4913C;' />
+<text x='343.53' y='389.10' style='font-size: 6.30px; font-family: "Arial";' textLength='109.25px' lengthAdjust='spacingAndGlyphs'>target shares the collection mechanism</text>
+<text x='343.53' y='399.06' style='font-size: 6.30px; font-family: "Arial";' textLength='70.95px' lengthAdjust='spacingAndGlyphs'>target acquired differently</text>
 <rect x='369.64' y='399.79' width='47.07' height='15.94' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <rect x='369.64' y='399.79' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <line x1='370.24' y1='402.78' x2='375.02' y2='402.78' style='stroke-width: 1.28; stroke: #4D4D4D; stroke-dasharray: 3.41,3.41; stroke-linecap: butt;' />
@@ -479,7 +479,7 @@
 <text x='379.60' y='415.00' style='font-size: 6.30px; font-family: "Arial";' textLength='35.36px' lengthAdjust='spacingAndGlyphs'>internal AUC</text>
 <text x='260.20' y='194.71' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='146.33px' lengthAdjust='spacingAndGlyphs'>external AUC rises with confounding when the target</text>
 <text x='260.20' y='201.51' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='84.75px' lengthAdjust='spacingAndGlyphs'>shares the acquisition process</text>
-<text x='260.20' y='187.51' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='218.34px' lengthAdjust='spacingAndGlyphs'>D   External validation can confirm a design-driven model</text>
+<text x='260.20' y='187.51' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='250.55px' lengthAdjust='spacingAndGlyphs'>D   An external cohort collected the same way tracks confounding</text>
 </g>
 </g>
 </svg>

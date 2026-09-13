@@ -1,6 +1,6 @@
-# Arm A: type-I error of both permutation tests when a sample-quality
-# variable predicts the diagnosis WITHIN a collection stratum and no
-# disease effect exists. 300 replicates per gamma, 200 permutations each.
+# Arm A: rejection rates of both permutation tests when a sample-quality
+# variable is associated with the phenotype label within a collection stratum and
+# the label has no effect on expression. 300 replicates per gamma, 200 permutations each.
 gamma	n	mean_within_corr	mean_observed_auc	reject_free	reject_collection_preserving
 0.0	300	0.1683	0.5003	0.07	0.0633
 0.3	300	0.2073	0.5089	0.0867	0.0867
@@ -9,9 +9,9 @@ gamma	n	mean_within_corr	mean_observed_auc	reject_free	reject_collection_preserv
 1.5	300	0.5361	0.6335	0.83	0.84
 2.0	300	0.6056	0.6679	0.9567	0.9533
 
-# Arm B: residualisation loss when the design is independent of the
-# diagnosis by construction. 108 donors, 60 replicates per layout.
-# 'cmv_ragged' reuses the observed CMV batch-by-pool level sizes.
+# Arm B: residualisation loss when the metadata are independent of the
+# phenotype label by construction. 108 donors, 60 replicates per layout.
+# The CMV-shaped layout reuses the observed CMV batch-by-pool level sizes.
 layout	n_design_col	n	design_only_auc	unadjusted	residualised	loss_mean	loss_p025	loss_p975
 balanced	1	60		0.9	0.8953	0.0047	-0.0148	0.0242
 balanced	2	60	0.4576	0.9	0.8965	0.0035	-0.0192	0.0335

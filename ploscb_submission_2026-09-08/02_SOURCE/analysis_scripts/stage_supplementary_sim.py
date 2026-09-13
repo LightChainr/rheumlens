@@ -29,11 +29,11 @@ med.columns = rename_columns(med.columns)
 
 out = SUP / "Table_S2_simulation_summary.tsv"
 with out.open("w") as fh:
-    fh.write("# Part 1: extended simulation, 7 arms x 7 rho x 2 label types x 200 reps.\n")
+    fh.write("# Part 1: calibration simulation, 7 regimes x 7 rho values x 2 outcome types x 200 replicates.\n")
     fh.write("# c = concordance index (= ROC AUC for a binary outcome).\n")
     sim.round(4).to_csv(fh, sep="\t", index=False)
-    fh.write("\n# Part 2: mediator arm. 'admitted' = a disease-caused covariate was\n")
-    fh.write("# admitted to the design variables. 'sig' = fraction of runs flagged.\n")
+    fh.write("\n# Part 2: disease-caused covariate. A covariate caused by the phenotype label was, or was not,\n")
+    fh.write("# admitted to the metadata variables; the fraction of runs flagged is reported.\n")
     med.round(4).to_csv(fh, sep="\t", index=False)
 
 # ---- Table S5: permutation calibration and residualisation width -------------
@@ -43,13 +43,13 @@ a.columns = rename_columns(a.columns)
 b.columns = rename_columns(b.columns)
 out9 = SUP / "Table_S5_calibration.tsv"
 with out9.open("w") as fh:
-    fh.write("# Arm A: type-I error of both permutation tests when a sample-quality\n")
-    fh.write("# variable predicts the diagnosis WITHIN a collection stratum and no\n")
-    fh.write("# disease effect exists. 300 replicates per gamma, 200 permutations each.\n")
+    fh.write("# Arm A: rejection rates of both permutation tests when a sample-quality\n")
+    fh.write("# variable is associated with the phenotype label within a collection stratum and\n")
+    fh.write("# the label has no effect on expression. 300 replicates per gamma, 200 permutations each.\n")
     a.round(4).to_csv(fh, sep="\t", index=False)
-    fh.write("\n# Arm B: residualisation loss when the design is independent of the\n")
-    fh.write("# diagnosis by construction. 108 donors, 60 replicates per layout.\n")
-    fh.write("# 'cmv_ragged' reuses the observed CMV batch-by-pool level sizes.\n")
+    fh.write("\n# Arm B: residualisation loss when the metadata are independent of the\n")
+    fh.write("# phenotype label by construction. 108 donors, 60 replicates per layout.\n")
+    fh.write("# The CMV-shaped layout reuses the observed CMV batch-by-pool level sizes.\n")
     b.round(4).to_csv(fh, sep="\t", index=False)
 
 for f in (out, out9):

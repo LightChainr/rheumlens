@@ -1,5 +1,5 @@
 # Table S9. Retrospective eligibility audit of CELLxGENE Discover, datasets published on or before 2026-09-07.
-# 2226 datasets in the API response; 35 datasets in 15 collections meet the dataset-level criteria of audit/cellxgene_eligibility_audit.py. Performed after the analysis; not used for selection.
+# 2226 datasets in the API response; 35 datasets in 15 collections meet the dataset-level criteria described in Section 9.1. Performed after the analysis; not used for selection.
 collection_id	collection_name	collection_doi	analysed_in_screen	n_datasets_eligible	max_donors	diseases	tissues	assays
 436154da-bcf1-4130-9c8b-120ff9a888f2	Single-cell RNA-seq reveals the cell-type-specific molecular and genetic associations to lupus	10.1126/science.abf1970	True	1	261	systemic lupus erythematosus	blood	10x 3' v2
 0a839c4b-10d0-4d64-9272-684c49a2c8ba	COVID-19 immune features revealed by a large-scale single-cell transcriptome atlas	10.1016/j.cell.2021.01.053	True	1	196	COVID-19	blood; lung; saliva	10x 3' v3; 10x 5' v2

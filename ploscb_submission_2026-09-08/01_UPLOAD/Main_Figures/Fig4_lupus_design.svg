@@ -217,7 +217,7 @@
 <text x='247.64' y='179.47' style='font-size: 6.40px; font-family: "Arial";' textLength='13.50px' lengthAdjust='spacingAndGlyphs'>case</text>
 <text x='275.09' y='179.47' style='font-size: 6.40px; font-family: "Arial";' textLength='19.17px' lengthAdjust='spacingAndGlyphs'>control</text>
 <text x='9.46' y='22.39' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='147.33px' lengthAdjust='spacingAndGlyphs'>▲ marks a stratum containing only one kind of donor</text>
-<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='231.88px' lengthAdjust='spacingAndGlyphs'>A   Cases and controls are not spread evenly over the design</text>
+<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='253.23px' lengthAdjust='spacingAndGlyphs'>A   Cases and controls are not spread evenly over collection strata</text>
 </g>
 <defs>
   <clipPath id='cpMzEuMTZ8NTAwLjc3fDIxMy4xOHwzNDAuOTY='>
@@ -288,7 +288,7 @@
 <text transform='translate(267.58,348.98) rotate(-20)' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='42.19px' lengthAdjust='spacingAndGlyphs'>collection year</text>
 <text transform='translate(357.89,348.98) rotate(-20)' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='16.14px' lengthAdjust='spacingAndGlyphs'>batch</text>
 <text transform='translate(448.20,348.98) rotate(-20)' text-anchor='end' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='6.61px' lengthAdjust='spacingAndGlyphs'>all</text>
-<text transform='translate(14.84,277.07) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='55.89px' lengthAdjust='spacingAndGlyphs'>design-only AUC</text>
+<text transform='translate(14.84,277.07) rotate(-90)' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='65.05px' lengthAdjust='spacingAndGlyphs'>metadata-only AUC</text>
 <rect x='76.66' y='223.82' width='5.98' height='5.98' style='stroke-width: 0.78; stroke: none; fill: #FFFFFF;' />
 <line x1='77.25' y1='226.81' x2='82.04' y2='226.81' style='stroke-width: 0.85; stroke: #B4913C; stroke-linecap: butt;' />
 <line x1='77.25' y1='226.81' x2='82.04' y2='226.81' style='stroke-width: 1.07; stroke: #B4913C; stroke-linecap: butt;' />
@@ -301,7 +301,7 @@
 <text x='86.62' y='235.07' style='font-size: 6.40px; font-family: "Arial";' textLength='49.33px' lengthAdjust='spacingAndGlyphs'>GSE174188 CD4</text>
 <text x='9.46' y='201.07' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='433.72px' lengthAdjust='spacingAndGlyphs'>bars are 2.5th-97.5th percentiles over 20 repeated donor splits. GSE174188 has no recorded collection year (gap). In GSE135779 batch alone is at chance:</text>
 <text x='9.46' y='207.87' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='204.50px' lengthAdjust='spacingAndGlyphs'>the label is spread across year, sample quality and demographics instead</text>
-<text x='9.46' y='193.87' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='257.50px' lengthAdjust='spacingAndGlyphs'>B   Recorded metadata alone predicts the diagnosis in both cohorts</text>
+<text x='9.46' y='193.87' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='261.09px' lengthAdjust='spacingAndGlyphs'>B   Recorded metadata alone predicts disease status in both cohorts</text>
 </g>
 </g>
 </svg>

@@ -19,6 +19,7 @@ echo "== supplementary tables =="
 "$PYTHON" tools/stage_supplementary_sim.py
 "$PYTHON" tools/stage_static_tables.py
 "$PYTHON" tools/build_registry_table.py
+"$PYTHON" tools/build_hyperparameter_table.py
 "$PYTHON" audit/build_design_manifest.py
 
 echo

@@ -142,7 +142,7 @@
 <text x='251.75' y='174.14' style='font-size: 6.40px; font-family: "Arial";' textLength='26.98px' lengthAdjust='spacingAndGlyphs'>diagnosis</text>
 <text x='292.94' y='174.14' style='font-size: 6.40px; font-family: "Arial";' textLength='47.95px' lengthAdjust='spacingAndGlyphs'>best single batch</text>
 <text x='9.46' y='22.39' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='169.77px' lengthAdjust='spacingAndGlyphs'>one-versus-rest AUC for the most predictable recorded batch</text>
-<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='259.89px' lengthAdjust='spacingAndGlyphs'>A   The representations recognise the batch as well as the diagnosis</text>
+<text x='9.46' y='15.20' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='249.25px' lengthAdjust='spacingAndGlyphs'>A   The representations recognise batch as well as disease status</text>
 </g>
 <defs>
   <clipPath id='cpODEuNjR8NTAwLjc3fDIwNy45OHwyODkuMzg='>
@@ -207,7 +207,7 @@
 <text x='241.87' y='297.69' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>1.0</text>
 <text x='171.07' y='306.44' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='15.84px' lengthAdjust='spacingAndGlyphs'>AUC</text>
 <text x='9.46' y='195.87' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='146.92px' lengthAdjust='spacingAndGlyphs'>GSE135779: the batch is recovered almost perfectly,</text>
-<text x='9.46' y='202.67' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='102.25px' lengthAdjust='spacingAndGlyphs'>but says nothing about the diagnosis</text>
+<text x='9.46' y='202.67' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='97.34px' lengthAdjust='spacingAndGlyphs'>but does not predict disease status</text>
 <text x='9.46' y='188.67' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='156.52px' lengthAdjust='spacingAndGlyphs'>B   The batch is legible but uninformative</text>
 </g>
 <defs>
@@ -243,10 +243,10 @@
 <text x='357.15' y='297.69' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='15.05px' lengthAdjust='spacingAndGlyphs'>-0.02</text>
 <text x='411.35' y='297.69' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.00</text>
 <text x='465.54' y='297.69' text-anchor='middle' style='font-size: 6.60px;fill: #333333; font-family: "Arial";' textLength='12.84px' lengthAdjust='spacingAndGlyphs'>0.02</text>
-<text x='411.35' y='306.44' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='165.09px' lengthAdjust='spacingAndGlyphs'>change in AUC for diagnosis after removing batch</text>
+<text x='411.35' y='306.44' text-anchor='middle' style='font-size: 7.50px; font-family: "Arial";' textLength='148.42px' lengthAdjust='spacingAndGlyphs'>change in disease AUC after removing batch</text>
 <text x='268.46' y='195.87' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='99.78px' lengthAdjust='spacingAndGlyphs'>all three shifts are smaller than 0.01</text>
 <text x='268.46' y='202.67' style='font-size: 6.30px;fill: #595959; font-family: "Arial";' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='268.46' y='188.67' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='124.50px' lengthAdjust='spacingAndGlyphs'>C   Removing it changes nothing</text>
+<text x='268.46' y='188.67' style='font-size: 8.00px; font-weight: bold; font-family: "Arial";' textLength='178.94px' lengthAdjust='spacingAndGlyphs'>C   Removing batch changes disease AUC little</text>
 </g>
 </g>
 </svg>

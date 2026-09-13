@@ -141,8 +141,7 @@ as severity, WHO score, comorbidity, medication and time since symptom onset. Th
 the path Y → C → X and are not collection variables; including them in D would turn
 disease predictability into apparent design predictability, and Section 3.1 quantifies the
 effect. **U** denotes collection structure that was never recorded, which no analysis here
-can detect (Section 8). The graph was specified before the analysis and is released in
-`dagitty` syntax [38].
+can detect (Section 8). The graph was specified before the analysis and is released in dagitty syntax [38].
 
 We draw the D-Y association as induced by R rather than as a directed edge, because both
 directions occur: a patient may be recruited at a referral centre because of their
@@ -253,9 +252,7 @@ detected structure, and Section 6 brings the checks together.
 
 We assembled five public datasets [2,39-42] through the CELLxGENE Discover curation API and
 reduced each to one row per donor: log1p CPM pseudobulk expression, plus variables built
-from schema-guaranteed observation fields (`donor_id`, `disease`, `sex`,
-`development_stage`, `assay`, `tissue`) and cohort-specific collection variables
-recovered from the distributed object. The datasets were chosen to span different
+from standard CELLxGENE schema fields (donor identifier, disease, sex, developmental stage, assay and tissue) and cohort-specific collection variables recovered from the distributed object. The datasets were chosen to span different
 acquisition structures rather than sampled systematically; Section 9.1 gives the selection
 rationale and a retrospective count of eligible datasets.
 
@@ -275,8 +272,7 @@ two groups are prespecified sensitivity analyses. The union of all three is call
 *recorded metadata*. Covariates caused by the disease - severity, outcome, comorbidity,
 medication, symptom timing, diagnosis fields, stage, grade, WHO score - are excluded from
 all groups (node C in Figure 1). Table S1 lists the raw and expanded columns entering every
-group; a machine check confirms that it reproduces the width of all 34 fitted metadata
-matrices (34 of 34 blocks) and that no label or label proxy enters any of them.
+group; we verified that it reproduces the width of all 34 fitted metadata matrices and that no label or label proxy enters any of them.
 
 The exclusion matters. In a simulation where metadata and phenotype are unrelated,
 admitting one disease-caused covariate raises the metadata-only AUC from 0.488 to 0.793 and
@@ -302,8 +298,7 @@ cohort share donors, so the per-comparison counts in Table 1 do not sum to 809.
 | COVID-19 · Ren (10x 5' v2) | 161 | 25 | 0.712-0.729 | 0.0050-0.0149 | n/a | n/a | 0.954-0.977 | +0.227 to +0.262 | 0.0010 | 0.0010† | estimable |
 | CMV · HIHA | 108 | 45 | 0.404-0.518 | 0.3831-0.8806 | 0.365-0.489 | 0.5274-0.9453 | 0.894-0.933 | +0.306 to +0.354 | 0.0010 | 0.0010 | estimable |
 
-**Table 1. The nine comparisons, ordered by metadata-only AUC.** Generated from the screen
-output by `tools/build_table1.py`. Each comparison was run at five split seeds; values are
+**Table 1. The nine comparisons, ordered by metadata-only AUC.** Each comparison was run at five split seeds; values are
 ranges over the five seeds, and a single value means that all five agreed at the printed
 precision. "Minority" is the smaller label group. "Metadata AUC" uses all three variable
 groups; "Collection AUC" uses the collection block alone, and n/a means that no varying
@@ -496,8 +491,7 @@ the gap about five-fold.
 ### 4.3. Threshold alignment and external validation
 
 Class imbalance changes two things at once: prevalence, and the alignment between
-collection boundaries and the phenotype threshold. In the `imbalanced` regime both
-thresholds are at the 80th percentile; in `imbalanced_offset` the phenotype threshold is at
+collection boundaries and the phenotype threshold. In the imbalanced regime both thresholds are at the 80th percentile; in the imbalanced-offset regime the phenotype threshold is at
 the 80th percentile and the collection boundary at the median. With matched thresholds,
 imbalance has little effect: the metadata-only AUC reaches 1.000 at ρ = 1 and V_D reaches
 0.000. With offset thresholds, the metadata-only AUC saturates at 0.880 and V_D at 0.728.
@@ -859,13 +853,13 @@ GSE285773 CD4-positive T cells (26 donors; 16 cases, 10 controls) [3], the latte
 independent transfer target.
 
 Registry entries, dataset identifiers, donor counts and download sizes were verified
-against the API on 2026-09-07 and are released in `cohorts/registry.yaml`.
+against the API on 2026-09-07 and are released in the repository's cohort registry.
 
 **Dataset selection.** The five screen datasets were chosen before the screen was run, to span different acquisition structures rather than to sample every eligible cohort. They are a standardised single-assay atlas expected to show weak association (HIHA), a lupus cohort with processing waves (GSE174188), a three-site COVID-19 cohort (Stephenson), a multi-centre atlas with two sequencing chemistries (Ren), and a consortium cohort in which several phenotypes share one acquisition structure (COMBAT). Each had to provide human
 peripheral blood, donor identifiers, a phenotype contrast within the dataset, and at least
 200 cells per retained donor.
 
-To show how large the pool was, we counted, after the analysis, the CELLxGENE Discover datasets published by 2026-09-07 that meet the screen's dataset-level requirements (`audit/cellxgene_eligibility_audit.py`, API response retrieved 2026-09-13). A dataset qualifies if it is human, carries a blood tissue label and a single-cell suspension, has a "normal" label alongside at least one disease label, and has at least 40 donors. Of 2,226
+To show how large the pool was, we counted, after the analysis, the CELLxGENE Discover datasets published by 2026-09-07 that meet the screen's dataset-level requirements (API response retrieved 2026-09-13). A dataset qualifies if it is human, carries a blood tissue label and a single-cell suspension, has a "normal" label alongside at least one disease label, and has at least 40 donors. Of 2,226
 datasets, 35 in 15 collections qualify, and the five analysed collections are among them
 (Table S9). Dataset-level metadata do not give donor counts per class, so some of the
 other ten collections may fail the per-class floors. The count of eight in nine therefore
@@ -878,11 +872,9 @@ never crossed a training/test partition.
 ### 9.2. Donor-level tables and the metadata variables
 
 Each cohort was streamed from its h5ad in 100,000-cell chunks and reduced to one row per
-donor. Expression was aggregated to log1p CPM pseudobulk. The layer used for aggregation
-was chosen by sniffing for integer counts rather than assuming a layer name.
+donor. Expression was aggregated to log1p CPM pseudobulk. Raw counts were identified by checking which stored layer held integer values.
 
-Design variables were drawn from schema-guaranteed observation fields (`donor_id`,
-`disease`, `sex`, `development_stage`, `assay`, `tissue`) plus cohort-specific collection
+Metadata variables were drawn from standard schema fields (donor identifier, disease, sex, developmental stage, assay, tissue) plus cohort-specific collection
 variables detected by pattern from the distributed object. Detection patterns cover
 batch, pool, run, lane, chip, site, centre, city, region, province, hospital, clinic,
 study, sub-study, source, dataset and donor source. Ages given as strings
@@ -896,8 +888,7 @@ entered the metadata matrix, in which group, and which were excluded and why.
 
 Variables were assigned to three groups. **Sample quality**: cells per donor, mean UMI
 per cell, mean genes per cell, aggregate mitochondrial percentage, and their logs.
-**Demographic**: age in years, sex, ethnicity. **Collection**: every detected
-`batch__*` variable, assay and suspension type.
+**Demographic**: age in years, sex, ethnicity. **Collection**: every detected batch-type variable, assay and suspension type.
 
 ### 9.3. Residual label variance
 
@@ -905,7 +896,7 @@ For centred phenotype-label vector *y* and recorded metadata matrix **D** includ
 V_D = 1 − R²(y ~ D). Two versions are reported. The in-sample version uses ordinary least
 squares on all donors and is reported for comparison. The
 cross-fitted version replaces the fitted values with out-of-fold predictions from
-five-fold `KFold` with shuffling, seeded by the run seed, and is the version used
+shuffled five-fold cross-validation, seeded by the run seed, and is the version used
 everywhere a number is interpreted. Negative R² values were clipped at zero before
 subtraction.
 
@@ -919,9 +910,9 @@ random phenotype label leave at most as much unexplained variation as the observ
 null mean and its 2.5th percentile are reported alongside.
 
 The metadata-only AUC is tested the same way, with 200 permutations of the phenotype label
-through the identical fixed-hyperparameter pipeline (`p_design_auc` in Table S3); that is the primary
+through the identical fixed-hyperparameter pipeline (Table S3); that is the primary
 test, for the reason given in Section 2.2. The in-sample V_D is released with its own
-in-sample null, as `V_D_insample` and `p_V_D_insample` in Table S3. The two are separate quantities and are never mixed:
+in-sample null in Table S3. The two are separate quantities and are never mixed:
 p(V_D) always refers to the cross-fitted pair. This null is what makes either version
 readable, because its location depends on the number of metadata columns relative to
 donors.
@@ -930,21 +921,15 @@ donors.
 
 **Four analyses fit classifiers, and they are not one pipeline.** The multi-cohort screen,
 the decision-tree walkthrough, the calibration simulation and the GSE174188/GSE135779 deep
-dive each have their own settings, and Table S10 lists all of them. That table is generated
-by `tools/build_hyperparameter_table.py` from the `PipelineSpec` and `ForestSpec` objects
-in `scripts/cohorts/pipeline_core.py` that the runners themselves import, so no setting can
-be described here as something other than what ran. The paragraphs below state what
-differs; Table S10 is the authority on every value.
+dive each have their own settings, and Table S10 lists all of them. Table S10 was generated directly from the analysis code, and the paragraphs below state what differs between the pipelines.
 
-*Shared by the screen, the walkthrough and the calibration simulation.* One classifier specification, `SCREEN_FROZEN`, is used, differing only in repeat budget. It is a balanced logistic regression (liblinear, `max_iter` 5,000) at fixed inverse regularisation 1.0 with stratified five-fold outer splits. The 4,000 highest-variance features are selected on the training donors, and a PCA to 50 components (or fewer when donors are limiting) is fitted on those donors and applied to the held-out ones. The screen runs one repeat, the walkthrough
+*Shared by the screen, the walkthrough and the calibration simulation.* One classifier specification is used, differing only in repeat budget. It is a balanced logistic regression (liblinear solver, at most 5,000 iterations) at fixed inverse regularisation 1.0 with stratified five-fold outer splits. The 4,000 highest-variance features are selected on the training donors, and a PCA to 50 components (or fewer when donors are limiting) is fitted on those donors and applied to the held-out ones. The screen runs one repeat, the walkthrough
 twenty. A tuned variant selects the inverse regularisation from 10⁻⁴ to 10⁴ in decade steps by three-fold resampling inside each outer training set, over five repeats. It is reported beside the fixed pipeline as a description; the fixed pipeline is the inferential statistic, because both permutation nulls refit it.
 
 *Metadata matrices.* The metadata matrix is small and dense, so no feature filter and no
-PCA are applied to it. Numeric variables are median-imputed from the training donors of each fold and standardised there. Categorical variables are one-hot encoded from the levels observed in those training donors, dropping the first level; a level seen for the first time in a held-out donor is encoded as the reference level. The in-sample V_D is still defined on the whole-cohort
-matrix, as an in-sample statistic must be, and `n_design_feature` still reports that
-matrix's width.
+PCA are applied to it. Numeric variables are median-imputed from the training donors of each fold and standardised there. Categorical variables are one-hot encoded from the levels observed in those training donors, dropping the first level; a level seen for the first time in a held-out donor is encoded as the reference level. The in-sample V_D is defined on the whole-cohort matrix, as an in-sample statistic must be.
 
-*The lupus deep dive.* GSE174188 and GSE135779 predate the screen and run a wider budget on a single dataset. The classifier is a balanced logistic regression (liblinear, `max_iter` 20,000) with the same inverse-regularisation grid, selected by five-fold resampling inside each outer training set, over 20 repeated stratified five-fold donor splits with integer seeds 20260801-20260820. Out-of-fold predictions are pooled within each repeat; we report the
+*The lupus deep dive.* GSE174188 and GSE135779 predate the screen and run a wider budget on a single dataset. The classifier is a balanced logistic regression (liblinear solver, at most 20,000 iterations) with the same inverse-regularisation grid, selected by five-fold resampling inside each outer training set, over 20 repeated stratified five-fold donor splits with integer seeds 20260801-20260820. Out-of-fold predictions are pooled within each repeat; we report the
 mean AUC and the 2.5th-97.5th percentile of repeat-level AUCs. That range is a descriptive
 split-sensitivity range. It is not a confidence interval, and it does not treat correlated
 folds or repeats as independent [31].
@@ -969,22 +954,14 @@ a tuned observed statistic against an untuned null biases p-values downward.
 Every representation step is refitted inside the fold on every permutation because the
 code arranges it, not because the permutation test would reveal otherwise: a label-dependent
 step taken before the permutation appears identically in the observed and permuted runs.
-The property is enforced in one place, `pipeline_core.fold_contained_auc`, which every
-analysis in this paper calls, and it is checked by an automated gate that fails the build
-if a `fit_transform` appears outside a training fold in the permutation path.
+All analyses in this paper use one shared implementation of these fold-contained steps.
 
-The **free** test permutes the phenotype vector without restriction; it is `p_free` in
-the released tables. The **collection-stratified** test permutes it only within collection
-strata, preserving each stratum's observed class counts; it is `p_collection_preserving`
-there. A stratum is the interaction of every detected `batch__*` variable with assay,
-where assay varies. Table 1 names the stratum variables for every comparison, and the
-screen writes them into its own output (`strata_definition`) so the name and the
-implementation cannot drift apart. The stratified scheme is the restricted permutation of
+The **free** test permutes the phenotype vector without restriction. The **collection-stratified** test permutes it only within collection strata, preserving each stratum's observed class counts. A stratum is the interaction of every detected batch-type variable with assay, where assay varies, and Table S3 lists the stratum variables for every comparison. The stratified scheme is the restricted permutation of
 Chaibub Neto and colleagues [30]; it is applied here, not introduced here.
 
 **The conditioning set is collection variables only.** Sample-quality and demographic
 columns are in the metadata matrix but not in the strata, so this test conditions on a
-subset of what is recorded. State the two nulls explicitly. The free test's null is that
+subset of what is recorded. The free test's null is that
 the phenotype label is exchangeable across all donors; the stratified test's is that it is
 exchangeable within each collection stratum, that is, conditional independence of
 expression and phenotype given those strata. Section 4.4 shows what follows: when a
@@ -1039,7 +1016,7 @@ under overlapping conditions rather than being given an estimate from a stratum 
 to support one.
 
 The difference between the tuned and the fixed-hyperparameter pipeline AUC is reported as a column
-(`frozen_minus_tuned_auc`, Table S3) and is deliberately **not** used as a feasibility
+(Table S3) and is deliberately **not** used as a feasibility
 rule. A gap between two different algorithms does not establish that a comparison is
 unanswerable. Every inferential statement in this paper is made about the
 fixed-hyperparameter pipeline, which is the statistic both permutation nulls are built
@@ -1089,12 +1066,9 @@ A supplementary arm quantifies what admitting a disease-caused covariate does. A
 variable was generated as 1.2·(y − ȳ) + noise and added to the metadata matrix. Everything
 else was held fixed.
 
-The extended simulation's cohorts are 200 donors by 100 features, so it applies no feature filter and no PCA. Its classifier settings are listed in Table S10 under `extended_simulation`. They are not derived from the screen's, because a 4,000-feature filter and a PCA to 50 would be a different reduction on a 100-column matrix. Its unadjusted, residualised and restricted
-arms differ from each other in exactly one operation, which is the property the
-calibration study below was missing.
+The extended simulation's cohorts are 200 donors by 100 features, so it applies no feature filter and no PCA. Its classifier settings are listed in Table S10. They are not derived from the screen's, because a 4,000-feature filter and a PCA to 50 would be a different reduction on a 100-column matrix. Its unadjusted, residualised and restricted arms differ from each other in exactly one operation.
 
-**Calibration arms.** Two further studies use `pipeline_core.SIMULATION`, which *is* the
-screen's fixed-hyperparameter specification. Arm A places 200 donors in eight collection
+**Calibration arms.** Two further studies use the screen's fixed-hyperparameter specification. Arm A places 200 donors in eight collection
 sites, generates a sample-quality variable that predicts the phenotype within site at
 strength γ ∈ {0, 0.3, 0.6, 1.0, 1.5, 2.0}, and lets expression depend on the site and on
 that variable only - there is no phenotype-to-expression arrow. Both permutation tests
@@ -1109,16 +1083,14 @@ matrix assigned independently of the phenotype, at widths 1 to 92 and in one fur
 that reuses the observed level sizes of the CMV batch-by-pool crossing. Unadjusted and
 residualised AUCs come from the same function with one argument added, so the two arms share
 folds, feature filter, standardiser, PCA, classifier and scoring rule and differ only in
-whether the training-fold ridge fit on the metadata matrix is subtracted first. Sixty replicates per cell. The sweep is shardable across machines - each cell
-seeds itself from its own coordinates - and a sharded run reproduces an unsharded one.
+whether the training-fold ridge fit on the metadata matrix is subtracted first. Sixty replicates were run per cell, each seeded from its own coordinates.
 
 ### 9.10. Decision-tree walkthrough
 
 Three cohorts were traced through the tree with all evidence recomputed, and every branch
 value is released in Table S7. The collection strata, the metadata matrix and the
 classifier are imported from the screen rather than reimplemented, so Q2 and Q4 refer to
-the same partition, the same columns and the same fitted pipeline; the walkthrough is
-`SCREEN_FROZEN` at twenty repeats. The metadata matrix is built and
+the same partition, the same columns and the same fitted pipeline; the walkthrough uses the screen's fixed-hyperparameter specification with twenty repeats. The metadata matrix is built and
 standardised on the training donors of each split, because ridge shrinkage depends on scale.
 
 Restriction was evaluated in the largest stratum meeting the feasibility requirement in
@@ -1134,23 +1106,19 @@ separates the cost of conditioning from the cost of using fewer donors.
 Batch, collection year, age, sex, race, ethnicity and clinical variables were read from
 the original Supplementary Table 1b, and per-library sequencing metrics from
 Supplementary Table 1c [1]. Study names were linked to analysis donor identifiers
-through the GEO title/accession map; all 44 donors mapped uniquely. The restoration
-script writes the donor table, batch-by-label, year-by-label and batch-by-year
-cross-tabulations, and SHA256 hashes of every source file. For GSE174188, per-cell
-`Processing_Cohort` was read from the distributed CELLxGENE object and reduced to donor
+through the GEO title/accession map; all 44 donors mapped uniquely. The restored donor table and its batch-by-label, year-by-label and batch-by-year cross-tabulations are released with checksums of every source file. For GSE174188, the per-cell processing-cohort field was read from the distributed CELLxGENE object and reduced to donor
 fractions over four waves. The dominant wave is the maximum-fraction wave; a pure-wave
 donor has at least 99% of analysed cells in one wave.
 
 ### 9.12. Representations
 
-**Frozen Geneformer.** Cell embeddings used Geneformer V2-316M at repository revision
-`04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5` [4]; checkpoint, configuration, token
-dictionary and gene-median dictionary hashes are in the methods manifest. Gene
+**Frozen Geneformer.** Cell embeddings used Geneformer V2-316M at repository revision 04c2b2e84da7c0f385c3f9ad8f3ec24bab6650e5 [4]; checkpoint, configuration, token
+dictionary and gene-median dictionary checksums are released with the code. Gene
 identifiers were version-trimmed and mapped to the V2 vocabulary. Within each cell the
-ranking value was `raw count / total count × 10,000 / Genecorpus-104M gene median`, and
+ranking value was raw count / total count × 10,000 / Genecorpus-104M gene median, and
 genes were sorted descending. Sequences used V2 start/end token IDs 2 and 3, padding ID
 0 and maximum length 4096, leaving at most 4094 ranked genes. The model output was the
-final `last_hidden_state`; token position 0 was kept as the 1,152-dimensional cell
+final hidden layer; token position 0 was kept as the 1,152-dimensional cell
 vector. The encoder was frozen. Donor representations are coordinate-wise means of
 sampled cell vectors, sampled without replacement with integer seed 1, capped at 500
 cells per donor for GSE135779 and 1,000 for GSE174188 and GSE285773. The embedding
@@ -1158,7 +1126,7 @@ environment used Python 3.10, PyTorch 2.5.1 and Transformers 4.46.3.
 
 **Pseudobulk.** We use pseudobulk rather than a learned latent space as the donor-level
 representation, so that the comparison between representations is not itself mediated by
-a model fitted with batch covariates [5]. Stored donor-by-gene values are `log1p(CPM)`. Inside every outer
+a model fitted with batch covariates [5]. Stored donor-by-gene values are log1p(CPM). Inside every outer
 training fold, gene variance was computed on training donors, the 4,000
 highest-variance genes were selected, and coordinates were standardised by
 training-donor mean and standard deviation. HVG pseudobulk uses these values directly.
@@ -1172,7 +1140,7 @@ unchanged to the target.
 
 Unadjusted and residualised models share outer folds, feature construction, scaling,
 PCA and classifier selection. Inside each outer training fold, metadata variables were
-encoded as in Section 9.5 and a multivariate ridge regression (`alpha` 1, intercept
+encoded as in Section 9.5 and a multivariate ridge regression (penalty 1, intercept
 fitted and **not** penalised) mapped design to every raw representation coordinate.
 Training and held-out coordinates were replaced by observed minus predicted values,
 after which the identical pipeline was fitted to training residuals and applied to
@@ -1210,8 +1178,7 @@ reduced donor number and label composition alone.
 ### 9.15. Cell-type composition
 
 The GSE174188 object was restricted to the same CD4-positive alpha-beta T-cell
-population and 261 donors as the molecular analysis. Per-donor counts were formed for
-`T4_naive`, `T4_em`, `T4_reg` and all other or unassigned labels. We evaluated raw
+population and 261 donors as the molecular analysis. Per-donor counts were formed for the naive (T4_naive), effector-memory (T4_em) and regulatory (T4_reg) labels and for all other or unassigned labels. We evaluated raw
 closed proportions and centred-log-ratio coordinates; for CLR, 0.5 was added to each
 donor-category count before closure, the donor mean log abundance was subtracted and the
 final coordinate omitted. Each representation was evaluated with and without log total
@@ -1243,70 +1210,47 @@ learned-pooling conclusion.
 ### 9.17. Software and reproducibility
 
 The donor-level analyses used Python 3.11-3.13 with NumPy 2.3-2.5, pandas 2.3-3.0,
-scikit-learn 1.9.0, PyArrow and joblib; exact per-run versions are recorded in each
-output manifest. Figures were produced in R 4.6.0 with ggplot2 4.0.3 and patchwork
-1.3.2. The screen, the extended simulation, the permutation calibration and the
-decision-tree walkthrough were run on a 16-vCPU ARM container; all other analyses were
-run locally. Input hashes, seeds, parameter grids, donor-level predictions, complete null
-distributions and output manifests accompany the analysis.
+scikit-learn 1.9.0, PyArrow and joblib; exact per-run versions are recorded with each
+output. Figures were produced in R 4.6.0 with ggplot2 4.0.3 and patchwork 1.3.2. The
+screen, the extended simulation, the permutation calibration and the decision-tree
+walkthrough were run on a 16-vCPU ARM container; all other analyses were run locally.
 
-Random seeds are derived with `hashlib.blake2b` from a recorded master seed and the cell
-identity. Python's built-in `hash` is not used: it is salted per process for strings, so
-it would not reproduce across interpreter sessions. The derived seed for every cell is
-written into the released result tables. No script contains a machine-specific path: the
-figure scripts locate the project root from their own file position or from
-`RHEUMLENS_ROOT`, and the analysis scripts take input and output paths as arguments.
-
-Everything downstream of the compute-heavy runs is rebuilt by one command,
-`bash tools/build_all.sh`: the supplementary tables, Table 1, all fifteen figures, the
-typeset manuscript, and two checks that fail with a non-zero exit status. The first
-re-derives numbers quoted in the text from the result tables and requires each to appear
-verbatim. The second checks the length of the abstract and author summary, that the abstract is
-unstructured, that figures and tables are cited in the order they are declared, and that
-each declared item is cited at least once. It also refuses any placeholder, retired term
-or withdrawn phrase, and it looks inside the rendered figures and the released table
-headers, where a check on the manuscript text alone cannot see them. The submission package is assembled by a further script from
-the same outputs, so a figure number cannot differ between the manuscript and the files.
+Random seeds are derived deterministically from a recorded master seed, and every derived
+seed is written into the released result tables, together with input checksums, parameter
+grids, donor-level predictions and complete null distributions. All tables and figures are
+regenerated from the released result tables by the released code, and every number quoted
+in the text was checked against those tables.
 
 ### 9.18. Use of generative AI
 
-Generative AI coding assistants were used during this work: Anthropic Claude (models
-Claude Opus 4.1 and Claude Opus 5) through the Claude Code command-line interface, and
-OpenAI Codex through its command-line interface. They were used in the following places.
+Generative AI tools were used during this work: Claude Code (Anthropic) with the Claude
+Opus 5 model, and Codex (OpenAI) with the GPT 6 Astra model. They were used for:
 
-- **Code review and refactoring** of the analysis scripts in `scripts/cohorts/`, `sim/`
-  and `walkthrough/`. Every statistical definition, gate and threshold in those files was
-  specified by the authors; the model's contribution was implementation, review of
-  implementation, and the identification of two defects that the authors then confirmed
-  by inspection and by rerunning the affected analyses.
-- **Figure code.** All figures were drawn by R scripts written with model assistance
-  (`figures/src/*.R`). Every number plotted was read from a released result table, and
-  the correspondence between figure and table was checked by the authors panel by panel.
-- **Manuscript language and structure**: rewriting for length and readability,
-  reorganisation of sections, and consistency checking of cross-references and reference
+- **Code**: implementation and review of analysis and figure scripts written to
+  statistical definitions, gates and thresholds specified by the authors, and
+  identification of implementation defects that the authors then confirmed by inspection
+  and by rerunning the affected analyses.
+- **Manuscript preparation**: language editing, reorganisation of sections, and
+  consistency checking of cross-references, figure and table numbering, and reference
   numbering.
 
-No text, number, figure or citation was accepted without author verification against the
-underlying result tables. Cohort selection, the statistical definitions, every gate and
-threshold, the decision of which analyses to report, and the interpretation of results
-were made by the authors. No data of any kind were generated by a model: every value in
-this paper traces to a released result table produced by the analysis scripts. The
-authors take full responsibility for the content of this publication.
-
+Cohort selection, the statistical definitions, the choice of analyses to report and the
+interpretation of results were made by the authors. No data were generated by these tools;
+every reported value comes from the analysis outputs. The authors reviewed all AI-assisted
+code and text, verified it against the underlying results, and take full responsibility
+for the content of this article.
 
 ## 10. Data and code availability
 
 All cohorts are public. The lupus datasets are at GEO accessions GSE135779, GSE174188
 and GSE285773; the COVID-19, influenza and CMV cohorts were obtained through the
-CELLxGENE Discover curation API and their dataset identifiers are in
-`cohorts/registry.yaml`. The MIT-licensed repository is at
+CELLxGENE Discover curation API and their dataset identifiers are listed in Table S8 and in the repository's cohort registry. The MIT-licensed repository is at
 https://github.com/LightChainr/rheumlens. Its releases are archived on Zenodo under the
 concept DOI https://doi.org/10.5281/zenodo.20813922, which resolves to the latest version;
-this manuscript corresponds to release v3.0.0-rc2. The versioned research object accompanying
+this manuscript corresponds to release v3.0.0. The versioned research object accompanying
 this manuscript contains the cohort registry with API-verified donor counts, the
 donor-level interface tables, every result table underlying Figures 2 to 8, all five
-per-seed outputs rather than a summary, the 19,600-cohort simulation output, analysis
-scripts, locked environments, `REPRODUCE.md` and `SHA256SUMS`. Public raw single-cell
+per-seed outputs rather than a summary, the 19,600-cohort simulation output, analysis scripts, locked software environments, reproduction instructions and file checksums. Public raw single-cell
 matrices remain at their original accessions.
 
 ## 11. Declarations
@@ -1339,13 +1283,13 @@ re-analysis possible.
 ## Figure legends
 
 **Figure 1. What is being measured.**
-A recruitment process R places each donor in the recorded design D and is also
+A recruitment process R places each donor under the recorded metadata D and is also
 associated with the phenotype label Y; the measured cells X are affected by D (technical)
 and by Y (biological); a classifier maps X to Ŷ. C denotes covariates caused by the
 disease - severity, medication, symptom timing - which lie on Y → C → X and are
-excluded from D by blocklist. U denotes collection structure that was never recorded
-and which nothing in this paper can see. The dotted line marks the association these
-checks quantify. They measure it; they do not tell you which way it runs.
+excluded from D. U denotes collection structure that was never recorded
+and which these checks cannot detect. The dotted line marks the association the
+checks quantify; they measure it but do not orient it.
 
 **Figure 2. Nine phenotype contrasts.**
 **(A)** Comparisons ordered by cross-validated metadata-only AUC (filled, coloured by
@@ -1371,14 +1315,14 @@ metadata-phenotype association ρ × two label types × 200 replicates.
 **(B)** Unadjusted, external, restricted and residualised AUC against ρ in the additive
 linear regime. Restriction is undefined at ρ = 1 because no stratum holds both labels.
 **(C)** Restricted minus residualised AUC for all seven regimes. The gap opens in every
-one. It is blunted in the `imbalanced_offset` regime, where the collection boundary and
-the phenotype threshold sit at different quantiles, and not in `imbalanced`, where the
+one. It is blunted in the imbalanced-offset regime, where the collection boundary and
+the phenotype threshold sit at different quantiles, and not in the imbalanced regime, where the
 case rate is the same 20% but the two are matched (Section 4.3).
 **(D)** Internal (solid) and external (dashed) AUC when the target shares the source's
 collection mechanism versus when it does not. External AUC rises with confounding in
 the shared case.
 
-**Figure 4. Design and diagnosis in the two lupus cohorts.**
+**Figure 4. Collection strata and disease status in the two lupus cohorts.**
 **(A)** Donors per collection stratum, split by case and control, for processing wave in
 GSE174188 and for sequencing batch and collection year in GSE135779. A triangle marks a
 stratum holding only one kind of donor; such strata cannot be permuted within, and
@@ -1441,7 +1385,7 @@ not a separate definition.
 
 ## Supporting information
 
-**Figure S1. Admitting one disease-caused covariate manufactures the finding.**
+**Figure S1. Admitting one disease-caused covariate produces a spurious metadata association.**
 Metadata-only AUC, V_D, the fraction of runs flagged significant, and residualisation
 loss, with and without a severity variable added to the metadata matrix, across five
 levels of true metadata-phenotype association. At ρ = 0, where metadata and phenotype are
@@ -1449,7 +1393,7 @@ unrelated by construction, admitting the covariate raises metadata-only AUC from
 0.793 and
 flags the cohort in 100% of runs against 5.5% without it.
 
-**Figure S2. Design composition of each cohort.**
+**Figure S2. Collection-stratum composition of each cohort.**
 Case and control counts by collection stratum for all nine comparisons, showing which
 strata are label-pure and how many donors sit in mixed strata.
 
@@ -1467,8 +1411,7 @@ on the collection strata leaves in place.
 **Figure S4. Residualisation loss with no metadata-phenotype association present.**
 AUC lost to fold-contained ridge residualisation in simulated cohorts where the metadata
 matrix is independent of the phenotype by construction, against the width of that matrix,
-at 108 donors. The unadjusted and residualised arms are the same call with one argument
-added, so they share folds, feature filter, standardiser, PCA and classifier and differ
+at 108 donors. The unadjusted and residualised arms share folds, feature filter, standardiser, PCA and classifier and differ
 only in the adjustment. The biological effect is calibrated so the unadjusted AUC lands
 near 0.90. The ribbon is the 2.5th-97.5th percentile over 60 draws. The triangle reuses
 the level sizes of the real CMV batch-by-pool crossing, which is far more ragged than
@@ -1498,11 +1441,10 @@ Per-seed values of metadata-only AUC and its permutation p, V_D and p(V_D), expr
 and both permutation p-values, for all nine comparisons at five seeds. The p-value panels
 use a log axis; 0.005 is the smallest value 200 permutations can return.
 
-**Table S1.** Design manifest, generated directly from the model-matrix construction
-code: for every comparison and every variable group, the raw columns consumed and the
+**Table S1.** Metadata manifest: for every comparison and every variable group, the raw columns consumed and the
 number of expanded columns produced. **Table S1b** lists every column present in a
-covariate file that enters no block, with the reason. **Table S1c** is a machine check that the
-manifest reproduces the width of every fitted model matrix (34 of 34 blocks agree).
+covariate file that enters no variable group, with the reason. **Table S1c** confirms that the
+manifest reproduces the width of every fitted model matrix (34 of 34 variable groups agree).
 **Table S2.** Simulation summary: all seven regimes × seven ρ × two label types, plus the
 disease-caused-covariate arm.
 **Table S3.** Full screen output: every comparison × every variable group, with
@@ -1516,14 +1458,13 @@ components fitted on the training donors before the metadata columns are appende
 **Table S6.** Learned pooling: per-method target metrics and all paired DeLong tests,
 both transfer directions.
 **Table S7.** Decision-tree walkthrough: all evidence for every branch, three cohorts.
-**Table S8.** Cohort registry, generated from the registry file and the donor tables:
+**Table S8.** Cohort registry, compiled from the dataset records and the donor tables:
 for all seven datasets, the identifier, citation, the donor count reported by the source,
 the download size, the case and control labels, the donor, case and control counts
 actually modelled in each comparison, and how and when each entry was verified.
-**Table S9.** Retrospective eligibility audit of CELLxGENE Discover: every collection whose datasets meet the screen's dataset-level requirements, with donor counts, disease labels, assays and whether it was analysed. Generated by `audit/cellxgene_eligibility_audit.py`; performed after the analysis and not used for selection.
-**Table S10.** Every fitted pipeline in the paper and its settings, generated from the
-specification objects in `pipeline_core.py` that the analysis scripts import. The four
-analyses are separate pipelines and the table keeps them separate.
+**Table S9.** Retrospective eligibility audit of CELLxGENE Discover: every collection whose datasets meet the screen's dataset-level requirements, with donor counts, disease labels, assays and whether it was analysed. Performed after the analysis and not used for selection.
+**Table S10.** Every fitted pipeline in the paper and its settings. The four analyses are separate
+pipelines and are listed separately.
 **Table S11.** Seed-stability table, all five seeds, all nine comparisons.
 
 ## References

@@ -13,7 +13,7 @@ authors:
     affiliation: "Department of Rheumatology and Immunology, Shanghai Pudong Hospital, Fudan University Pudong Medical Center"
 repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
-version: "3.0.0-rc2"
+version: "3.0.0"
 date-released: "2026-09-13"
 keywords:
   - "single-cell RNA sequencing"

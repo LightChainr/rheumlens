@@ -46,17 +46,12 @@ s5 <- ggplot(sumb, aes(n_design_col, loss)) +
   annotate("point", x=mean(rag$n_design_col), y=ragl, colour="#B4913C", size=2.4,
            shape=17) +
   annotate("text", x=mean(rag$n_design_col)-3, y=ragl, hjust=1, size=2.3,
-           colour="#8A6E2A", label=sprintf("CMV-shaped design\n%.3f", ragl)) +
+           colour="#8A6E2A", label=sprintf("CMV-shaped layout\n%.3f", ragl)) +
   # read the observed loss rather than pasting it: it moved once already
   geom_hline(yintercept=cmv_loss, linetype="21", colour="#8C3B26", linewidth=.45) +
   annotate("text", x=2, y=cmv_loss, vjust=-0.6, hjust=0, size=2.4, colour="#8C3B26",
            label=sprintf("observed CMV loss %.3f", cmv_loss)) +
-  labs(x="one-hot design columns (108 donors)", y="AUC lost to residualisation",
-       title="Figure S2  Residualisation loss with no confounding present",
-       subtitle=paste0("Design generated independently of the diagnosis; biological effect ",
-                       "calibrated so unadjusted AUC matches the CMV cohort.\n",
-                       "Ribbon is the 2.5th-97.5th percentile over 60 draws. ",
-                       "The triangle reuses the real batch-by-pool level sizes.")) +
+  labs(x="one-hot metadata columns (108 donors)", y="AUC lost to residualisation") +
   base
 ggsave("figures/out/Fig_S4_residualisation_width.svg", s5, width=180, height=88,
        units="mm", device=svglite::svglite)
@@ -72,7 +67,7 @@ rej <- a |> group_by(gamma) |>
             n=n(), .groups="drop") |>
   pivot_longer(c(free, coll), names_to="test", values_to="rate") |>
   mutate(test=recode(test, free="free permutation",
-                     coll="collection-preserving permutation"))
+                     coll="collection-stratified permutation"))
 # Wilson intervals: the claim at gamma = 0 is that the rate is *consistent with*
 # 0.05, which needs an interval rather than a point.
 wilson <- function(k, n, z=1.959964) {
@@ -90,21 +85,19 @@ s6a <- ggplot(rej, aes(gamma, rate, colour=test)) +
   annotate("text", x=max(rej$gamma), y=.05, vjust=-0.7, hjust=1, size=2.3,
            colour="grey40", label="nominal 0.05") +
   scale_colour_manual(values=c(`free permutation`="#3C6E9F",
-                               `collection-preserving permutation`="#C4633E"), name=NULL) +
+                               `collection-stratified permutation`="#C4633E"), name=NULL) +
   scale_y_continuous(limits=c(0,1)) +
-  labs(x="strength of the within-stratum sample-quality → diagnosis association (γ)",
+  labs(x="strength of the within-stratum sample-quality → phenotype association (γ)",
        y="fraction of runs with p ≤ 0.05",
-       title="A   Neither test protects against a confounder that survives inside the strata",
-       subtitle="No disease effect exists in the generating model, so every rejection here is a false positive") +
+       title="A   Rejection rates of both permutation tests",
+       subtitle="no phenotype effect on expression in the generating model; only γ = 0 measures calibration") +
   base + theme(legend.position="bottom")
 s6b <- ggplot(rej |> distinct(gamma, within), aes(gamma, within)) +
   geom_line(colour="grey35", linewidth=.5) + geom_point(size=1.7, colour="grey25") +
   labs(x="γ", y="within-stratum |corr|",
-       title="B   What survives the restriction: the association the permutation never conditions on") +
+       title="B   Within-stratum association left after conditioning on collection strata") +
   base + theme(plot.title=element_text(size=7.6))
-S6 <- s6a / s6b + plot_layout(heights=c(1,.55)) +
-  plot_annotation(title="Figure S1  Type-I error of the collection-preserving permutation",
-                  theme=theme(plot.title=element_text(size=8.5, face="bold")))
+S6 <- s6a / s6b + plot_layout(heights=c(1,.55))
 ggsave("figures/out/Fig_S3_permutation_calibration.svg", S6, width=180, height=125,
        units="mm", device=svglite::svglite)
 ragg::agg_png("figures/out/Fig_S3_permutation_calibration.png", width=180, height=125,
@@ -131,9 +124,7 @@ s7 <- ggplot(pt, aes(auc_diff, b, colour=m, shape=sig)) +
   scale_colour_manual(values=c(DeepSets="#7B6BA8", `gated MIL`="#B4913C", PMA="#4E8C6E"),
                       name=NULL) +
   scale_y_discrete(limits=rev) +
-  labs(x="difference in AUC (attention pooling − baseline)", y=NULL,
-       title="Figure S6  Learned pooling never beats averaging the cells",
-       subtitle="Paired DeLong intervals. Filled points are significant after Benjamini-Hochberg adjustment; every one of them is negative.") +
+  labs(x="difference in AUC (learned pooling − baseline)", y=NULL) +
   base + theme(legend.position="bottom")
 ggsave("figures/out/Fig_S6_learned_pooling.svg", s7, width=180, height=88, units="mm",
        device=svglite::svglite)

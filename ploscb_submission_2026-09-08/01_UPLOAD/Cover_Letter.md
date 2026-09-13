@@ -44,10 +44,8 @@ matrix with no phenotype information costs 0.363 AUC on average in a simulation 
 reuses the real cytomegalovirus layout, which contains the 0.326 loss observed in that
 negative control.
 
-Every fitted pipeline in the paper now runs through one shared implementation in which
-imputation, encoding, feature filtering, PCA and residualisation are fitted on training
-donors only, and the hyperparameter table is generated from those pipeline objects rather
-than written by hand.
+All preprocessing, feature selection and adjustment steps are fitted on training donors
+only, within each cross-validation fold.
 
 The contribution is not another patient-level classifier or a new permutation statistic.
 It is a systematic characterisation of the validation structure of public single-cell
@@ -59,9 +57,9 @@ acquisition structure an explicit object of classifier evaluation rather than an
 unexamined property of the benchmark, which we believe suits the computational biology
 readership of PLOS Computational Biology.
 
-All data are public. The analysis code, cohort registry, machine-generated metadata
-manifest, per-seed outputs, simulation output and the checks that bind manuscript numbers
-to those outputs are released with the manuscript.
+All data are public. The analysis code, cohort registry, metadata manifest, per-seed
+outputs and simulation output are archived on Zenodo
+(https://doi.org/10.5281/zenodo.20813922).
 
 We have no competing interests to declare.
 
