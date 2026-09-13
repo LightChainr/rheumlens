@@ -1,26 +1,41 @@
 """Two calibration studies asked for at pre-submission review.
 
-A. Type-I error of the restricted (collection-preserving) permutation when a
-   confounder survives INSIDE the strata and there is no biological signal.
+A. How often the collection-stratified permutation rejects when the association
+   that survives INSIDE the strata is not a disease effect.
 
-   The restricted permutation conditions on collection strata only. The declared
-   design matrix also holds sample-quality and demographic columns. If one of
-   those is associated with the diagnosis within a stratum, and drives expression,
-   then a classifier can score above the restricted null with no disease effect
+   The stratified permutation conditions on collection strata only. The declared
+   metadata matrix also holds sample-quality and demographic columns. If one of
+   those is associated with the phenotype within a stratum, and drives expression,
+   then a classifier can score above the stratified null with no disease effect
    present at all. This arm measures how often that happens, as a function of how
-   strong the within-stratum association is. It is the direct test of what the
-   test does NOT protect against.
+   strong the within-stratum association is.
 
-B. Residualisation loss when design and diagnosis are independent by
-   construction, as a function of design-matrix width.
+   Note what this rejection rate is and is not. The generating model is
+   QC -> Y and QC -> X, so conditioning on the collection strata leaves X and Y
+   dependent: the conditional-exchangeability null the stratified test states is
+   FALSE for gamma > 0, and rejecting it is not a type-I error. Only the gamma = 0
+   row is a calibration measurement. The rows above it measure something more
+   useful for a reader: passing this test does not certify disease biology,
+   because a non-disease pathway outside the conditioning set can carry the
+   classifier past the null.
 
-   The CMV cohort loses 0.284 AUC to residualisation while showing no
-   design-diagnosis association. The manuscript attributed that to the width of
-   the design matrix (many one-hot columns, few donors). This arm tests the
-   attribution instead of asserting it: D is generated independently of Y, so any
-   loss is width, not confounding.
+B. Residualisation loss when the metadata matrix and the phenotype are
+   independent by construction, as a function of matrix width.
 
-Both arms use the same frozen pipeline as the empirical screen.
+   The CMV comparison loses AUC to residualisation while showing no detectable
+   metadata-phenotype association. This arm tests the width attribution instead of
+   asserting it: D is generated independently of Y, so any loss is a property of
+   the adjustment, not of confounding.
+
+   The two arms of B differ in the residualisation step and in nothing else.
+   An earlier version fitted the unadjusted arm's PCA on all donors and the
+   residualised arm's PCA inside the training fold, so the measured gap contained
+   the change of representation as well as the cost of adjustment; the reported
+   loss was negative at small widths, which is the signature of that asymmetry.
+
+Both arms run `pipeline_core.SIMULATION`, which is the screen's frozen pipeline
+with the same repeat budget, so "the same pipeline as the empirical screen" is
+enforced by construction rather than asserted here.
 """
 from __future__ import annotations
 import hashlib, itertools, os, time
@@ -34,6 +49,18 @@ from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
+
+# Imported by name off sys.path, not exec'd from a path: joblib workers
+# re-import the module the specs live in, and a spec-loaded module has no name
+# they can import.
+import sys as _sys
+_CORE_DIR = str(Path(os.environ.get(
+    "RHEUMLENS_REPO",
+    Path(__file__).resolve().parents[2] / "20_repo_restructure_20260907"))
+    / "scripts" / "cohorts")
+if _CORE_DIR not in _sys.path:
+    _sys.path.insert(0, _CORE_DIR)
+import pipeline_core as core
 
 OUT = Path(os.environ.get("RHEUMLENS_SIM_OUT",
                           Path(__file__).resolve().parent / "results"))
@@ -83,16 +110,19 @@ def cell_seed(*parts) -> int:
     return int.from_bytes(hashlib.blake2b(key, digest_size=4).digest(), "big") % (2**31)
 
 
-def frozen_auc(Xp, yy, seed):
-    """The screen's frozen pipeline: fixed PCA, fixed C, one cross-fitting repeat."""
+def frozen_auc(X, yy, seed, residualise=None):
+    """The screen's frozen pipeline, fitted entirely inside the training fold.
+
+    `X` is the raw feature matrix, not a precomputed representation: the variance
+    filter, the standardiser and the PCA are refitted on the training donors of
+    every split, exactly as `run_design_screen.py` does. `residualise(tr, te)`
+    returns the adjustment matrix for a split; the unadjusted and adjusted arms of
+    arm B call this same function and differ only in that argument.
+    """
     if len(np.unique(yy)) < 2 or min(np.bincount(yy)) < 3:
         return np.nan
-    oof = np.zeros(len(yy))
-    for tr, te in StratifiedKFold(5, shuffle=True, random_state=seed).split(Xp, yy):
-        sc = StandardScaler().fit(Xp[tr])
-        m = LogisticRegression(C=C_FIXED, max_iter=2000).fit(sc.transform(Xp[tr]), yy[tr])
-        oof[te] = m.decision_function(sc.transform(Xp[te]))
-    return roc_auc_score(yy, oof)
+    return core.fold_contained_auc(core.array_folds(X), yy, core.SIMULATION,
+                                   seed, residualise=residualise)
 
 
 # ------------------------------------------------------------------- arm A
@@ -120,11 +150,10 @@ def arm_a(gamma, rep, n=200, p=100, n_site=8):
          + np.outer(qc, u_qc) * 1.2
          + rng.standard_normal((n, p)))
 
-    n_pc = int(min(PERM_PCS, p, n - 2))
-    Xp = PCA(n_components=n_pc, random_state=seed).fit_transform(
-        StandardScaler().fit_transform(X))
-
-    obs = frozen_auc(Xp, y, seed)
+    # The raw matrix goes in, not a representation fitted on all n donors: the
+    # standardiser and the PCA are refitted on the training donors of every fold,
+    # for the observed statistic and for each permuted label alike.
+    obs = frozen_auc(X, y, seed)
     if not np.isfinite(obs):
         return None
 
@@ -132,12 +161,12 @@ def arm_a(gamma, rep, n=200, p=100, n_site=8):
     hits_u = hits_c = 0
     usable = 0
     for _ in range(N_PERM):
-        # unstratified
+        # unrestricted
         yu = rng2.permutation(y)
-        a = frozen_auc(Xp, yu, seed)
+        a = frozen_auc(X, yu, seed)
         if np.isfinite(a) and a >= obs:
             hits_u += 1
-        # restricted to collection strata
+        # within collection strata
         yc = y.copy()
         for s in np.unique(site):
             m = site == s
@@ -145,7 +174,7 @@ def arm_a(gamma, rep, n=200, p=100, n_site=8):
         if len(np.unique(yc)) < 2:
             continue
         usable += 1
-        a = frozen_auc(Xp, yc, seed)
+        a = frozen_auc(X, yc, seed)
         if np.isfinite(a) and a >= obs:
             hits_c += 1
 
@@ -153,7 +182,8 @@ def arm_a(gamma, rep, n=200, p=100, n_site=8):
     within = float(np.mean([abs(np.corrcoef(qc[site == s], y[site == s])[0, 1])
                             for s in np.unique(site)
                             if len(np.unique(y[site == s])) > 1]))
-    return dict(arm="A_within_stratum_confounder", gamma=gamma, rep=rep, seed=seed,
+    return dict(arm="A_within_stratum_non_disease_association",
+                gamma=gamma, rep=rep, seed=seed,
                 observed_auc=obs, n_case=int(y.sum()),
                 within_stratum_abs_corr=within,
                 p_unstratified=(hits_u + 1) / (N_PERM + 1),
@@ -164,7 +194,14 @@ def arm_a(gamma, rep, n=200, p=100, n_site=8):
 
 # ------------------------------------------------------------------- arm B
 def arm_b(n_design_col, rep, n=108, p=4000, bio=5.5, layout="balanced"):
-    """D generated independently of Y. Any residualisation loss is width."""
+    """D generated independently of Y, so any loss is the adjustment, not confounding.
+
+    Read the result as a property of ridge residualisation on a wide, ragged
+    matrix, not as a measurement of how much confounding a matrix of that shape
+    carries. Column count is not effective dimension: the real CMV collection
+    matrix has 80 columns but a centred rank of 45, and the `cmv_ragged` layout is
+    here because equal blocks of the same width span a different subspace.
+    """
     seed = cell_seed("B", layout, n_design_col, rep)
     rng = np.random.default_rng(seed)
 
@@ -172,8 +209,8 @@ def arm_b(n_design_col, rep, n=108, p=4000, bio=5.5, layout="balanced"):
     y = rng.permutation(y)
 
     # a real biological effect, so there is something for residualisation to lose
-    # bio is calibrated so the unadjusted AUC lands near the CMV cohort AUC of 0.845,
-    # otherwise a saturated 1.000 hides any loss.
+    # bio is calibrated so the unadjusted AUC lands near the CMV comparison's
+    # expression AUC, otherwise a saturated 1.000 hides any loss.
     u_bio = rng.standard_normal(p); u_bio /= np.linalg.norm(u_bio)
     X = np.outer(y - y.mean(), u_bio) * bio + rng.standard_normal((n, p))
 
@@ -202,34 +239,18 @@ def arm_b(n_design_col, rep, n=108, p=4000, bio=5.5, layout="balanced"):
         u = rng.standard_normal(p); u /= np.linalg.norm(u)
         X += np.outer(D[:, j], u) * 4.0
 
-    var = X.var(axis=0)
-    Xk = X[:, np.argsort(var)[::-1][:4000]]
+    # The two arms are the SAME call with one argument added. Folds, variance
+    # filter, standardiser, PCA, classifier and scoring rule are shared, and each
+    # is fitted on the training donors of the split; the only difference is
+    # whether the training-fold ridge fit on D is subtracted first. That is what
+    # makes the difference readable as the cost of adjustment.
+    unadj = frozen_auc(X, y, seed)
+    resid = frozen_auc(X, y, seed, residualise=core.array_folds(D))
 
-    def auc_of(M):
-        n_pc = int(min(PERM_PCS, M.shape[1], n - 2))
-        Mp = PCA(n_components=n_pc, random_state=seed).fit_transform(
-            StandardScaler().fit_transform(M))
-        return frozen_auc(Mp, y, seed)
-
-    unadj = auc_of(Xk)
-
-    # fold-contained ridge residualisation, exactly as in the empirical analysis
-    oof = np.zeros(n)
-    for tr, te in StratifiedKFold(5, shuffle=True, random_state=seed).split(Xk, y):
-        r = Ridge(alpha=1.0).fit(D[tr], Xk[tr])
-        Rtr, Rte = Xk[tr] - r.predict(D[tr]), Xk[te] - r.predict(D[te])
-        n_pc = int(min(PERM_PCS, Rtr.shape[1], len(tr) - 2))
-        pca = PCA(n_components=n_pc, random_state=seed)
-        sc = StandardScaler().fit(Rtr)
-        Ptr = pca.fit_transform(sc.transform(Rtr))
-        Pte = pca.transform(sc.transform(Rte))
-        sc2 = StandardScaler().fit(Ptr)
-        m = LogisticRegression(C=C_FIXED, max_iter=2000).fit(sc2.transform(Ptr), y[tr])
-        oof[te] = m.decision_function(sc2.transform(Pte))
-    resid = roc_auc_score(y, oof)
-
-    # design-only AUC, to confirm D really is independent of Y here
-    d_auc = frozen_auc(D, y, seed) if D.shape[1] >= 2 else np.nan
+    # metadata-only AUC, to confirm D really is independent of Y here
+    d_auc = core.fold_contained_auc(core.array_folds(D), y,
+                                    core.SCREEN_METADATA_FROZEN, seed) \
+        if D.shape[1] >= 2 else np.nan
 
     return dict(arm="B_residualisation_width", layout=layout,
                 n_design_col=int(D.shape[1]), rep=rep,
@@ -238,16 +259,15 @@ def arm_b(n_design_col, rep, n=108, p=4000, bio=5.5, layout="balanced"):
                 residualisation_loss=unadj - resid)
 
 
-def main():
-    t0 = time.time()
-    gammas = [0.0, 0.3, 0.6, 1.0, 1.5, 2.0]
-    cells_a = list(itertools.product(gammas, range(N_REP)))
-    print(f"arm A: {len(cells_a)} runs", flush=True)
-    ra = Parallel(n_jobs=N_JOBS, verbose=5, batch_size=8)(
-        delayed(arm_a)(g, r) for g, r in cells_a)
-    da = pd.DataFrame([x for x in ra if x])
-    da.to_csv(OUT / "calibration_arm_a_raw.tsv", sep="\t", index=False)
-    agg_a = (da.assign(rej_u=da.p_unstratified <= 0.05,
+def _aggregate_a(da: pd.DataFrame) -> pd.DataFrame:
+    """Rejection rate by within-stratum association strength.
+
+    Only the gamma = 0 row is a calibration measurement. Above it the
+    conditional-exchangeability null is false by construction, so the rate is the
+    chance of detecting a non-disease association that the conditioning set does
+    not cover - not a type-I error rate. The column names say so.
+    """
+    return (da.assign(rej_u=da.p_unstratified <= 0.05,
                       rej_c=da.p_collection_preserving <= 0.05)
               .groupby("gamma")
               .agg(n=("rep", "size"),
@@ -256,8 +276,50 @@ def main():
                    reject_unstratified=("rej_u", "mean"),
                    reject_collection_preserving=("rej_c", "mean"))
               .round(4))
-    agg_a.to_csv(OUT / "calibration_arm_a_summary.tsv", sep="\t")
-    print(agg_a.to_string(), flush=True)
+
+
+def _aggregate_b(db: pd.DataFrame) -> pd.DataFrame:
+    return (db.groupby(["layout", "n_design_col"])
+              .agg(n=("rep", "size"),
+                   design_only_auc=("design_only_auc", "mean"),
+                   unadjusted=("unadjusted_auc", "mean"),
+                   residualised=("residualised_auc", "mean"),
+                   loss_mean=("residualisation_loss", "mean"),
+                   loss_p025=("residualisation_loss", lambda s: s.quantile(.025)),
+                   loss_p975=("residualisation_loss", lambda s: s.quantile(.975)))
+              .round(4))
+
+
+def _shard(cells, shard):
+    """Take every n-th cell, so k machines cover the grid without coordination.
+
+    Each cell is seeded from its own coordinates (`cell_seed`), so a sharded
+    sweep and a single-process one produce the same rows in a different order,
+    and the aggregate is identical after sorting.
+    """
+    if not shard:
+        return cells
+    i, n = (int(x) for x in shard.split("/"))
+    return cells[i::n]
+
+
+def main(shard: str = "", arms: str = "AB"):
+    t0 = time.time()
+    gammas = [0.0, 0.3, 0.6, 1.0, 1.5, 2.0]
+    cells_a = _shard(list(itertools.product(gammas, range(N_REP))), shard)
+    if "A" not in arms:
+        cells_a = []
+    print(f"arm A: {len(cells_a)} runs", flush=True)
+    ra = Parallel(n_jobs=N_JOBS, verbose=5, batch_size=8)(
+        delayed(arm_a)(g, r) for g, r in cells_a) if cells_a else []
+    da = pd.DataFrame([x for x in ra if x])
+    da.to_csv(OUT / "calibration_arm_a_raw.tsv", sep="\t", index=False)
+    if shard or "A" not in arms:
+        print("sharded run: raw rows only, aggregate with --merge-from", flush=True)
+    if len(da):
+        agg_a = _aggregate_a(da)
+        agg_a.to_csv(OUT / "calibration_arm_a_summary.tsv", sep="\t")
+        print(agg_a.to_string(), flush=True)
 
     sizes = load_cmv_level_sizes()
     print(f"CMV level sizes: {len(sizes)} levels, "
@@ -267,24 +329,60 @@ def main():
     cells_b = [("balanced", w, r) for w in widths for r in range(60)]
     if sizes:
         cells_b += [("cmv_ragged", len(sizes) - 1, r) for r in range(60)]
+    cells_b = _shard(cells_b, shard)
+    if "B" not in arms:
+        cells_b = []
     print(f"arm B: {len(cells_b)} runs", flush=True)
     rb = Parallel(n_jobs=N_JOBS, verbose=5, batch_size=4)(
-        delayed(arm_b)(w, r, layout=lay) for lay, w, r in cells_b)
+        delayed(arm_b)(w, r, layout=lay) for lay, w, r in cells_b) if cells_b else []
     db = pd.DataFrame([x for x in rb if x])
     db.to_csv(OUT / "calibration_arm_b_raw.tsv", sep="\t", index=False)
-    aggb = (db.groupby(["layout", "n_design_col"])
-              .agg(n=("rep", "size"),
-                   design_only_auc=("design_only_auc", "mean"),
-                   unadjusted=("unadjusted_auc", "mean"),
-                   residualised=("residualised_auc", "mean"),
-                   loss_mean=("residualisation_loss", "mean"),
-                   loss_p025=("residualisation_loss", lambda s: s.quantile(.025)),
-                   loss_p975=("residualisation_loss", lambda s: s.quantile(.975)))
-              .round(4))
-    aggb.to_csv(OUT / "calibration_arm_b_summary.tsv", sep="\t")
-    print(aggb.to_string(), flush=True)
+    if len(db):
+        aggb = _aggregate_b(db)
+        aggb.to_csv(OUT / "calibration_arm_b_summary.tsv", sep="\t")
+        print(aggb.to_string(), flush=True)
     print(f"done in {time.time()-t0:.0f}s -> {OUT}", flush=True)
 
 
+def merge(raw_dirs):
+    """Concatenate sharded raw files and write the two summaries.
+
+    The summary is a mean over replicates, so it must be formed once over the
+    whole grid; forming it per shard and averaging would weight unequal shards
+    equally.
+    """
+    import glob
+    for arm, agg in (("a", _aggregate_a), ("b", _aggregate_b)):
+        frames = []
+        for d in raw_dirs:
+            f = Path(d) / f"calibration_arm_{arm}_raw.tsv"
+            if f.exists() and f.stat().st_size > 1:
+                t = pd.read_csv(f, sep="\t")
+                if len(t):
+                    frames.append(t)
+        if not frames:
+            print(f"arm {arm}: nothing to merge")
+            continue
+        df = pd.concat(frames, ignore_index=True).drop_duplicates(
+            subset=["seed"]).sort_values("seed").reset_index(drop=True)
+        df.to_csv(OUT / f"calibration_arm_{arm}_raw.tsv", sep="\t", index=False)
+        out = agg(df)
+        out.to_csv(OUT / f"calibration_arm_{arm}_summary.tsv", sep="\t")
+        print(f"=== arm {arm}: {len(df)} rows ===")
+        print(out.to_string(), flush=True)
+
+
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--shard", default="", metavar="i/n",
+                    help="run every n-th cell; results are identical to an "
+                         "unsharded run because every cell seeds itself")
+    ap.add_argument("--arms", default="AB")
+    ap.add_argument("--merge-from", nargs="*", default=None,
+                    help="directories of sharded raw files to aggregate")
+    a = ap.parse_args()
+    if a.merge_from:
+        merge(a.merge_from)
+    else:
+        main(shard=a.shard, arms=a.arms)

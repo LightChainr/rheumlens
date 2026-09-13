@@ -55,6 +55,18 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from joblib import Parallel, delayed
 
+try:                                     # normal import, when run as a module
+    from . import pipeline_core as core
+except ImportError:                      # run as a script, or exec'd by path
+    # A real import off sys.path, not spec_from_file_location: a joblib worker
+    # re-imports by module NAME, and a module that exists only as an exec'd spec
+    # in the parent cannot be un-pickled in the child.
+    import sys as _sys
+    _here = str(Path(__file__).resolve().parent)
+    if _here not in _sys.path:
+        _sys.path.insert(0, _here)
+    import pipeline_core as core
+
 REPO = Path(__file__).resolve().parents[2]
 INPUTS = REPO / "inputs"
 OUT = REPO / "results" / "multi_cohort_design_screen"
@@ -68,50 +80,21 @@ WORKERS = 1        # permutation-stage processes; see permutation_pvalues
 
 
 def design_matrix(cov: pd.DataFrame) -> dict[str, np.ndarray]:
-    """Assemble design blocks. Mirrors the v2 GSE174188 block definition."""
-    qc_cols = [c for c in ["log_cells_per_donor", "log_mean_umi_per_cell",
-                           "log_mean_genes_per_cell", "aggregate_pct_mito"]
-               if c in cov.columns]
-    demo_num = [c for c in ["age_years"] if c in cov.columns]
-    demo_cat = [c for c in ["sex", "ethnicity"] if c in cov.columns]
-    batch_cat = [c for c in cov.columns if c.startswith("batch__")]
-    if "assay" in cov.columns and cov["assay"].nunique() > 1:
-        batch_cat = batch_cat + ["assay"]
+    """Whole-cohort metadata blocks, delegated to pipeline_core.
 
-    def build(num: list[str], cat: list[str]) -> np.ndarray | None:
-        parts = []
-        if num:
-            # .copy(): pandas >=3.0 can return a read-only view here
-            X = np.array(cov[num].to_numpy(dtype=float), copy=True)
-            # median-impute; a covariate that is entirely missing is dropped
-            for j in range(X.shape[1]):
-                col = X[:, j]
-                if np.isnan(col).all():
-                    continue
-                col[np.isnan(col)] = np.nanmedian(col)
-            keep = ~np.isnan(X).all(axis=0)
-            if keep.any():
-                parts.append(X[:, keep])
-        for c in cat:
-            d = pd.get_dummies(cov[c].astype(str), drop_first=True)
-            if d.shape[1]:
-                parts.append(d.to_numpy(dtype=float))
-        if not parts:
-            return None
-        return np.hstack(parts)
-
-    blocks = {
-        "qc": build(qc_cols, []),
-        "demographic": build(demo_num, demo_cat),
-        "batch": build([], batch_cat),
-        "all": build(qc_cols + demo_num, demo_cat + batch_cat),
-    }
-    return {k: v for k, v in blocks.items() if v is not None and v.shape[1] > 0}
+    This is the matrix the IN-SAMPLE V_D is defined on, and the one whose width
+    is reported as `n_design_feature`. Every cross-fitted quantity is built with
+    `core.fold_design` instead, which takes the medians and the categorical level
+    set from the training donors alone. Both use `core.block_columns`, so the two
+    cannot be assembled from different variables.
+    """
+    return core.design_matrix(cov)
 
 
 def label_information_fraction(y: np.ndarray, D: np.ndarray,
                                n_perm: int = 200,
-                               seed: int | None = None) -> dict:
+                               seed: int | None = None,
+                               fold_D=None) -> dict:
     """Design-adjusted label contrast, reported against its own permutation null.
 
     The v2 quantity was 1 - R^2(Y ~ D) computed IN SAMPLE. In-sample R^2 inflates
@@ -136,6 +119,14 @@ def label_information_fraction(y: np.ndarray, D: np.ndarray,
 
     PLOS reviewer #1 raised exactly this: "the boundary 1-R^2(Y~D) depends on the
     parameterisation of the design matrix, which can be problematic."
+
+    `fold_D(tr, te)` supplies the training and held-out metadata matrices for one
+    split, imputed and encoded from the training donors only. The in-sample pair
+    still uses the whole-cohort matrix `D`, because that is what an in-sample
+    statistic is; everything cross-fitted goes through `fold_D`. Passing None
+    falls back to slicing `D`, which is the transductive construction the
+    pre-submission review flagged and is kept only so the older behaviour can be
+    reproduced on demand.
     """
     # Read SEED at call time: a default argument would bind the module-level
     # value at definition time and silently ignore --seed.
@@ -146,11 +137,14 @@ def label_information_fraction(y: np.ndarray, D: np.ndarray,
     i_d_in = float(1.0 - max(r2_in, 0.0))
 
     n = len(y)
+    if fold_D is None:
+        fold_D = lambda tr, te: (D[tr], D[te])
     oof = np.zeros(n, dtype=float)
     kf = KFold(min(5, n), shuffle=True, random_state=seed)
     folds = list(kf.split(D))
-    for tr, te in folds:
-        oof[te] = LinearRegression().fit(D[tr], y[tr]).predict(D[te])
+    fold_mats = [fold_D(tr, te) for tr, te in folds]
+    for (tr, te), (Dtr, Dte) in zip(folds, fold_mats):
+        oof[te] = LinearRegression().fit(Dtr, y[tr]).predict(Dte)
     ss_tot = ((y - y.mean()) ** 2).sum()
     r2_cv = 1.0 - ((y - oof) ** 2).sum() / ss_tot if ss_tot > 0 else 0.0
     i_d_cv = float(1.0 - max(r2_cv, 0.0))
@@ -158,8 +152,8 @@ def label_information_fraction(y: np.ndarray, D: np.ndarray,
     def _cv(yy: np.ndarray) -> float:
         """Cross-fitted V_D for a label vector, using the folds fixed above."""
         o = np.zeros(n, dtype=float)
-        for tr, te in folds:
-            o[te] = LinearRegression().fit(D[tr], yy[tr]).predict(D[te])
+        for (tr, te), (Dtr, Dte) in zip(folds, fold_mats):
+            o[te] = LinearRegression().fit(Dtr, yy[tr]).predict(Dte)
         sst = ((yy - yy.mean()) ** 2).sum()
         r2 = 1.0 - ((yy - o) ** 2).sum() / sst if sst > 0 else 0.0
         return float(1.0 - max(r2, 0.0))
@@ -193,7 +187,8 @@ def label_information_fraction(y: np.ndarray, D: np.ndarray,
 
 
 def design_auc_permutation_p(D: np.ndarray, y: np.ndarray, observed: float,
-                            n_perm: int = 200, seed: int | None = None) -> float:
+                            n_perm: int = 200, seed: int | None = None,
+                            fold_D=None) -> float:
     """Permutation p-value for the cross-fitted design-only AUC.
 
     Why this exists. V_D is an unpenalised linear R-squared. Cross-fitting it is the
@@ -210,13 +205,17 @@ def design_auc_permutation_p(D: np.ndarray, y: np.ndarray, observed: float,
     """
     if seed is None:
         seed = SEED
+    if fold_D is None:
+        fold_D = core.array_folds(D)
     rng = np.random.default_rng(seed + 991)
     hits = 0
     for _ in range(n_perm):
         yp = rng.permutation(y)
         if len(np.unique(yp)) < 2:
             continue
-        a = cross_fitted_auc(D, yp, "linear", n_repeat=1, fixed_C=1.0)
+        # the null refits the encoding and the imputation as well as the
+        # classifier, so observed and null are the same quantity throughout
+        a = core.fold_contained_auc(fold_D, yp, core.SCREEN_METADATA_FROZEN, seed)
         if a >= observed:
             hits += 1
     return float((hits + 1) / (n_perm + 1))
@@ -455,9 +454,18 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
     # built from - and the tuned AUC is reported beside it as a description. Their
     # gap is released as a column so a reader can see pipeline sensitivity
     # directly instead of through a threshold.
+    # ONE criterion, not two. The previous version also declared a contrast not
+    # estimable when the metadata-only AUC reached 1.000. Pre-submission review
+    # was right that this does not follow: a finite-sample AUC of 1.000 says the
+    # fitted model separated these donors completely, which with 21 donors and
+    # seven one-hot columns can happen without the metadata determining the label
+    # in the population. It is corroborating structure, not a proof of
+    # non-identifiability, and it is reported as the metadata-only AUC it is.
     degenerate: list[str] = []
     if np.isnan(p_dpn):
-        degenerate.append("restricted permutation undefined (no collection stratum holds both labels)")
+        degenerate.append("no collection stratum holds both labels, so the "
+                          "stratified permutation has no non-trivial reference "
+                          "distribution and no conditioned estimate can be formed")
 
     # UNDERPOWERED: the quantity is estimable but the estimate is unstable.
     # Kept in the spectrum, flagged, and to be reported with a seed range rather
@@ -471,20 +479,24 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
 
     rows = []
     for block, D in design_matrix(cov).items():
-        idm = label_information_fraction(y.astype(float), D)
-        a_lin = cross_fitted_auc(D, y, "linear")
-        a_rf = cross_fitted_auc(D, y, "rf")
+        # Every cross-fitted metadata quantity is built with fold_D, which takes
+        # the medians and the categorical level set from the training donors of
+        # that split. The whole-cohort D is still passed in, because the
+        # in-sample V_D and the reported column count are defined on it.
+        fold_D = core.design_folds(cov, block)
+        idm = label_information_fraction(y.astype(float), D, fold_D=fold_D)
+        a_lin = core.fold_contained_auc(fold_D, y, core.SCREEN_METADATA_TUNED, SEED)
+        a_rf = core.fold_contained_forest_auc(fold_D, y, core.SCREEN_METADATA_FOREST, SEED)
         # observed and null share one frozen pipeline, as everywhere else
-        a_lin_frozen = cross_fitted_auc(D, y, "linear", n_repeat=1, fixed_C=1.0)
-        p_auc = design_auc_permutation_p(D, y, a_lin_frozen)
+        a_lin_frozen = core.fold_contained_auc(
+            fold_D, y, core.SCREEN_METADATA_FROZEN, SEED)
+        p_auc = design_auc_permutation_p(D, y, a_lin_frozen, fold_D=fold_D)
         flag = "" if idm["i_d_cv"] < idm["i_d_cv_null_p025"] else "  <-- NOT below its own null"
         print(f"  [{block:<12}] V_D_cv={idm['i_d_cv']:.3f} "
               f"(null={idm['i_d_cv_null_mean']:.3f}, p={idm['p_i_d']:.3f}; "
               f"in-sample {idm['i_d_insample']:.3f}, p={idm['p_i_d_insample']:.3f})  "
               f"design AUC lin={a_lin:.3f} rf={a_rf:.3f} "
               f"(frozen {a_lin_frozen:.3f}, p={p_auc:.4f}){flag}")
-        if block == "all" and a_lin >= 0.999 and not degenerate:
-            degenerate.append("design-only AUC = 1.000 (complete collinearity)")
         rows.append({
             "cohort": cohort, "block": block, "n_donor": len(y),
             "n_case": int(y.sum()), "n_design_feature": int(D.shape[1]),
@@ -512,6 +524,78 @@ def screen(cohort: str, n_perm: int) -> list[dict]:
             "underpowered": bool(underpowered),
             "underpowered_reason": "; ".join(underpowered) if underpowered else "",
         })
+    return rows
+
+
+DESIGN_COLUMNS = [
+    "n_design_feature", "I_D", "I_D_cv", "I_D_null_mean", "I_D_vs_null",
+    "p_I_D_insample", "I_D_cv_null_mean", "I_D_cv_null_p025", "p_I_D",
+    "design_auc_linear", "design_auc_rf", "design_auc_frozen", "p_design_auc",
+]
+
+
+def refresh_design(cohort: str, prior: pd.DataFrame) -> list[dict]:
+    """Recompute the metadata-only columns of an existing run, and nothing else.
+
+    Fitting the imputation and the one-hot encoding inside the training fold
+    changes only quantities built from the metadata matrix. `disease_auc`, the
+    frozen expression AUC and both permutation p-values are computed from
+    expression and the collection strata, and touch no part of `design_matrix`;
+    re-running them would burn a thousand permutations per comparison to
+    reproduce numbers that cannot move. So they are carried across from `prior`
+    unchanged, which also means the released expression results stay bit-identical
+    and any difference in the refreshed file is attributable to this one change.
+
+    The degeneracy gate IS recomputed, because one of its two triggers reads the
+    metadata-only AUC.
+    """
+    cov_path = INPUTS / "design_metadata" / f"{cohort.lower()}_donor_covariates.tsv"
+    cov = pd.read_csv(cov_path, sep="\t", dtype={"donor_id": str}).set_index("donor_id")
+    pb_path = INPUTS / "donor_level" / cohort / "donor_log1p_cpm.parquet"
+    donors = pd.read_parquet(pb_path, columns=[]).index.astype(str)
+    cov = cov.loc[[d for d in cov.index if d in set(donors)]]
+    y = cov["y_true"].to_numpy(dtype=int)
+
+    keep = prior[prior.cohort == cohort]
+    if keep.empty:
+        raise SystemExit(f"{cohort}: nothing to refresh in the prior run")
+    carried = keep.iloc[0]
+
+    reason = carried.get("degenerate_reason", "")
+    reason = "" if reason is None or pd.isna(reason) else str(reason)
+    # carried across verbatim: the sole criterion is the collection-stratum
+    # structure, which this refresh does not touch
+    degenerate = [r for r in reason.split("; ") if r]
+
+    rows = []
+    for block, D in design_matrix(cov).items():
+        fold_D = core.design_folds(cov, block)
+        idm = label_information_fraction(y.astype(float), D, fold_D=fold_D)
+        a_lin = core.fold_contained_auc(fold_D, y, core.SCREEN_METADATA_TUNED, SEED)
+        a_rf = core.fold_contained_forest_auc(fold_D, y, core.SCREEN_METADATA_FOREST, SEED)
+        a_lin_frozen = core.fold_contained_auc(
+            fold_D, y, core.SCREEN_METADATA_FROZEN, SEED)
+        p_auc = design_auc_permutation_p(D, y, a_lin_frozen, fold_D=fold_D)
+        print(f"  [{block:<12}] design AUC lin={a_lin:.4f} rf={a_rf:.4f} "
+              f"frozen={a_lin_frozen:.4f} p={p_auc:.4f}  V_D_cv={idm['i_d_cv']:.3f}")
+        prev = keep[keep.block == block]
+        row = dict(prev.iloc[0]) if len(prev) else dict(carried)
+        row.update({
+            "cohort": cohort, "block": block, "n_donor": len(y),
+            "n_case": int(y.sum()), "n_design_feature": int(D.shape[1]),
+            "I_D": idm["i_d_insample"], "I_D_cv": idm["i_d_cv"],
+            "I_D_null_mean": idm["i_d_null_mean"], "I_D_vs_null": idm["i_d_vs_null"],
+            "p_I_D_insample": idm["p_i_d_insample"],
+            "I_D_cv_null_mean": idm["i_d_cv_null_mean"],
+            "I_D_cv_null_p025": idm["i_d_cv_null_p025"], "p_I_D": idm["p_i_d"],
+            "design_auc_linear": round(a_lin, 4), "design_auc_rf": round(a_rf, 4),
+            "design_auc_frozen": round(a_lin_frozen, 4),
+            "p_design_auc": round(p_auc, 4),
+        })
+        rows.append(row)
+    for r in rows:
+        r["degenerate"] = bool(degenerate)
+        r["degenerate_reason"] = "; ".join(degenerate) if degenerate else ""
     return rows
 
 
@@ -568,6 +652,9 @@ def main() -> None:
     ap.add_argument("--workers", type=int, default=1,
                     help="processes for the permutation stage; results are "
                          "identical to --workers 1, only the wall time differs")
+    ap.add_argument("--refresh-design", default=None, metavar="design_screen.tsv",
+                    help="recompute only the metadata-only columns of an existing "
+                         "run, carrying the expression columns across unchanged")
     ap.add_argument("--merge-from", nargs="*", default=None,
                     help="concatenate per-cohort design_screen.tsv fragments and "
                          "write the spectrum, instead of running the screen")
@@ -585,6 +672,17 @@ def main() -> None:
         # seed ranges could not be reproduced from the documented commands. Give
         # each seed its own directory unless the caller names one.
         OUT = OUT.parent / "screen" / f"seed_{SEED}"
+
+    if args.refresh_design:
+        prior = pd.read_csv(args.refresh_design, sep="\t")
+        cohorts = args.cohorts or sorted(prior.cohort.unique())
+        rows: list[dict] = []
+        for c in cohorts:
+            print(f"[{c}] refreshing metadata-only columns")
+            rows.extend(refresh_design(c, prior))
+        df = pd.DataFrame(rows)[list(prior.columns)]
+        write_outputs(df, OUT, cohorts, args.n_perm)
+        return
 
     if args.merge_from:
         frames = [pd.read_csv(f, sep="\t") for f in sorted(args.merge_from)]

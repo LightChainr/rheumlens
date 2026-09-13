@@ -12,8 +12,10 @@ import sys
 from pathlib import Path
 import pandas as pd
 
+ROOT   = Path(__file__).resolve().parent.parent
 SCREEN = Path(os.environ.get("SCREEN_DIR", "results/screen"))
-OUT    = Path(__file__).resolve().parent.parent / "manuscript" / "table1.md"
+INCREMENTAL = Path(os.environ.get("INCREMENTAL_DIR", ROOT / "results" / "incremental"))
+OUT    = ROOT / "manuscript" / "table1.md"
 
 LABEL = {
     "COMBAT_INFLUENZA": "Influenza · COMBAT",
@@ -42,11 +44,16 @@ def seed_of(f: Path) -> int:
 
 
 def rng(v, fmt="{:.3f}"):
+    """Min-max over seeds. Signed ranges join with "to", because "-0.001-+0.001"
+    reads as one malformed number."""
     v = [x for x in v if pd.notna(x)]
     if not v:
-        return "—"
+        return "\u2014"
     lo, hi = min(v), max(v)
-    return fmt.format(lo) if lo == hi else f"{fmt.format(lo)}-{fmt.format(hi)}"
+    if lo == hi:
+        return fmt.format(lo)
+    joiner = " to " if "+" in fmt else "-"
+    return f"{fmt.format(lo)}{joiner}{fmt.format(hi)}"
 
 
 def main():
@@ -54,6 +61,10 @@ def main():
     if not files:
         sys.exit(f"no design_screen.tsv under {SCREEN}")
     df = pd.concat([pd.read_csv(f, sep="\t").assign(seed=seed_of(f)) for f in files])
+
+    inc_files = sorted(INCREMENTAL.glob("seed_*/incremental.tsv"))
+    inc = (pd.concat([pd.read_csv(f, sep="\t") for f in inc_files], ignore_index=True)
+           if inc_files else pd.DataFrame(columns=["cohort", "delta_over_metadata"]))
 
     rows = []
     for coh, g in df.groupby("cohort"):
@@ -88,6 +99,8 @@ def main():
             p_free=rng(allb.p_standard, "{:.4f}"),
             p_coll=rng(allb.p_collection_preserving, "{:.4f}"),
             strata_def=str(allb.strata_definition.iloc[0]),
+            delta=(rng(inc[inc.cohort == coh].delta_over_metadata, "{:+.3f}")
+                   if len(inc[inc.cohort == coh]) else "n/a"),
             verdict=verdict,
             sort=float(allb.design_auc_frozen.max()),
         ))
@@ -108,21 +121,25 @@ def main():
         marked.append("\u2020" if not r.strata_def.startswith("batch__") else "")
     t["dag"] = marked
 
-    # Thirteen columns. The tuned diagnosis AUC, the in-sample V_D pair and the
-    # per-seed values are in Tables S4 and S8; putting them here as well made a
-    # sixteen-column table that no reader would work through.
+    # Eleven columns, down from fifteen. Pre-submission review was right that the
+    # earlier version was too dense to read across a landscape page: it carried the
+    # column counts of both matrices and the V_D pair as well as the effects and the
+    # tests. Those are secondary and are all in Table S4, per seed. What stays is one
+    # effect and one test for each of the two metadata definitions, the expression
+    # AUC, both permutation tests, and the verdict - plus the increment expression
+    # adds over the recorded metadata, which is the quantity a reader of a
+    # patient-level classifier is actually after and which the earlier table did not
+    # report anywhere.
     head = ("| Comparison | Donors | Minority | "
-            "Recorded: cols | AUC | p | V_D | p(V_D) | "
-            "Collection: cols | AUC | p | "
-            "Diagnosis AUC | p free | p coll.-pres. | Verdict |")
-    sep = "|---|---:|---:|---:|---:|---|---:|---|---:|---:|---|---:|---|---|---|"
+            "Metadata AUC | p | Collection AUC | p | "
+            "Expression AUC | + over metadata | p free | p strat. | Verdict |")
+    sep = "|---|---:|---:|---:|---|---:|---|---:|---:|---|---|---|"
     lines = [head, sep]
     for _, r in t.iterrows():
         lines.append(
             f"| {r.Comparison} | {r.Donors} | {r.Minority} | "
-            f"{r.all_cols} | {r.all_auc} | {r.all_p} | {r.all_vd} | {r.all_pvd} | "
-            f"{r.coll_cols} | {r.coll_auc} | {r.coll_p} | "
-            f"{r.frozen} | {r.p_free} | {r.p_coll}{r.dag} | {r.verdict} |")
+            f"{r.all_auc} | {r.all_p} | {r.coll_auc} | {r.coll_p} | "
+            f"{r.frozen} | {r.delta} | {r.p_free} | {r.p_coll}{r.dag} | {r.verdict} |")
     table = "\n".join(lines)
     OUT.write_text(table + "\n")
 

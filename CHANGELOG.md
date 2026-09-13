@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.0.0-rc2 - 2026-09-13
+
+### Fixed
+
+- Every fitted pipeline now runs through `scripts/cohorts/pipeline_core.py` (shipped as `ploscb_submission_2026-09-08/02_SOURCE/analysis_scripts/pipeline_core.py`). Imputation, one-hot encoding, the gene filter, standardisation, PCA and ridge residualisation are fitted on training donors only in the screen, the walkthrough and the calibration simulation.
+- The metadata matrix's median imputation and one-hot levels were fitted on the whole cohort; they are now fitted per training fold (`run_design_screen.py --refresh-design` recomputes only the metadata columns). Metadata-only AUCs moved by at most 0.012; expression columns are unchanged and the 8/9 and 4/7 counts hold.
+- Calibration arm A no longer fits PCA on all donors; arm B's unadjusted and residualised arms are the same call with one argument added. Both re-run (300 replicates per strength).
+- The degeneracy gate has one criterion (no label-mixed collection stratum); a metadata-only AUC of 1 is no longer a trigger. Route A no longer recommends adjustment; restriction feasibility is a fixed rule.
+- Table S8 (hyperparameters) is generated from the `PipelineSpec`/`ForestSpec` objects that ran.
+- Bibliography corrections (references 19, 30, 31, 34), all checked against Crossref.
+
+### Added
+
+- `run_incremental.py`: AUC of metadata plus expression over metadata alone, five seeds (Table S5).
+- `run_calibration.py --shard/--merge-from` for splitting the simulation across machines.
+- Point-by-point response to the previous decision (`01_UPLOAD/Response_to_Previous_Review.md`).
+
+### Changed
+
+- Title: "Recorded metadata predicts the phenotype label in eight of nine public single-cell cohort comparisons". Terminology unified (phenotype label, collection-stratified permutation, fixed-hyperparameter pipeline).
+- Supporting tables renumbered into citation order (S1-S10).
+
 ## 3.0.0-rc1 - 2026-09-08
 
 ### Added

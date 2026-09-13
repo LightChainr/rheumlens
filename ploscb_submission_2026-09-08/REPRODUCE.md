@@ -1,9 +1,9 @@
-# Reproduce the 2026-09-08 PLOS Computational Biology submission
+# Reproduce the PLOS Computational Biology submission
 
 This directory is the research object for
 
-> **Recorded study metadata predicts the diagnosis in eight of nine public
-> single-cell case-control comparisons**
+> **Recorded metadata predicts the phenotype label in eight of nine public
+> single-cell cohort comparisons**
 
 It is self-contained apart from the public expression matrices, which stay at
 their original accessions (GEO and CZ CELLxGENE Discover) rather than being
@@ -13,11 +13,12 @@ mirrored here.
 
 | Path | Contents |
 |---|---|
-| `01_UPLOAD/` | The submitted manuscript, cover letter, PDF, 8 main and 7 supporting figures (PNG + SVG), and Supporting Tables S1–S9 |
+| `01_UPLOAD/` | The submitted manuscript, cover letter, response to the previous review, PDF, 8 main and 7 supporting figures (PNG + SVG, plus 300 dpi TIFF), and Supporting Tables S1–S10 |
 | `02_SOURCE/analysis_scripts/` | The screen, calibration, simulation and walkthrough, plus the staging, table-building and checking tools |
 | `02_SOURCE/cohort_scripts/` | Cohort fetch, donor-level build and validation |
 | `02_SOURCE/result_tables/` | Every result table behind Figures 2–8, including the 19,600-cohort simulation output |
 | `02_SOURCE/per_seed/` | The five per-seed screen outputs, one directory per seed, rather than only their summary |
+| `02_SOURCE/per_seed_incremental/` | The five per-seed outputs of `run_incremental.py` behind Table S5 and the "+ over metadata" column of Table 1 |
 | `02_SOURCE/figure_scripts/` | The R sources for all 15 figures |
 | `verify.sh` | Re-runs both manuscript checks against the files in this directory |
 | `03_QA/` | The checklist, the package SHA256 manifest, and the point-by-point review-response records |
@@ -97,8 +98,23 @@ done
 #   python3 run_design_screen.py --merge-from out/seed_$s/*/design_screen.tsv \
 #       --seed "$s" --out "results/screen/seed_$s"
 
+# The increment of expression over the recorded metadata (Table S5), same seeds:
+for s in 20260907 20260908 20260909 20260910 20260911; do
+  python3 02_SOURCE/analysis_scripts/run_incremental.py --all --seed "$s" \
+      --out "results/incremental/seed_$s"
+done
+
+# A metadata-only refresh: recompute only the metadata columns of an existing
+# per-seed output and carry the expression columns across unchanged.
+#   python3 run_design_screen.py --all --seed "$s" --refresh-design \
+#       --out "results/screen/seed_$s"
+
 python3 02_SOURCE/analysis_scripts/run_extended_simulation.py  # 19,600 cohorts
-python3 02_SOURCE/analysis_scripts/run_calibration.py          # type-I calibration
+# Calibration arms A and B. Cells split across machines with --shard i/n and are
+# joined with --merge-from, which aggregates exactly as an unsplit run does:
+#   python3 run_calibration.py --shard 0/4 ...   (one per machine)
+#   python3 run_calibration.py --merge-from raw_0 raw_1 raw_2 raw_3
+python3 02_SOURCE/analysis_scripts/run_calibration.py
 python3 02_SOURCE/analysis_scripts/run_mediator_arm.py         # mediator arm
 python3 02_SOURCE/analysis_scripts/run_walkthrough.py          # decision-tree traces
 ```
@@ -106,6 +122,18 @@ python3 02_SOURCE/analysis_scripts/run_walkthrough.py          # decision-tree t
 Set `RHEUMLENS_JOBS` to the number of worker processes. On a 16-vCPU container
 with a 14.5-core quota, 14 workers with `OMP_NUM_THREADS=1` is what these runs
 were done on.
+
+## One implementation for every fitted pipeline
+
+`02_SOURCE/analysis_scripts/pipeline_core.py` holds every classifier and every
+preprocessing step the paper fits: the screen, the increment analysis, the
+decision-tree walkthrough and the calibration simulation all import it. Imputation,
+one-hot encoding, the top-variance gene filter, standardisation, PCA and ridge
+residualisation are fitted on the training donors of each fold. An unadjusted and a
+residualised arm are the same call with one argument added. Each pipeline's settings
+live in a `PipelineSpec`/`ForestSpec` object, and Table S8 is generated from those
+objects by `build_hyperparameter_table.py`, which fails if a spec is added without
+being printed. Scripts import the module by name, so keep it in the same directory.
 
 ## Determinism
 
@@ -123,7 +151,7 @@ Permutation counts are fixed in the code: the complete-pipeline permutations use
 The analysis layer and the manuscript use different vocabulary.
 `02_SOURCE/analysis_scripts/si_names.py` holds the single rename map and applies
 it when a supplementary table is exported, so `I_D` in the scripts is
-`V_D_insample` in Table S8, and `p_standard` is `p_free`. The map also lists the
+`V_D_insample` in Table S9, and `p_standard` is `p_free`. The map also lists the
 retired names, and exporting a table whose header still carries one fails the build.
 
 ## Environment

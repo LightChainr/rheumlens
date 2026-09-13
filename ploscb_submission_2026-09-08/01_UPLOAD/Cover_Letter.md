@@ -1,61 +1,63 @@
 Dear Editors,
 
-We are submitting **"Recorded study metadata predicts the diagnosis in eight of nine
-public single-cell case-control comparisons"** as a new Research Article, following your
-decision on PCOMPBIOL-D-26-01856 and your note that a substantially reframed submission
-would be welcome.
+We are submitting **"Recorded metadata predicts the phenotype label in eight of nine
+public single-cell cohort comparisons"** as a new Research Article. It follows your
+decision on PCOMPBIOL-D-26-01856 (*Study design predicts disease and defines the
+identifiability boundary for patient-level single-cell classifiers*) and the editor's
+note that a submission which refined the framework, recalibrated the claims and expanded
+the validation would be welcome. A point-by-point account of how each editorial and
+reviewer comment was addressed is attached as a separate file.
 
-The manuscript no longer frames the work as an "identifiability boundary", and no longer
-presents its checks as a required validity standard. Both framings exceeded the evidence,
-and both are gone. In their place is a narrower empirical question: how strongly does
-recorded study metadata predict the diagnosis in public patient-level single-cell
-comparisons, which recorded variables carry that association, and what can the usual
-validation procedures actually establish in that setting?
+The manuscript no longer claims an identifiability boundary and no longer proposes a
+required validity standard. It asks an empirical question instead: across public
+patient-level single-cell comparisons, how strongly do the recorded metadata predict the
+phenotype label, which groups of variables carry that association, and what do the usual
+validation procedures establish once it is present?
 
-Four things are substantively new.
+**Scope.** The evidence moves from one disease to nine phenotype contrasts from five
+public blood datasets (809 donors): lupus, COVID-19, influenza, cytomegalovirus
+serostatus and sepsis versus COVID-19, with two further lupus cohorts for mechanism.
 
-**Scope.** The evidence base moves from lupus case studies to nine case-control
-comparisons drawn from five public datasets (809 donors), spanning lupus, COVID-19,
-influenza, cytomegalovirus infection and a sepsis-versus-COVID-19 contrast. A
-cytomegalovirus cohort was chosen in advance as a negative control, and it is the one
-comparison the screen does not flag.
+**Findings.** Metadata-only classifiers predicted the phenotype label in eight of the nine
+comparisons, in all five split seeds and after Benjamini-Hochberg correction within each
+seed. Collection variables alone did so in four of the seven comparisons that record
+them, and two COVID-19 cohorts with similar overall metadata AUC were driven by different
+variable groups. The cytomegalovirus comparison, specified in advance as a negative
+control, was the one exception. Adding expression to the metadata raised AUC by 0.087 to
+0.354 in seven comparisons and by nothing measurable in the other two.
 
-**A separation we now keep.** Collection variables are study design in the strict sense.
-Demographics are case mix and may be genuine risk factors. Sample-quality summaries sit
-downstream of the assay, and can sit downstream of the disease as well. We report the
-three groups separately, treat collection as primary for any claim about design, and give
-the headline count under both definitions.
+**Validation procedures answer different questions.** We run a free label permutation
+and a collection-stratified permutation, the latter following Neto et al. (2019), and
+state the null each one tests. In sepsis versus COVID-19 the free test rejects in every
+seed while the stratified test rejects in none; in influenza every collection stratum is
+label-pure, so the stratified test is uninformative rather than non-significant. A
+simulation shows that when a recorded variable outside the conditioning set drives both
+phenotype and expression, the stratified test correctly rejects its null although the
+generating model contains no disease effect, so passing it does not certify disease
+biology. At zero strength both tests reject at close to the nominal 5% (6.3% and 7.0% of
+300 runs).
 
-**Two permutation questions, not one.** A free complete-pipeline permutation tests
-pipeline validity and leakage. A collection-preserving permutation keeps the observed
-association between diagnosis and collection strata while removing disease-specific
-molecular structure, and asks whether accuracy exceeds what those strata alone produce.
-The two disagree on one of our nine comparisons, which is the point of running both.
+**Adjustment is not a contamination measure.** Residualising on a wide, ragged metadata
+matrix with no phenotype information costs 0.363 AUC on average in a simulation that
+reuses the real cytomegalovirus layout, which contains the 0.326 loss observed in that
+negative control.
 
-**The new test's own failure mode, measured rather than caveated.** We simulate a
-confounder that survives *inside* the collection strata, with no disease effect anywhere
-in the generating model. Both permutation tests are calibrated when that confounder is
-absent, and both reject in up to 89% of runs when it is present. A significant
-collection-preserving result is therefore evidence against the collection strata, not
-evidence of biological signal, and we say so in the Results rather than in a caveat.
+Every fitted pipeline in the paper now runs through one shared implementation in which
+imputation, encoding, feature filtering, PCA and residualisation are fitted on training
+donors only, and the hyperparameter table is generated from those pipeline objects rather
+than written by hand.
 
-The work suits PLOS Computational Biology because the problem sits between computational
-genomics, machine learning and study design: a patient-level classifier can reach very
-high internal AUC while learning acquisition structure specific to one cohort, and
-nothing in a cross-validated number distinguishes the two. The analyses give developers
-and readers a cheap way to diagnose that ambiguity before reading leaderboard performance
-as disease prediction.
+We think the work suits PLOS Computational Biology because it sits between computational
+genomics, machine learning and study design, and because its practical output is a
+reporting change for patient-level classifiers: metadata-only discrimination by variable
+group, the increment of expression over that metadata, permutation tests matched to the
+question, and external evaluation on a cohort collected differently. The permutation
+methods themselves are established; the contribution is the cross-disease evidence of
+how often and in what form the problem appears in public single-cell data.
 
-We think it can move the field by changing what is reported alongside a patient-level
-classifier: metadata-only predictability by variable group, permutation tests matched to
-the question being asked, an explicit statement when the restricted null is undefined
-rather than a p-value that reads as "no signal", and external validation on a cohort
-whose acquisition process is genuinely distinct from the development cohort.
-
-All data are public. We release the analysis code, the cohort registry with API-verified
-donor counts, a machine-generated manifest of every design column entering every model,
-all per-seed outputs, the simulation and calibration output, and the checks that verify
-the manuscript against those outputs.
+All data are public. The analysis code, cohort registry, machine-generated metadata
+manifest, per-seed outputs, simulation output and the checks that bind manuscript numbers
+to those outputs are released with the manuscript.
 
 We have no competing interests to declare.
 

@@ -1,0 +1,36 @@
+{
+  "seed": 20260907,
+  "cohorts": [
+    "CMV_HIHA",
+    "COMBAT_COVID",
+    "COMBAT_CROSS",
+    "COMBAT_INFLUENZA",
+    "COVID_REN",
+    "COVID_REN_ASSAY_10x_5_v2",
+    "COVID_STEPHENSON",
+    "SLE_GSE135779",
+    "SLE_GSE174188_ALLCELL",
+    "SLE_GSE174188_CD4",
+    "SLE_GSE285773_CD4"
+  ],
+  "spec": {
+    "pipeline": "screen_frozen",
+    "used for": "the statistic both permutation nulls are built from, on expression and on the metadata matrix",
+    "outer splits": "5-fold stratified x 1 repeat",
+    "classifier": "logistic regression, liblinear, class_weight=balanced, max_iter=5,000",
+    "regularisation": "1.0 (frozen)",
+    "feature filter": "top 4,000 by training-fold variance",
+    "dimension reduction": "PCA to 50 components, fitted in fold",
+    "score": "predict_proba"
+  },
+  "metadata_spec": {
+    "pipeline": "screen_metadata_frozen",
+    "used for": "metadata-only AUC and its 200-draw permutation null",
+    "outer splits": "5-fold stratified x 1 repeat",
+    "classifier": "logistic regression, liblinear, class_weight=balanced, max_iter=5,000",
+    "regularisation": "1.0 (frozen)",
+    "feature filter": "none",
+    "dimension reduction": "none",
+    "score": "predict_proba"
+  }
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Generate the cohort registry (Table S6) from the registry file and the donor tables.
+"""Generate the cohort registry (Table S7) from the registry file and the donor tables.
 
-The released Table S6 had been maintained by hand, had drifted out of column
+The released Table S7 had been maintained by hand, had drifted out of column
 alignment (donor counts sitting under `collection`, citations under `case_labels`),
 covered only the five main-screen datasets while the text described seven, and left
 several declared fields empty. Every field is now derived:
@@ -25,7 +25,7 @@ REPO = Path(os.environ.get(
     "RHEUMLENS_REPO", ROOT.parent / "20_repo_restructure_20260907"))
 REG = REPO / "cohorts" / "registry.yaml"
 DONORS = REPO / "inputs" / "donor_level"
-OUT = ROOT / "supplementary" / "Table_S6_cohort_registry.tsv"
+OUT = ROOT / "supplementary" / "Table_S7_cohort_registry.tsv"
 
 # Which donor-level directories belong to which released dataset, and which of
 # them the screen forms comparisons from.

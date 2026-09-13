@@ -159,14 +159,19 @@ def main() -> None:
 
     text = re.sub(r"^!\[[^\]]*\]\([^)]*\)\n?", "", MD.read_text(), flags=re.M)
 
+    # The image goes BEFORE the legend paragraph, not after its first line.
+    # Inserting it after the first line worked only while every legend title fitted
+    # on one line: a title that wrapped had its opening ** on the line the image was
+    # inserted after and its closing ** in the next paragraph, so pandoc could not
+    # pair them and three legends printed literal asterisks in the PDF.
     out, seen = [], []
     for line in text.split("\n"):
-        out.append(line)
         m = re.match(r"^\*\*Figure (S?\d+)\.", line)
         if m and m.group(1) in FIGS:
             n = m.group(1)
-            out += ["", f"![]({OUTDIR / FIGS[n]}){{width=100%}}"]
+            out += [f"![]({OUTDIR / FIGS[n]}){{width=100%}}", ""]
             seen.append(n)
+        out.append(line)
     if seen != list(FIGS):
         sys.exit(f"figure order/coverage mismatch: {seen}")
 
@@ -196,6 +201,15 @@ def main() -> None:
     if dropped:
         sys.exit("the engine dropped these characters; add a \\newunicodechar for "
                  f"each and rebuild: {dropped}")
+    # A markdown delimiter that reaches the page is a formatting bug the LaTeX run
+    # cannot report: the document compiles, the characters are simply printed.
+    txt = subprocess.run(["pdftotext", "-layout", str(dest), "-"],
+                         capture_output=True, text=True).stdout
+    stray = [l.strip() for l in txt.split("\n") if "**" in l]
+    if stray:
+        sys.exit("literal markdown emphasis reached the PDF on "
+                 f"{len(stray)} line(s); the first is:\n  {stray[0][:120]}")
+
     shutil.rmtree(build, ignore_errors=True)
     print(f"built {dest}  ({dest.stat().st_size/1e6:.2f} MB, {len(seen)} figures)")
     check_tables(dest, out)

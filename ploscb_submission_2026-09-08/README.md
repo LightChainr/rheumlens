@@ -1,17 +1,17 @@
-# PLOS Computational Biology submission snapshot - 2026-09-08
+# PLOS Computational Biology submission snapshot (prepared 2026-09-08, sealed 2026-09-13)
 
 Submission-stage record for:
 
-**Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons**
+**Recorded metadata predicts the phenotype label in eight of nine public single-cell cohort comparisons**
 
 This snapshot corresponds to the manuscript prepared for a new PLOS Computational Biology submission after substantial reframing and expansion of PCOMPBIOL-D-26-01856.
 
 ## Current scope
 
-- nine case-control comparisons from five public main-screen datasets (809 donors);
+- nine phenotype contrasts from five public main-screen datasets (809 donors);
 - lupus, COVID-19, influenza, cytomegalovirus infection, and sepsis-versus-COVID-19;
-- design-only AUC and cross-fitted residual label variance against cohort-specific permutation nulls;
-- free and collection-preserving complete-pipeline permutations;
+- metadata-only AUC by variable group, the increment of expression over metadata, and cross-fitted residual label variance against cohort-specific permutation nulls;
+- free and collection-stratified complete-pipeline permutations, with the null of each stated;
 - seven simulation regimes, seven design-diagnosis association levels, two outcome types, and 19,600 simulated cohorts;
 - downstream lupus analyses of whether representations contain and classifiers use recorded collection structure;
 - explicit limitations for unrecorded structure, sample-quality/demographic association, residualisation, and external validation.

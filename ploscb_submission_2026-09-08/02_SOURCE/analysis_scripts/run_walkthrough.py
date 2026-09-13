@@ -8,14 +8,23 @@ available) and COMBAT_INFLUENZA (metadata determines the label, no mixed stratum
 Q4 requires restriction and residualisation on the same donors, and this script runs
 both.
 
-The design matrix and the strata are IMPORTED from run_design_screen.py rather than
-rebuilt here. An earlier version reimplemented them, and the reimplementation drifted:
-it admitted every non-label column instead of the screen's whitelist, so CMV came out
-with 92 design columns where the screen builds 89, and the two halves of the paper were
-describing different matrices.
+The metadata matrix, the strata and the classifier are all IMPORTED rather than
+rebuilt here. An earlier version reimplemented the matrix, and the reimplementation
+drifted: it admitted every non-label column instead of the screen's whitelist, so CMV
+came out with 92 columns where the screen builds 89, and the two halves of the paper
+were describing different matrices. Pre-submission review then found the same failure
+one level down - this script standardised the whole-cohort matrix before handing it to a
+fold-contained ridge, and ridge shrinkage depends on scale, so a step the manuscript
+described as inside the fold was partly outside it.
+
+Both are now structural. `pipeline_core.WALKTHROUGH` is `SCREEN_FROZEN` with twenty
+repeats instead of one, and `pipeline_core.fold_design` builds the metadata matrix from
+the training donors of each split, so the imputation, the encoding and the
+standardisation cannot be fitted anywhere else.
 """
 from __future__ import annotations
 import json, warnings
+from dataclasses import replace
 import os
 from pathlib import Path
 
@@ -34,7 +43,7 @@ REPO = Path(os.environ.get(
 OUT  = Path(__file__).resolve().parent / "results"
 OUT.mkdir(exist_ok=True)
 
-SEED, N_REPEAT, N_PC, C_FIXED = 20260907, 20, 50, 1.0
+SEED = 20260907
 COVMAP = {"COVID_REN": "covid_ren_donor_covariates.tsv",
           "CMV_HIHA": "cmv_hiha_donor_covariates.tsv",
           "COMBAT_INFLUENZA": "combat_influenza_donor_covariates.tsv"}
@@ -60,15 +69,34 @@ def _load_screen():
 
 
 SCREEN = _load_screen()
+core = SCREEN.core
+SPEC = core.WALKTHROUGH
+N_REPEAT = SPEC.n_repeat
 
 
-def design_matrix(cov):
-    """The screen's `all` block, standardised. Single source of truth."""
-    blocks = SCREEN.design_matrix(cov.set_index("donor_id")
-                                  if "donor_id" in cov.columns else cov)
-    D = blocks["all"]
-    names = [f"col_{i}" for i in range(D.shape[1])]
-    return (D - D.mean(0)) / (D.std(0) + 1e-12), names
+def _cov_indexed(cov):
+    return cov.set_index("donor_id") if "donor_id" in cov.columns else cov
+
+
+def design_folds(cov):
+    """`get_fold` for the screen's `all` block, built inside the training fold.
+
+    Not standardised here. `fold_contained_auc` standardises it on the training
+    donors before the ridge fit, which is the only place a scale can be chosen
+    without seeing a held-out donor.
+    """
+    return core.design_folds(_cov_indexed(cov), "all")
+
+
+def design_width(cov):
+    """How wide the declared matrix is, and how much of the sample it spans.
+
+    Column count is not effective dimension - the CMV collection block has 80
+    columns and a centred rank of 45 - so the rank is reported beside it wherever
+    the width is used to explain a residualisation loss.
+    """
+    D = core.design_matrix(_cov_indexed(cov))["all"]
+    return int(D.shape[1]), int(np.linalg.matrix_rank(D - D.mean(0)))
 
 
 def strata_id(cov):
@@ -77,34 +105,35 @@ def strata_id(cov):
     Q4 of the decision tree must use the same stratum definition as the
     collection-preserving null at Q2, or the figure traces two different questions.
     """
-    idx, label = SCREEN.collection_strata(cov)
+    idx, label = SCREEN.collection_strata(_cov_indexed(cov))
     return idx.astype(str), label
 
 
-def cv_auc(X, y, seed, D=None, n_repeat=N_REPEAT):
-    """Repeated cross-fitted AUC. If D is given, residualise X on D inside each fold."""
+def cv_auc(X, y, seed, resid_folds=None, n_repeat=None, get_fold=None):
+    """Repeated cross-fitted AUC, and the spread over repeats.
+
+    `resid_folds(tr, te)` supplies the adjustment matrix for a split. The adjusted
+    and unadjusted arms are the same call with that one argument added, so their
+    difference is the cost of adjustment and not a change of representation.
+    """
     if len(np.unique(y)) < 2 or min(np.bincount(y)) < 5:
         return np.nan, np.nan
-    aucs = []
-    for r in range(n_repeat):
-        oof = np.zeros(len(y))
-        for tr, te in StratifiedKFold(5, shuffle=True, random_state=seed + r).split(X, y):
-            Xtr, Xte = X[tr], X[te]
-            if D is not None:
-                rg = Ridge(alpha=1.0, fit_intercept=True).fit(D[tr], Xtr)
-                Xtr, Xte = Xtr - rg.predict(D[tr]), Xte - rg.predict(D[te])
-            sc = StandardScaler().fit(Xtr)
-            Xtr, Xte = sc.transform(Xtr), sc.transform(Xte)
-            k = min(N_PC, Xtr.shape[0] - 1, Xtr.shape[1])
-            pca = PCA(k, random_state=seed).fit(Xtr)
-            m = LogisticRegression(C=C_FIXED, max_iter=5000).fit(pca.transform(Xtr), y[tr])
-            oof[te] = m.decision_function(pca.transform(Xte))
-        aucs.append(roc_auc_score(y, oof))
-    return float(np.mean(aucs)), float(np.std(aucs))
+    spec = SPEC if n_repeat is None else replace(SPEC, n_repeat=n_repeat)
+    if get_fold is None:
+        get_fold = core.array_folds(X)
+    per = [core.fold_contained_auc(get_fold, y, replace(spec, n_repeat=1),
+                                   seed + r, residualise=resid_folds)
+           for r in range(spec.n_repeat)]
+    return float(np.mean(per)), float(np.std(per))
 
 
 def matched_subsets(X, y, n_sub, n_case, seed, n_draw=20):
-    """AUC in random subsets of the same size and case/control composition."""
+    """AUC in random subsets of the same size and case/control composition.
+
+    Restriction always costs donors, and a smaller cohort scores differently for
+    that reason alone. This is the comparison that separates the two: same size,
+    same class balance, drawn without regard to stratum.
+    """
     rng = np.random.default_rng(seed)
     ci, co = np.where(y == 1)[0], np.where(y == 0)[0]
     n_ctrl = n_sub - n_case
@@ -121,14 +150,15 @@ def matched_subsets(X, y, n_sub, n_case, seed, n_draw=20):
 
 def walk(cohort):
     X, y, cov = load(cohort)
-    D, dnames = design_matrix(cov)
+    fold_D = design_folds(cov)
+    n_col, rank = design_width(cov)
     strata, scol = strata_id(cov)
 
     rec = dict(cohort=cohort, n_donor=len(y), n_case=int(y.sum()),
-               n_design_col=D.shape[1], stratum_variable=scol)
+               n_design_col=n_col, n_design_rank=rank, stratum_variable=scol)
 
     # Q2 evidence
-    da, _ = cv_auc(D, y, SEED, n_repeat=N_REPEAT)
+    da, _ = cv_auc(None, y, SEED, get_fold=fold_D)
     rec["design_only_auc"] = round(da, 4)
 
     # Q3 evidence: strata containing both labels
@@ -142,8 +172,8 @@ def walk(cohort):
     ua, us = cv_auc(X, y, SEED)
     rec["disease_auc"] = round(ua, 4); rec["disease_auc_sd"] = round(us, 4)
 
-    # Q4a residualisation on the full design block
-    ra, rs = cv_auc(X, y, SEED, D=D)
+    # Q4a residualisation on the full metadata block
+    ra, rs = cv_auc(X, y, SEED, resid_folds=fold_D)
     rec["residualised_auc"] = round(ra, 4) if ra == ra else None
     rec["residualisation_loss"] = round(ua - ra, 4) if ra == ra else None
 

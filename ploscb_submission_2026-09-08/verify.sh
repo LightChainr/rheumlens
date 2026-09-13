@@ -29,6 +29,8 @@ cp "$HERE"/02_SOURCE/figure_scripts/*.R       "$T/figures/src/"
 cp "$HERE/02_SOURCE/analysis_scripts/run_design_screen.py" \
    "$T/submission/02_SOURCE/analysis_scripts/"
 cp -R "$HERE"/02_SOURCE/per_seed/seed_*       "$T/results/screen/"
+mkdir -p "$T/results/incremental"
+cp -R "$HERE"/02_SOURCE/per_seed_incremental/seed_* "$T/results/incremental/"
 for f in extended_simulation_summary mediator_arm_summary \
          calibration_arm_a_summary calibration_arm_b_summary; do
   cp "$HERE/02_SOURCE/result_tables/$f.tsv" "$T/sim/results/"
@@ -45,7 +47,7 @@ cp "$HERE/02_SOURCE/result_tables/decision_tree_walkthrough.tsv" \
 # Regenerate Table 1 from the released per-seed outputs, so the check below
 # compares the table in the manuscript against one rebuilt from the data rather
 # than against a copy shipped beside it.
-SCREEN_DIR="$T/results/screen" "$PYTHON" "$T/tools/build_table1.py" --no-splice >/dev/null
+SCREEN_DIR="$T/results/screen" INCREMENTAL_DIR="$T/results/incremental" "$PYTHON" "$T/tools/build_table1.py" --no-splice >/dev/null
 
 echo "== numbers =="
 "$PYTHON" "$T/tools/check_manuscript_numbers.py"

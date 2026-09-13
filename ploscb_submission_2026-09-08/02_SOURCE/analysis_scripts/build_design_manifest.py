@@ -31,15 +31,14 @@ screen = importlib.util.module_from_spec(spec)
 sys.modules["screen"] = screen
 spec.loader.exec_module(screen)
 
-# The whitelists, read back off the function so they cannot drift from the code.
-import inspect, re
-src = inspect.getsource(screen.design_matrix)
-QC   = re.search(r'qc_cols = \[c for c in \[(.*?)\]', src, re.S).group(1)
-QC   = [x.strip().strip('"') for x in QC.replace("\n"," ").split(",") if x.strip()]
-DNUM = re.search(r'demo_num = \[c for c in \[(.*?)\]', src, re.S).group(1)
-DNUM = [x.strip().strip('"') for x in DNUM.split(",") if x.strip()]
-DCAT = re.search(r'demo_cat = \[c for c in \[(.*?)\]', src, re.S).group(1)
-DCAT = [x.strip().strip('"') for x in DCAT.split(",") if x.strip()]
+# The whitelists, taken from the module the screen imports rather than scraped out
+# of a function body with a regex. The regex version broke the moment the matrix
+# construction moved into pipeline_core, which is the right failure but a slow way
+# to learn it; these are module constants and there is nothing to parse.
+core = screen.core
+QC   = list(core.QC_COLS)
+DNUM = list(core.DEMO_NUM)
+DCAT = list(core.DEMO_CAT)
 
 LABEL_COLS = {"y_true", "case_control", "disease", "diagnosis", "label"}
 
