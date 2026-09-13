@@ -122,7 +122,7 @@ check(not abs_paths, f"no machine-specific absolute path in a released script: {
 
 # ---- retired vocabulary anywhere a reader can see it -------------------------
 # The manuscript body was cleaned twice while Figure 8 kept the old gate names and
-# Table S8 kept "unstratified and stratified". Text-only checks cannot see either,
+# Table S10 kept "unstratified and stratified". Text-only checks cannot see either,
 # so scan the rendered SVGs and the released tables as well.
 RETIRED_VISIBLE = [
     (r"design-preserving", "the old permutation name"),
@@ -270,7 +270,7 @@ check(S[i:S.index(chr(10) * 2, i)].strip() == gen,
 # tertiles of log cells per donor, which is sample quality. Reporting that column
 # as collection-preserving for those rows would misname the test.
 import csv
-s4 = ROOT / "supplementary" / "Table_S4_full_screen.tsv"
+s4 = ROOT / "supplementary" / "Table_S3_full_screen.tsv"
 if s4.exists():
     rows = list(csv.DictReader(s4.open(), delimiter="\t"))
     fallback = {r["cohort"] for r in rows

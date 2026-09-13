@@ -1,18 +1,18 @@
 Dear Editors,
 
-We are submitting **"Recorded metadata predicts the phenotype label in eight of nine
-public single-cell cohort comparisons"** as a new Research Article. It follows your
+We are submitting **"Recorded metadata predicts the phenotype label across public single-cell
+cohorts and changes what internal validation can establish"** as a new Research Article. It follows your
 decision on PCOMPBIOL-D-26-01856 (*Study design predicts disease and defines the
 identifiability boundary for patient-level single-cell classifiers*) and the editor's
 note that a submission which refined the framework, recalibrated the claims and expanded
 the validation would be welcome. A point-by-point account of how each editorial and
 reviewer comment was addressed is attached as a separate file.
 
-The manuscript no longer claims an identifiability boundary and no longer proposes a
-required validity standard. It asks an empirical question instead: across public
-patient-level single-cell comparisons, how strongly do the recorded metadata predict the
-phenotype label, which groups of variables carry that association, and what do the usual
-validation procedures establish once it is present?
+The manuscript no longer claims an identifiability boundary or proposes a required
+validity standard. Its central point is that patient-level single-cell validation is not
+solely a property of the classifier: it depends jointly on the phenotype-acquisition
+structure of the cohort and on which parts of that structure the validation procedure
+preserves.
 
 **Scope.** The evidence moves from one disease to nine phenotype contrasts from five
 public blood datasets (809 donors): lupus, COVID-19, influenza, cytomegalovirus
@@ -26,11 +26,13 @@ variable groups. The cytomegalovirus comparison, specified in advance as a negat
 control, was the one exception. Adding expression to the metadata raised AUC by 0.087 to
 0.354 in seven comparisons and by nothing measurable in the other two.
 
-**Validation procedures answer different questions.** We run a free label permutation
-and a collection-stratified permutation, the latter following Neto et al. (2019), and
-state the null each one tests. In sepsis versus COVID-19 the free test rejects in every
-seed while the stratified test rejects in none; in influenza every collection stratum is
-label-pure, so the stratified test is uninformative rather than non-significant. A
+**Validation procedures answer different questions.** A free label permutation and a
+collection-stratified permutation (Chaibub Neto et al., 2019) test different nulls. The
+comparisons fall into three regimes: no detectable metadata association (the negative
+control), association with label-mixed strata in which the conditional question can be
+asked (seven comparisons; in sepsis versus COVID-19 only the free test rejects), and
+structural non-overlap (influenza), where no collection stratum holds both labels and the
+conditional question cannot be answered with the available donors. A
 simulation shows that when a recorded variable outside the conditioning set drives both
 phenotype and expression, the stratified test correctly rejects its null although the
 generating model contains no disease effect, so passing it does not certify disease
@@ -47,13 +49,15 @@ imputation, encoding, feature filtering, PCA and residualisation are fitted on t
 donors only, and the hyperparameter table is generated from those pipeline objects rather
 than written by hand.
 
-We think the work suits PLOS Computational Biology because it sits between computational
-genomics, machine learning and study design, and because its practical output is a
-reporting change for patient-level classifiers: metadata-only discrimination by variable
-group, the increment of expression over that metadata, permutation tests matched to the
-question, and external evaluation on a cohort collected differently. The permutation
-methods themselves are established; the contribution is the cross-disease evidence of
-how often and in what form the problem appears in public single-cell data.
+The contribution is not another patient-level classifier or a new permutation statistic.
+It is a systematic characterisation of the validation structure of public single-cell
+cohorts: phenotype labels can be encoded in recorded acquisition, demographic and
+sample-quality metadata; cohorts with similar overall metadata predictability can be
+affected through different mechanisms; and commonly used validation procedures answer
+different questions once this structure is present. These results make cohort
+acquisition structure an explicit object of classifier evaluation rather than an
+unexamined property of the benchmark, which we believe suits the computational biology
+readership of PLOS Computational Biology.
 
 All data are public. The analysis code, cohort registry, machine-generated metadata
 manifest, per-seed outputs, simulation output and the checks that bind manuscript numbers

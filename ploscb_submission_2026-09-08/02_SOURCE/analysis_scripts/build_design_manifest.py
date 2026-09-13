@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the design-variable manifest from the analysis code itself.
 
-Table S2 in the previous package was maintained by hand and listed every column
+Table S1 in the previous package was maintained by hand and listed every column
 of the covariate file, classified by a naming heuristic. That inventory was wrong
 in two ways that matter: it listed `case_control` under "sample quality", and it
 put the processing-wave fractions there too. Neither ever entered a model matrix
@@ -104,9 +104,9 @@ man = pd.DataFrame(rows).sort_values(["cohort","block","raw_column"])
 unu = pd.DataFrame(unused_rows).sort_values(["cohort","column"])
 chk = pd.DataFrame(checks).sort_values(["cohort","block"])
 
-man.to_csv(OUT/"Table_S2_design_manifest.tsv", sep="\t", index=False)
-unu.to_csv(OUT/"Table_S2b_columns_not_used.tsv", sep="\t", index=False)
-chk.to_csv(OUT/"Table_S2c_manifest_agreement_check.tsv", sep="\t", index=False)
+man.to_csv(OUT/"Table_S1_design_manifest.tsv", sep="\t", index=False)
+unu.to_csv(OUT/"Table_S1b_columns_not_used.tsv", sep="\t", index=False)
+chk.to_csv(OUT/"Table_S1c_manifest_agreement_check.tsv", sep="\t", index=False)
 
 leak = man[man.raw_column.isin(LABEL_COLS)]
 print(f"cohorts: {chk.cohort.nunique()}   block rows: {len(chk)}")

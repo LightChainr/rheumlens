@@ -8,8 +8,8 @@ Writes:
   data/FINAL_confounding_spectrum.tsv one row per comparison, the `all` block
   data/collection_block.tsv           one row per comparison, the collection block
   data/seed_stability_all.tsv         one row per (comparison, seed)
-  supplementary/Table_S4_full_screen.tsv
-  supplementary/Table_S9_seed_stability.tsv
+  supplementary/Table_S3_full_screen.tsv
+  supplementary/Table_S11_seed_stability.tsv
 """
 from __future__ import annotations
 import os, re, sys
@@ -71,8 +71,8 @@ seed_pub = seed_tab.copy()
 seed_pub.columns = rename_columns(seed_pub.columns)
 bad = check_header(seed_pub.columns)
 if bad:
-    raise SystemExit(f"Table S9 still uses retired names: {bad}")
-seed_pub.to_csv(ROOT / "supplementary/Table_S9_seed_stability.tsv",
+    raise SystemExit(f"Table S11 still uses retired names: {bad}")
+seed_pub.to_csv(ROOT / "supplementary/Table_S11_seed_stability.tsv",
                 sep="\t", index=False)
 
 s2 = df.rename(columns={
@@ -94,7 +94,7 @@ cols = [c for c in [
     "degenerate", "degenerate_reason", "underpowered", "underpowered_reason",
 ] if c in s2.columns]
 s2[cols].sort_values(["cohort", "variable_group", "seed"]).to_csv(
-    ROOT / "supplementary/Table_S4_full_screen.tsv", sep="\t", index=False)
+    ROOT / "supplementary/Table_S3_full_screen.tsv", sep="\t", index=False)
 
 # ---- S10: incremental value of expression over the recorded metadata ---------
 INC = Path(os.environ.get("INCREMENTAL_DIR", ROOT / "results" / "incremental"))
@@ -102,13 +102,13 @@ inc_files = sorted(INC.glob("seed_*/incremental.tsv"))
 if inc_files:
     inc = pd.concat([pd.read_csv(f, sep="\t") for f in inc_files], ignore_index=True)
     inc = inc.sort_values(["cohort", "seed"])
-    inc.to_csv(ROOT / "supplementary/Table_S5_incremental.tsv", sep="\t", index=False)
+    inc.to_csv(ROOT / "supplementary/Table_S4_incremental.tsv", sep="\t", index=False)
     inc.to_csv(ROOT / "data/incremental_all_seeds.tsv", sep="\t", index=False)
-    print(f"Table S5: {len(inc)} rows over {inc.cohort.nunique()} comparisons")
+    print(f"Table S4: {len(inc)} rows over {inc.cohort.nunique()} comparisons")
 else:
-    print(f"WARNING: no incremental results under {INC}; Table S5 not refreshed")
+    print(f"WARNING: no incremental results under {INC}; Table S4 not refreshed")
 
 print(f"seeds: {sorted(df.seed.unique())}")
 print(f"comparisons: {df.cohort.nunique()}   rows: {len(df)}")
 print(f"blocks present: {sorted(df.block.unique())}")
-print("wrote data/*.tsv and supplementary/Table_S4_full_screen.tsv, Table_S9_seed_stability.tsv")
+print("wrote data/*.tsv and supplementary/Table_S3_full_screen.tsv, Table_S11_seed_stability.tsv")

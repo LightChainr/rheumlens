@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "Please cite the archived release and associated manuscript when using these study-metadata audit assets."
-title: "Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons"
+title: "Recorded metadata predicts the phenotype label across public single-cell cohorts and changes what internal validation can establish"
 authors:
   - family-names: "Ying"
     given-names: "Hongyu"
@@ -13,8 +13,8 @@ authors:
     affiliation: "Department of Rheumatology and Immunology, Shanghai Pudong Hospital, Fudan University Pudong Medical Center"
 repository-code: "https://github.com/LightChainr/rheumlens"
 license: "MIT"
-version: "3.0.0-rc1"
-date-released: "2026-09-08"
+version: "3.0.0-rc2"
+date-released: "2026-09-13"
 keywords:
   - "single-cell RNA sequencing"
   - "patient-level classification"
@@ -27,7 +27,7 @@ keywords:
   - "COVID-19"
 preferred-citation:
   type: article
-  title: "Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons"
+  title: "Recorded metadata predicts the phenotype label across public single-cell cohorts and changes what internal validation can establish"
   authors:
     - family-names: "Ying"
       given-names: "Hongyu"

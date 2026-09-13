@@ -108,7 +108,7 @@ def main():
 
     # Every AUC printed here is the frozen prespecified pipeline, which is the
     # statistic each p-value beside it was computed against. The tuned nested-CV
-    # AUCs are a description, not an inferential quantity, and live in Table S4:
+    # AUCs are a description, not an inferential quantity, and live in Table S3:
     # printing a tuned AUC next to a p-value computed from the frozen one invites
     # the reader to treat the p as a test of the number they can see.
     #
@@ -124,7 +124,7 @@ def main():
     # Eleven columns, down from fifteen. Pre-submission review was right that the
     # earlier version was too dense to read across a landscape page: it carried the
     # column counts of both matrices and the V_D pair as well as the effects and the
-    # tests. Those are secondary and are all in Table S4, per seed. What stays is one
+    # tests. Those are secondary and are all in Table S3, per seed. What stays is one
     # effect and one test for each of the two metadata definitions, the expression
     # AUC, both permutation tests, and the verdict - plus the increment expression
     # adds over the recorded metadata, which is the quantity a reader of a

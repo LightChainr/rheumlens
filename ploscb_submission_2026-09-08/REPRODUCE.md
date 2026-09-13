@@ -13,12 +13,12 @@ mirrored here.
 
 | Path | Contents |
 |---|---|
-| `01_UPLOAD/` | The submitted manuscript, cover letter, response to the previous review, PDF, 8 main and 7 supporting figures (PNG + SVG, plus 300 dpi TIFF), and Supporting Tables S1–S10 |
+| `01_UPLOAD/` | The submitted manuscript, cover letter, response to the previous review, PDF, 8 main and 7 supporting figures (PNG + SVG, plus 300 dpi TIFF), and Supporting Tables S5–S7 |
 | `02_SOURCE/analysis_scripts/` | The screen, calibration, simulation and walkthrough, plus the staging, table-building and checking tools |
 | `02_SOURCE/cohort_scripts/` | Cohort fetch, donor-level build and validation |
-| `02_SOURCE/result_tables/` | Every result table behind Figures 2–8, including the 19,600-cohort simulation output |
+| `02_SOURCE/result_tables/` | Every result table behind Figures 3–8, including the 19,600-cohort simulation output |
 | `02_SOURCE/per_seed/` | The five per-seed screen outputs, one directory per seed, rather than only their summary |
-| `02_SOURCE/per_seed_incremental/` | The five per-seed outputs of `run_incremental.py` behind Table S5 and the "+ over metadata" column of Table 1 |
+| `02_SOURCE/per_seed_incremental/` | The five per-seed outputs of `run_incremental.py` behind Table S4 and the "+ over metadata" column of Table 1 |
 | `02_SOURCE/figure_scripts/` | The R sources for all 15 figures |
 | `verify.sh` | Re-runs both manuscript checks against the files in this directory |
 | `03_QA/` | The checklist, the package SHA256 manifest, and the point-by-point review-response records |
@@ -98,7 +98,7 @@ done
 #   python3 run_design_screen.py --merge-from out/seed_$s/*/design_screen.tsv \
 #       --seed "$s" --out "results/screen/seed_$s"
 
-# The increment of expression over the recorded metadata (Table S5), same seeds:
+# The increment of expression over the recorded metadata (Table S4), same seeds:
 for s in 20260907 20260908 20260909 20260910 20260911; do
   python3 02_SOURCE/analysis_scripts/run_incremental.py --all --seed "$s" \
       --out "results/incremental/seed_$s"
@@ -131,7 +131,7 @@ decision-tree walkthrough and the calibration simulation all import it. Imputati
 one-hot encoding, the top-variance gene filter, standardisation, PCA and ridge
 residualisation are fitted on the training donors of each fold. An unadjusted and a
 residualised arm are the same call with one argument added. Each pipeline's settings
-live in a `PipelineSpec`/`ForestSpec` object, and Table S8 is generated from those
+live in a `PipelineSpec`/`ForestSpec` object, and Table S10 is generated from those
 objects by `build_hyperparameter_table.py`, which fails if a spec is added without
 being printed. Scripts import the module by name, so keep it in the same directory.
 
@@ -151,7 +151,7 @@ Permutation counts are fixed in the code: the complete-pipeline permutations use
 The analysis layer and the manuscript use different vocabulary.
 `02_SOURCE/analysis_scripts/si_names.py` holds the single rename map and applies
 it when a supplementary table is exported, so `I_D` in the scripts is
-`V_D_insample` in Table S9, and `p_standard` is `p_free`. The map also lists the
+`V_D_insample` in Table S11, and `p_standard` is `p_free`. The map also lists the
 retired names, and exporting a table whose header still carries one fails the build.
 
 ## Environment

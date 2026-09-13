@@ -1,7 +1,7 @@
 {
-  "title": "Recorded study metadata predicts the diagnosis in eight of nine public single-cell case-control comparisons",
+  "title": "Recorded metadata predicts the phenotype label across public single-cell cohorts and changes what internal validation can establish",
   "upload_type": "software",
-  "description": "Code, cohort metadata, design-variable inventories, donor-level analyses, per-seed outputs, simulation summaries, figures and manuscript assets for a PLOS Computational Biology submission auditing study-metadata and diagnosis association in patient-level single-cell classification. The current study screens nine case-control comparisons from five public datasets (809 donors), uses design-only prediction and cohort-specific permutation nulls, compares free and collection-preserving complete-pipeline permutations, evaluates downstream representation and classifier dependence in lupus cohorts, and reports explicit limitations on biological attribution and unrecorded structure. The simulation study contains seven regimes, seven design-diagnosis association levels, two outcome types and 19,600 simulated cohorts.",
+  "description": "Code, cohort metadata, metadata-variable inventories, donor-level analyses, per-seed outputs, simulation summaries, figures and manuscript assets for a PLOS Computational Biology submission on how recorded study metadata shape the validation of patient-level single-cell classifiers. Nine phenotype contrasts from five public blood datasets (809 donors) are screened with metadata-only classifiers by variable group (collection, demographic, sample quality) against cohort-specific permutation nulls; expression classifiers are evaluated with free and collection-stratified complete-pipeline permutations and by the increment of expression over metadata. All fitted pipelines share one fold-contained implementation (pipeline_core.py). The release also contains a 19,600-cohort simulation across seven regimes, calibration simulations, a decision-tree walkthrough, lupus deep-dive analyses and a retrospective CELLxGENE eligibility audit.",
   "creators": [
     {
       "name": "Ying, Hongyu",
@@ -17,19 +17,19 @@
     }
   ],
   "license": "MIT",
-  "version": "3.0.0-rc1",
-  "publication_date": "2026-09-08",
+  "version": "3.0.0-rc2",
+  "publication_date": "2026-09-13",
   "keywords": [
     "single-cell RNA sequencing",
     "patient-level classification",
     "study metadata",
-    "study design",
     "confounding",
     "permutation tests",
     "external validation",
     "systemic lupus erythematosus",
     "COVID-19",
-    "pseudobulk"
+    "pseudobulk",
+    "benchmark validity"
   ],
   "related_identifiers": [
     {

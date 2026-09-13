@@ -19,8 +19,11 @@
 
 ### Changed
 
-- Title: "Recorded metadata predicts the phenotype label in eight of nine public single-cell cohort comparisons". Terminology unified (phenotype label, collection-stratified permutation, fixed-hyperparameter pipeline).
-- Supporting tables renumbered into citation order (S1-S10).
+- Title: "Recorded metadata predicts the phenotype label across public single-cell cohorts and changes what internal validation can establish". Terminology unified (phenotype label, collection-stratified permutation, fixed-hyperparameter pipeline).
+- Contribution reframed as an empirical characterisation of benchmark validity: four questions (presence, source, validation, transport) and three validation regimes (low recorded association, associated but conditionally evaluable, structurally non-overlapping).
+- Results reordered so the nine-comparison screen (Section 3) precedes the simulations that interpret it (Section 4); Figures 2 and 3 swapped; supporting figures and tables renumbered into citation order (Figures S1-S7, Tables S1-S11).
+- Subtractive language edit of the main text (about 27% shorter), removing meta-commentary and revision history; no number changed.
+- Added a retrospective CELLxGENE Discover eligibility audit (`audit/cellxgene_eligibility_audit.py`, Table S9): 35 datasets in 15 collections meet the screen's dataset-level requirements, including all five analysed collections. Performed after the analysis and not used for selection.
 
 ## 3.0.0-rc1 - 2026-09-08
 

@@ -2,7 +2,7 @@
 
 This repository accompanies the PLOS Computational Biology submission:
 
-**Recorded metadata predicts the phenotype label in eight of nine public single-cell cohort comparisons**
+**Recorded metadata predicts the phenotype label across public single-cell cohorts and changes what internal validation can establish**
 
 The current submission snapshot was prepared on 2026-09-08 and sealed on **2026-09-13**. It supersedes the earlier
 `v2.0.0-rc3` identifiability-framed manuscript while retaining that historical release
@@ -48,7 +48,7 @@ cohorts**.
 
 The research object for this submission is under `ploscb_submission_2026-09-08/`:
 the manuscript source, cover letter and line-numbered submission PDF, all 15 figures,
-response to the previous review, Supporting Tables S1-S10, the analysis and figure scripts, every result table behind
+response to the previous review, Supporting Tables S1-S11, the analysis and figure scripts, every result table behind
 Figures 2-8, the five per-seed screen outputs, the cohort registry and the donor-level
 interface tables, and the QA records. See its `REPRODUCE.md`.
 

@@ -2,7 +2,7 @@
 
 Submission-stage record for:
 
-**Recorded metadata predicts the phenotype label in eight of nine public single-cell cohort comparisons**
+**Recorded metadata predicts the phenotype label across public single-cell cohorts and changes what internal validation can establish**
 
 This snapshot corresponds to the manuscript prepared for a new PLOS Computational Biology submission after substantial reframing and expansion of PCOMPBIOL-D-26-01856.
 

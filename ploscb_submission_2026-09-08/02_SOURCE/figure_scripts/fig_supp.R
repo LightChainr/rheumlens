@@ -48,9 +48,9 @@ S1 <- ggplot(long, aes(rho, value, colour=admitted)) +
   base + theme(legend.position="bottom",
                strip.background=element_blank(),
                strip.text=element_text(size=6.8, face="bold"))
-ggsave("figures/out/Fig_S3_mediator.svg", S1, width=180, height=68, units="mm",
+ggsave("figures/out/Fig_S1_mediator.svg", S1, width=180, height=68, units="mm",
        device=svglite::svglite)
-ragg::agg_png("figures/out/Fig_S3_mediator.png", width=180, height=68, units="mm", res=400)
+ragg::agg_png("figures/out/Fig_S1_mediator.png", width=180, height=68, units="mm", res=400)
 print(S1); invisible(dev.off())
 
 # ---------------- S2: design composition of every cohort ----------------------
@@ -78,9 +78,9 @@ S2 <- ggplot(sl, aes(factor(stratum), n, fill=class)) +
   base + theme(legend.position="bottom", strip.background=element_blank(),
                strip.text=element_text(size=6.6, face="bold"),
                axis.ticks.x=element_blank())
-ggsave("figures/out/Fig_S4_composition.svg", S2, width=180, height=150, units="mm",
+ggsave("figures/out/Fig_S2_composition.svg", S2, width=180, height=150, units="mm",
        device=svglite::svglite)
-ragg::agg_png("figures/out/Fig_S4_composition.png", width=180, height=150, units="mm", res=400)
+ragg::agg_png("figures/out/Fig_S2_composition.png", width=180, height=150, units="mm", res=400)
 print(S2); invisible(dev.off())
 
 # ---------------- S3: seed stability ------------------------------------------

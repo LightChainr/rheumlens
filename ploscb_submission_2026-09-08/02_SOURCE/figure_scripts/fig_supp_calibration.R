@@ -58,9 +58,9 @@ s5 <- ggplot(sumb, aes(n_design_col, loss)) +
                        "Ribbon is the 2.5th-97.5th percentile over 60 draws. ",
                        "The triangle reuses the real batch-by-pool level sizes.")) +
   base
-ggsave("figures/out/Fig_S2_residualisation_width.svg", s5, width=180, height=88,
+ggsave("figures/out/Fig_S4_residualisation_width.svg", s5, width=180, height=88,
        units="mm", device=svglite::svglite)
-ragg::agg_png("figures/out/Fig_S2_residualisation_width.png", width=180, height=88,
+ragg::agg_png("figures/out/Fig_S4_residualisation_width.png", width=180, height=88,
               units="mm", res=400); print(s5); invisible(dev.off())
 
 ## ---------------------------------------------------------------- Figure S1
@@ -105,9 +105,9 @@ s6b <- ggplot(rej |> distinct(gamma, within), aes(gamma, within)) +
 S6 <- s6a / s6b + plot_layout(heights=c(1,.55)) +
   plot_annotation(title="Figure S1  Type-I error of the collection-preserving permutation",
                   theme=theme(plot.title=element_text(size=8.5, face="bold")))
-ggsave("figures/out/Fig_S1_permutation_calibration.svg", S6, width=180, height=125,
+ggsave("figures/out/Fig_S3_permutation_calibration.svg", S6, width=180, height=125,
        units="mm", device=svglite::svglite)
-ragg::agg_png("figures/out/Fig_S1_permutation_calibration.png", width=180, height=125,
+ragg::agg_png("figures/out/Fig_S3_permutation_calibration.png", width=180, height=125,
               units="mm", res=400); print(S6); invisible(dev.off())
 
 ## ---------------------------------------------------------------- Figure S6

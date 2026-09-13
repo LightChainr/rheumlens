@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SUP = ROOT / "supplementary"
 RES = ROOT / "sim" / "results"
 
-# ---- Table S3: extended simulation + mediator arm, one flat header ------------
+# ---- Table S2: extended simulation + mediator arm, one flat header ------------
 sim = pd.read_csv(RES / "extended_simulation_summary.tsv", sep="\t", header=[0, 1],
                   index_col=[0, 1, 2])
 sim.columns = [f"{a}_{b}" for a, b in sim.columns]
@@ -27,7 +27,7 @@ med.insert(0, "arm", "mediator")
 med.insert(1, "label_type", "binary")
 med.columns = rename_columns(med.columns)
 
-out = SUP / "Table_S3_simulation_summary.tsv"
+out = SUP / "Table_S2_simulation_summary.tsv"
 with out.open("w") as fh:
     fh.write("# Part 1: extended simulation, 7 arms x 7 rho x 2 label types x 200 reps.\n")
     fh.write("# c = concordance index (= ROC AUC for a binary outcome).\n")
@@ -36,12 +36,12 @@ with out.open("w") as fh:
     fh.write("# admitted to the design variables. 'sig' = fraction of runs flagged.\n")
     med.round(4).to_csv(fh, sep="\t", index=False)
 
-# ---- Table S1: permutation calibration and residualisation width -------------
+# ---- Table S5: permutation calibration and residualisation width -------------
 a = pd.read_csv(RES / "calibration_arm_a_summary.tsv", sep="\t")
 b = pd.read_csv(RES / "calibration_arm_b_summary.tsv", sep="\t")
 a.columns = rename_columns(a.columns)
 b.columns = rename_columns(b.columns)
-out9 = SUP / "Table_S1_calibration.tsv"
+out9 = SUP / "Table_S5_calibration.tsv"
 with out9.open("w") as fh:
     fh.write("# Arm A: type-I error of both permutation tests when a sample-quality\n")
     fh.write("# variable predicts the diagnosis WITHIN a collection stratum and no\n")
