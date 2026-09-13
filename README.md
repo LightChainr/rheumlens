@@ -5,8 +5,8 @@ This repository accompanies the PLOS Computational Biology submission:
 **Recorded metadata predicts the phenotype label across public single-cell cohorts and changes what internal validation can establish**
 
 The current submission snapshot was prepared on 2026-09-08 and sealed on **2026-09-13**.
-It is archived as release `v3.0.0-rc2`, Zenodo version DOI
-[10.5281/zenodo.22732466](https://doi.org/10.5281/zenodo.22732466); the concept DOI
+It is archived as release `v3.0.0`, Zenodo version DOI
+[10.5281/zenodo.22733028](https://doi.org/10.5281/zenodo.22733028); the concept DOI
 [10.5281/zenodo.20813922](https://doi.org/10.5281/zenodo.20813922) always resolves to the latest version. It supersedes the earlier
 `v2.0.0-rc3` identifiability-framed manuscript while retaining that historical release
 for provenance.
